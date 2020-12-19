@@ -1,0 +1,40 @@
+\ProvidesPackage{mystyle}
+
+% Margin
+\usepackage[margin=2.5cm]{geometry}
+
+% Custom Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Timothy Forrer}
+\rhead{Quantum Versions of Random Walks}
+\setlength{\headheight}{15pt} % Fix warnings regarding header height.
+\renewcommand{\headrulewidth}{0pt} % Remove horizontal line underneath headers.
+
+% Acknowledgements Section
+\newenvironment{acknowledgements}
+    {\renewcommand\abstractname{Acknowledgements}\begin{abstract}}
+    {\end{abstract}}
+
+% Bibliography management
+\usepackage[
+    backend=biber,
+    bibstyle=apa,
+    sorting=ynt]
+    {biblatex}
+\addbibresource{bib.bib}
+
+\makeatletter % Forces numerbed citations.
+\RequireBibliographyStyle{numeric}
+\makeatother
+
+% Add bibliography to table of contents.
+\usepackage[nottoc,notlot,notlof]{tocbibind}
+
+% Customise appendix appearance.
+\usepackage{appendix}
+\renewcommand{\appendixpagename}{Appendices}
+\renewcommand{\appendixtocname}{\appendixpagename}
+
+% Random Text
+\usepackage{lipsum}
