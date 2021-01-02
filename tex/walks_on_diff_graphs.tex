@@ -1,6 +1,50 @@
-\subsection{1-D Discrete Line}
-\lipsum[1]
+\subsection{Classical 1-D Lattice}
+Before diving into quantum random walks, we first outline the basic premise of the classical random walk, in this case on the 1 dimensional lattice (a discrete number line).
+The walker starts at the origin and before taking a step to the left (-1) or the right (+1), they flip a (unbiased) coin to decide which direction to take a step in, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
+By repeating this process we can plot a probability distribution of where the walker is likely to end up after $n$ steps in the walk.
+\subsection{1-D Lattice}
+We now use a similar process to define our quantum counterpart to the classical walk on a 1-D lattice. 
+In our walker system, we can divide the overall Hilbert space of the Q.W. $\mathcal{H}$ into two subspaces, the coin subspace $\mathcal{H}_C$ and the position subspace of the walker $\mathcal{H}_W$. 
+\begin{equation}
+    \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
+\end{equation}
+We note that whilst we do not place an constraints on the size of $\mathcal{H}_W$, we choose $dim(\mathcal{H}_C) = 2$, which is an obvious thing to do since the classical coin has two possible states. 
+To aid distiguishability between coin states and position states, we write that
+\begin{align}
+    \langle\mathcal{H}_C\rangle &= \{\ket{\uparrow}, \ket{\downarrow}\}\\
+    \langle\mathcal{H}_W\rangle &= \{\ket{k} | k\in\mathbb{Z}\}
+\end{align}
+where $\langle U \rangle$ denotes a set of vectors which span $U$. 
+Therefore, the states $\ket{\uparrow}, \ket{\downarrow}$ take the place of heads and tails on our quantum "coin". 
+Having defined the Hilbert space within which the walk will be conducted in, we can now define operators within our space that will dictate how the Q.W. will proceed. We first define the "coin flip" operator $C\in \mathcal{H}_C$. 
+There are several choices for $C$, details of which can be found here \cite{Tregenna2003}. 
+As detailed in \cite{Tregenna2003}, for walks on a line, if we restrict ourselves to choosing an unbiased coin with real coefficients the Hadamard coin
+\begin{align}
+    C &= \frac{1}{\sqrt{2}}\left[
+    \ket{\uparrow}\bra{\uparrow} +
+    \ket{\uparrow}\bra{\downarrow} +
+    \ket{\downarrow}\bra{\uparrow} -
+    \ket{\downarrow}\bra{\downarrow}\right]\\
+    &= \frac{1}{\sqrt{2}}\left[(\ket{\uparrow} + \ket{\downarrow})\bra{\uparrow} +
+    (\ket{\uparrow} - \ket{\downarrow})\bra{\downarrow}\right]
+\end{align}
+is the only choice of coin available. 
+Equation (5) makes obvious the action of $C$, if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$. 
+These two equal superpositions are often denoted as $\ket{+}$ and $\ket{-}$ respectively.\newline
+We then define our shift operator $S \in \mathcal{H}$ which allows the position of our walker to change, dependent on the state of the coin.
+\begin{equation}
+    S = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}
+\end{equation}
+Again, this representation of $S$ makes manifest its effect on our walker. 
+If the coin is in the $\ket{\uparrow}$, then we take a step in the +1 direction, if in the $\ket{\downarrow}$ then we take a step in the -1 direction. 
+The probability distribution of such a walk is plotted in Fig [FIG], where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk. Whilst this highlights the faster spreading of the Q.W. away from the origin, there are not as many interesting properties of this variant of Q.W. compared to walks on other graphs.
 \subsection{$N$-Cycle}
-\lipsum[1]
+Having now introduced the Q.W. on a line, we can easily now discuss the Q.W. on the $N$-Cycle, a graph obtained by taking a 1-D lattice of size $N + 1$ and attaching the ends together. To study Q.W.s on $N$-Cycles we are able to use an identical formulation of $C$ and an almost identical formulation of $S$ as used for the Q.W. on a 1-D lattice, the only change for $S$ being the summation range of $k$.
+\begin{equation}
+    S = \sum_{k=0}^{N - 1}\ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
+\end{equation}
+There has been much interesting analysis concerning Q.W.s on $N$-Cycles, but we will focus here on a property that they possess known as \emph{perfect state transfer}.\newline
+
+Kendon and Tamon give a comprehensive review of perfect state transfer in Q.W.s on graphs \cite{kendon2010} 
 \subsection{Hypercube}
 \lipsum[1]
