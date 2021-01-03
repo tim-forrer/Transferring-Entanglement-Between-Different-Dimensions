@@ -1,5 +1,5 @@
-\subsection{Classical 1-D Lattice}
-Before diving into quantum random walks, we first outline the basic premise of the classical random walk, in this case on the 1 dimensional lattice (a discrete number line).
+\subsection{Classical Random Walk on 1-D Lattice}
+Before discussing quantum random walks, we first outline the basic premise of the classical random walk, in this case on the 1-D lattice (a discrete number line).
 The walker starts at the origin and before taking a step to the left (-1) or the right (+1), they flip a (unbiased) coin to decide which direction to take a step in, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
 By repeating this process we can plot a probability distribution of where the walker is likely to end up after $n$ steps in the walk.
 \subsection{1-D Lattice}
@@ -38,13 +38,14 @@ We then define our shift operator $S \in \mathcal{H}$ which allows the position 
 Again, this representation of $S$ makes manifest its effect on our walker. 
 If the coin is in the $\ket{\uparrow}$, then we take a step in the +1 direction, if in the $\ket{\downarrow}$ then we take a step in the -1 direction. 
 The probability distribution of such a walk is plotted in Fig [FIG], where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk. Whilst this highlights the faster spreading of the Q.W. away from the origin, there are not as many interesting properties of this variant of Q.W. compared to walks on other graphs.
-\subsection{$N$-Cycle}
+\subsection{\texorpdfstring{$N$}{N}-Cycle}
 Having now introduced the Q.W. on a line, we can easily now discuss the Q.W. on the $N$-Cycle, a graph obtained by taking a 1-D lattice of size $N + 1$ and attaching the ends together. To study Q.W.s on $N$-Cycles we are able to use an identical formulation of $C$ and an almost identical formulation of $S$ as used for the Q.W. on a 1-D lattice, the only change for $S$ being the summation range of $k$.
 \begin{equation}
     S = \sum_{k=0}^{N - 1}\ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
 \end{equation}
-There has been much interesting analysis concerning Q.W.s on $N$-Cycles, but we will focus here on a property that they possess known as \emph{perfect state transfer}.\newline
+There has been much interesting analysis concerning quantum walks on $N$-Cycles, but we will focus here on a property that they possess known as \emph{perfect state transfer}, when the initial state of the walker at some vertex on the graph is reproduced completely  at another vertex on the graph after $T$ steps in the quantum walk.
 
-Kendon and Tamon give a comprehensive review of perfect state transfer in Q.W.s on graphs \cite{kendon2010} 
+
+
 \subsection{Hypercube}
 \lipsum[1]

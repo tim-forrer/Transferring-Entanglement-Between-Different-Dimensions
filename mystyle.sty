@@ -24,7 +24,7 @@
     {biblatex}
 \addbibresource{bib.bib}
 
-\makeatletter % Forces numerbed citations.
+\makeatletter % Forces numbered citations.
 \RequireBibliographyStyle{numeric}
 \makeatother
 
@@ -41,8 +41,18 @@
 \usepackage{amsfonts}
 \usepackage{braket}
 
-% Graphics
+% Graphics and images.
 \usepackage{graphicx}
+
+% Links to content.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=blue,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 % Random Text
 \usepackage{lipsum}
