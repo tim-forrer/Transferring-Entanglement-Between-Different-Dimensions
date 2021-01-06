@@ -1,5 +1,5 @@
 \subsection{Classical Random Walk on 1-D Lattice}
-Before discussing quantum random walks, we first outline the basic premise of the classical random walk, in this case on the 1-D lattice (a discrete number line).
+Before discussing quantum random walks, we first outline the basic premise of the classical random walk on the 1-D lattice (a discrete number line).
 The walker starts at the origin and before taking a step to the left (-1) or the right (+1), they flip a (unbiased) coin to decide which direction to take a step in, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
 By repeating this process we can plot a probability distribution of where the walker is likely to end up after $n$ steps in the walk.
 \subsection{1-D Lattice}
@@ -8,7 +8,7 @@ In our walker system, we can divide the overall Hilbert space of the Q.W. $\math
 \begin{equation}
     \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
 \end{equation}
-We note that whilst we do not place an constraints on the size of $\mathcal{H}_W$, we choose $dim(\mathcal{H}_C) = 2$, which is an obvious thing to do since the classical coin has two possible states. 
+We note that whilst we do not place an constraints on the size of $\mathcal{H}_W$, we choose $dim(\mathcal{H}_C) = 2$, which is the natural thing to do since the classical coin has two possible states. 
 To aid distiguishability between coin states and position states, we write that
 \begin{align}
     \langle\mathcal{H}_C\rangle &= \{\ket{\uparrow}, \ket{\downarrow}\}\\
@@ -39,13 +39,16 @@ Again, this representation of $S$ makes manifest its effect on our walker.
 If the coin is in the $\ket{\uparrow}$, then we take a step in the +1 direction, if in the $\ket{\downarrow}$ then we take a step in the -1 direction. 
 The probability distribution of such a walk is plotted in Fig [FIG], where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk. Whilst this highlights the faster spreading of the Q.W. away from the origin, there are not as many interesting properties of this variant of Q.W. compared to walks on other graphs.
 \subsection{\texorpdfstring{$N$}{N}-Cycle}
-Having now introduced the Q.W. on a line, we can easily now discuss the Q.W. on the $N$-Cycle, a graph obtained by taking a 1-D lattice of size $N + 1$ and attaching the ends together. To study Q.W.s on $N$-Cycles we are able to use an identical formulation of $C$ and an almost identical formulation of $S$ as used for the Q.W. on a 1-D lattice, the only change for $S$ being the summation range of $k$.
+Having now introduced the Q.W. on a line, we can easily now discuss the Q.W. on the $N$-Cycle, a graph obtained by taking a 1-D lattice of size $N + 1$ and attaching the end vertices of degree 1 together. To study Q.W.s on $N$-Cycles we are able to use an identical formulation of $C$ and an almost identical formulation of $S$ as used for the Q.W. on a 1-D lattice, the only change for $S$ being the summation range of $k$.
 \begin{equation}
     S = \sum_{k=0}^{N - 1}\ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
 \end{equation}
-There has been much interesting analysis concerning quantum walks on $N$-Cycles, but we will focus here on a property that they possess known as \emph{perfect state transfer}, when the initial state of the walker at some vertex on the graph is reproduced completely  at another vertex on the graph after $T$ steps in the quantum walk.
-
-
+There has been much interesting analysis concerning quantum walks on $N$-Cycles, but we will focus here on a property that they possess known as \emph{perfect state transfer}, when the initial state of the walker at the origin of the walk is reproduced completely at another vertex $k$ on the graph after $T$ steps in the quantum walk.
+\begin{align}
+    \ket{\Psi(0)} &= \ket{\psi(0)}_C \otimes \ket{0}_W\\
+    \ket{\Psi(T)} &= \ket{\psi(0)}_C \otimes \ket{k}_W
+\end{align}
+This behaviour only occurs for certain choices of $C$ and $N$, see Table 1 from \cite{kendon2010} for a clear table outlining the conditions on $C$ to achieve perfect state transfer for a given $N$.
 
 \subsection{Hypercube}
-\lipsum[1]
+We now will consider the quantum walk on a hypercube of dimension $N$. What sets this graph apart from the two previously considered in this report is that the coin space is no longer of dimension 2, but of dimension $N$. Every vertex has $N$ edges connected to it, so we need $N$ linearly independent states in our coin space to determine which edge should be traversed in the walk. Generalised to $N$ dimensions, our Hadamard coin in fact becomes a Fourier coin

@@ -1,14 +1,14 @@
 Quantum walks are powerful tools in the landscape of quantum computing. 
 Much like their classical analogues, they exhibit many properties that are desirable for computations and are an extremely useful building block for many algorithms designed for quantum computers \cite{shenvi2003}. 
-However, they also have some very significant divergences from classical random walks, including a quadratic speed up in their spreading, and quantum correlations that have no classical comparison. 
-Their power is such that it has been shown that quantum walks can simulate any quantum computation and therefore are a model for universal quantum computing \cite{Childs_2009}.
-There is also evidence of robust performance even when the quantum computer is not perfectly isolated from its environment, leading to situations where decoherences due to interactions with the environment is beneficial for a given computation \cite{KENDON_2007}. 
-It is possible to divide quantum walks into two categories, discrete time and continuous time. 
+However, they also have some very significant divergences from classical random walks, including a quadratic speed up in their spreading and quantum correlations, known as entanglement, that have no classical comparison. 
+Their power is such that quantum walks can simulate any quantum computation and therefore are a model for universal quantum computing \cite{Childs_2009}.
+There is also evidence of robust performance even when the quantum computer is not perfectly isolated from its environment, and in certain situations it has been shown that decoherences due to interactions with the environment is beneficial for a given computation \cite{KENDON_2007}. 
+Quantum walks are divided into two categories, discrete time and continuous time. 
 The latter have been shown to solve a wide range of problems in a number of different settings. 
 However, the focus of this report will be on entangled state generation and transfer which neccessitates the need for more than one Hilbert subspace in our system, a setting which lends itself much more readily to discrete time quantum walks.\newline
 
 Quantum walks have been shown to have great versitility in the generation and transfer of entanglement, quantum correlations which have no classical analogue, within a quantum system. 
-Entanglement is a key resource for many quantum computing protocols \cite{qkd}\cite{Superdense}\cite{qteleport}, and is the source of the quadratic speedup evident in so many quantum algorithms that best their classical counterparts.\newline
+Entanglement is a key resource for many quantum computing protocols \cite{qkd}\cite{Superdense}\cite{qteleport}, and is a key component in obtaining the speedup promised by quantum computers over their classical ancestors.\newline
 
 In this report we will first review discrete quantum walks on different graphs in section 2. 
 Section 3 will then discuss using discrete quantum walks in order to transfer entanglement between subspaces within a quantum walk system. 
@@ -16,4 +16,4 @@ Finally, a short summary is presented in section 4.\newline
 
 As mentioned above, discrete time quantum walks are much more suited for the purposes of this report, therefore future references to quantum walks will be assumed to be the discrete variant unless stated otherwise. 
 We will also use Q.W. to denote (discrete) quantum walk. 
-The mathematical notation used in this report follows standard conventions, however it's worth making clear the equivalency between $\ket{u_1}\ket{u_2} \equiv \ket{u_1} \otimes \ket{u_2}$, where both forms will be used interchangeably.
+The mathematical notation used in this report follows standard conventions, in particular we would like to make clear the eqivalency between $\ket{u_1}\ket{u_2} \equiv \ket{u_1} \otimes \ket{u_2}$, where both forms will be used interchangeably.
