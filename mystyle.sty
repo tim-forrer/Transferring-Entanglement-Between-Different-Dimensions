@@ -19,17 +19,14 @@
 % Bibliography management
 \usepackage[
     backend=biber,
-    bibstyle=apa,
-    sorting=ynt]
+    style=numeric-comp,
+    sorting=none]
     {biblatex}
 \addbibresource{bib.bib}
 
 \makeatletter % Forces numbered citations.
 \RequireBibliographyStyle{numeric}
 \makeatother
-
-% Add bibliography to table of contents.
-\usepackage[nottoc,notlot,notlof]{tocbibind}
 
 % Customise appendix appearance.
 \usepackage{appendix}
@@ -40,9 +37,12 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{braket}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
 
 % Graphics and images.
 \usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption} % Caption customisation.
 
 % Links to content.
 \usepackage{hyperref}

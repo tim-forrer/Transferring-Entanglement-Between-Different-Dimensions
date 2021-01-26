@@ -1,0 +1,89 @@
+\section{Background}
+\subsection{Random Walks}
+\subsubsection{Classical Random Walk}
+Before discussing quantum random walks, we first outline the basic premise of the classical random walk on a discrete number line.
+The walker starts at the origin and before taking a step to the left (-1) or the right (+1), they flip an unbiased coin to decide which direction to take a step in, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
+It is quite easy to show that as this classical walk progresses, we end up with a binomial distribution describing the probability distribution of the position of the walker.
+
+\subsubsection{Quantum Random Walk}
+We now use a similar process to define our quantum counterpart to the classical walk on a 1-D number line. 
+In our walker system, we can divide the overall Hilbert space of the QW, $\mathcal{H}$, into two subspaces, the coin subspace $\mathcal{H}_C$ and the position subspace of the walker $\mathcal{H}_W$. 
+\begin{equation}
+    \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
+\end{equation}
+We note that whilst we do not place any constraints on the size of $\mathcal{H}_W$, we choose $dim(\mathcal{H}_C) = 2$, which is the natural thing to do when quantising our classical walk since the classical coin has two possible states. 
+To aid distinguishability between coin states and position states, we write that
+\begin{align}
+    \langle\mathcal{H}_C\rangle &= \{\ket{\uparrow}, \ket{\downarrow}\}\\
+    \langle\mathcal{H}_W\rangle &= \{\ket{k} | k\in\mathbb{Z}\},
+\end{align}
+where $\langle U \rangle$ denotes a set of vectors which span $U$. 
+Therefore, the states $\ket{\uparrow}, \ket{\downarrow}$ take the place of heads and tails on our quantum "coin". 
+Having defined the Hilbert space within which the walk will be conducted in, we can now define operators within our space that will dictate how the QW will proceed. We first define the "coin flip" operator $C\in \mathcal{H}_C$. 
+There are several choices for $C$, details of which can be found here \cite{Tregenna2003}. 
+As detailed in \cite{Tregenna2003}, for walks on a line, if we restrict ourselves to choosing an unbiased coin with real coefficients the Hadamard coin
+\begin{align}
+    C &= \frac{1}{\sqrt{2}}\Big[
+    \ket{\uparrow}\bra{\uparrow} +
+    \ket{\uparrow}\bra{\downarrow} +
+    \ket{\downarrow}\bra{\uparrow} -
+    \ket{\downarrow}\bra{\downarrow}\Big]\\
+    &= \frac{1}{\sqrt{2}}\Big[(\ket{\uparrow} + \ket{\downarrow})\bra{\uparrow} +
+    (\ket{\uparrow} - \ket{\downarrow})\bra{\downarrow}\Big]
+\end{align}
+is the only choice of coin available. 
+Equation (5) makes obvious the action of $C$; if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$. 
+These two equal superpositions are often denoted as $\ket{+}$ and $\ket{-}$ respectively.\newline
+We then define our shift operator $S \in \mathcal{H}$ which allows the position of our walker to change, dependent on the state of the coin.
+\begin{equation}
+    S = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
+\end{equation}
+Again, this representation of $S$ makes manifest its effect on our walker. 
+If the coin is in the $\ket{\uparrow}$, then we take a step in the +1 direction, if in the $\ket{\downarrow}$ then we take a step in the -1 direction. 
+The probability distribution of such a walk is plotted in Fig \ref{fig:discVSclass}, where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk.\newline
+
+\begin{figure}
+    \centering
+    \includegraphics[width = 0.9\textwidth]{Discrete vs Classical Walk.png}
+    \caption{A comparison between the classical and quantum walk on a line. The quantum walk is initially in the $\ket{\downarrow}$ state in the coin subspace of the walk.}
+    \label{fig:discVSclass}
+\end{figure}
+
+Whilst the above choice of $S$ is the most common on the number line, it is also possible to define an alternative choice of shift operator,
+\begin{equation}
+    \tilde{S} = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k + 1}\bra{k}.
+\end{equation}
+Th subtle difference between $\tilde{S}$ and $S$ is that $\tilde{S}$ can only move in the $+1$ direction of the number line and has no "left moving" part, so to speak. 
+This means that $\tilde{S}$ is restricted to the non-negative integers and unlike $S$, can occupy all $\ket{x}$ for $0\leq x\leq T$, where $T$ is the number of time steps in our QW.
+
+\subsection{Entanglement Measures}
+There are many different methods of quantifying entanglement, and there is no one standard method for doing so as different measures are preferable in different scenarios. 
+Here we will introduce and define two common measures of entanglement.\newline
+
+We first define \emph{von Neumann entropy}, $S$, used for pure states.
+\begin{equation}
+    S(\rho) = -tr(\rho ln \rho),
+\end{equation}
+where $\rho$ is the density matrix representing the quantum system and $ln$ is the natural matrix logarithm. 
+It is often easier to compute this quantity using the spectral decomposition of $\rho$,
+\begin{equation}
+    \rho = \sum_a \lambda_a \ket{a}\bra{a}.
+\end{equation}
+Using this form we can compute the entropy by
+\begin{equation}
+    S(\rho) = -\sum_a \lambda_a ln\lambda_a.
+\end{equation}
+
+Whilst QW dynamics are unitary, which ensures that pure states retain their purity as the walk progresses, we will see that this measure of entanglement is not appropriate for measuring how well our entanglement has been transferred as our protocol will also involve projections, which are not unitary.
+To this end, we introduce an alternative measure of entanglement called \emph{negativity,} $\mathcal{N}$ \cite{Vidal_2002}.
+\begin{equation}
+    \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
+\end{equation}
+where $\rho^{\Gamma_A}$ denotes the \emph{partial transpose} of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $||X||_1 = Tr(\sqrt{X^\dagger X})$ denotes the \emph{trace norm} of $X$.\newline
+
+Similarly to von Neuman entropy, it is possible to rewrite this definition in terms of eigenvalues, this time eigenvalues of $\rho^{\Gamma_A}$,
+\begin{equation}
+    \mathcal{N}(\rho) = \sum_{\lambda_a < 0}|\lambda_a| = \sum_{\lambda_a} \frac{|\lambda_a| - \lambda_a}{2}.
+\end{equation}
+
+Finally, we define the \emph{ebit} as is the unit of bipartite entanglement. It is the entanglement contained in a Bell State \cite{Eisert_2000}. Maximally entangled states in $d \times d$ dimensions have $log_2(d)$ ebits.
