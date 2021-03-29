@@ -1,6 +1,8 @@
 \appendix
 \appendixpage
 \addappheadtotoc
+\setcounter{equation}{0}
+\renewcommand{\theequation}{A.\arabic{equation}}
 \section{Proof of No-Cloning Theorem}
 Here we present a proof of the no-cloning theorem.
 \begin{proof}
@@ -9,7 +11,7 @@ Here we present a proof of the no-cloning theorem.
     \begin{align}
         &U\ket{\psi}\otimes\ket{\phi} = \ket{\psi}\otimes\ket{\psi}\\
         \implies &U^{-1}\ket{\psi}\otimes\ket{\psi} = \ket{\psi}\otimes\ket{\phi}\\
-        \implies &U^{\dagger}\ket{\psi}\otimes\ket{\psi} = \ket{\psi}\otimes\ket{\phi}\\
+        \implies &U^{\dagger}\ket{\psi}\otimes\ket{\psi} = \ket{\psi}\otimes\ket{\phi}
     \end{align}
     Suppose we have any two arbitrary $\ket{\psi}_A,\ket{\tilde{\psi}}_A$ s.t. $0 \leq \braket{\psi|\tilde{\psi}} \leq 1$.
     \begin{align}

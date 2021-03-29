@@ -1,0 +1,33 @@
+\subsection{Ancilla-Based Quantum Computing}
+Quantum walks is but one of many universal quantum computing models.
+Another model is known as \emph{ancilla-based quantum computing}, which, in particular, aims to resolve two conflicting demands when building quantum computers:
+We wish for our qubits to be well isolated to prevent decoherence, yet also want them to interact with each other to perform our quantum computations.
+However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely addresses these two issues. \paragraph{}
+
+Ancilla-based quantum computing aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
+Using this model, it is possible to implement two complementary registers of qubits.
+The main register can be designed to be strongly isolated from interactions, bar a select few natural interactions with the ancilla registry, whose qubits can be easily manipulated but decohere much faster. Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the register and the ancilla. After performing a computation on the ancilla qubit, the quantum information is then \emph{relocalised} back into the main register.
+The ancilla can be reset to the initial state and used again for other computations.
+A simple example of a circuit designed for ancilla-based quantum computing is shown in Figure \ref{simple aqc}. 
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[scale=1.0] {
+                \begin{quantikz}
+                    \lstick{$\ket{\psi}$} & \ctrl{1} & \qw &\ctrl{1} & \qw\\
+                    \lstick{$\ket{0}$} & \targ{} & \gate{Z} & \targ{} & \qw
+                \end{quantikz}
+                $\equiv$
+                \begin{quantikz}
+                    \lstick{$\ket{\psi}$} & \gate{Z} & \qw
+                \end{quantikz}
+            };
+        \end{tikzpicture}
+    \caption{Two circuits that implement a $Z$ gate acting on an arbitrary qubit $\ket{\psi}$.}
+    \label{simple aqc}
+    \end{center}
+    \end{figure}
+The circuit on the left hand side of Figure \ref{simple aqc} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate. Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.\paragraph{}
+
+Later in this report I will highlight how this particular model of quantum computing is well suited for the protocol outlined in \cite{giordani2020}, which will be discussed in detail in the following section.
