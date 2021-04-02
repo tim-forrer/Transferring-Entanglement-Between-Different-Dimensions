@@ -1,0 +1,32 @@
+\subsection{Entanglement}
+
+\subsubsection{Measuring entanglement}
+There are many different methods of quantifying entanglement, and there is no one standard method for doing so as different measures are preferable in different scenarios. 
+Here we will introduce and define two common measures of entanglement.\newline
+
+We first define \emph{von Neumann entropy}, $S$, used for pure states.
+\begin{equation}
+    S(\rho) = -\text{tr}(\rho \ln \rho),
+\end{equation}
+where $\rho$ is the density matrix representing the quantum system and $ln$ is the natural matrix logarithm. 
+It is often easier to compute this quantity using the spectral decomposition of $\rho$,
+\begin{equation}
+    \rho = \sum_a \lambda_a \ket{a}\bra{a}.
+\end{equation}
+Using this form we can compute the entropy by
+\begin{equation}
+    S(\rho) = -\sum_a \lambda_a \ln\lambda_a.
+\end{equation}
+We define the \emph{ebit} as is the unit of bipartite entanglement. It is the entanglement contained in a Bell State \cite{Eisert_2000}. Maximally entangled states in $d \times d$ dimensions have $log_2(d)$ ebits.
+
+Whilst QW dynamics are unitary, which ensures that pure states retain their purity as the walk progresses, we will see that this measure of entanglement is not appropriate for measuring how well our entanglement has been transferred as our protocol will also involve projections, which are not unitary.
+To this end, we introduce an alternative measure of entanglement called \emph{negativity,} $\mathcal{N}$ \cite{Vidal_2002}.
+\begin{equation}
+    \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
+\end{equation}
+where $\rho^{\Gamma_A}$ denotes the \emph{partial transpose} of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $||X||_1 = Tr(\sqrt{X^\dagger X})$ denotes the \emph{trace norm} of $X$.\newline
+
+Similarly to von Neuman entropy, it is possible to rewrite this definition in terms of eigenvalues, this time eigenvalues of $\rho^{\Gamma_A}$,
+\begin{equation}
+    \mathcal{N}(\rho) = \sum_{\lambda_a < 0}|\lambda_a| = \sum_{\lambda_a} \frac{|\lambda_a| - \lambda_a}{2}.
+\end{equation}

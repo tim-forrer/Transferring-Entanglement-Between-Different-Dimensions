@@ -1,0 +1,31 @@
+\subsection{Quantum Computation}
+\subsubsection{Mathematical Framework}
+\label{subsubsection:mathfw}
+When describing a qubit, we say that it lives in a Hilbert space $\mathcal{H}$ spanned by two states, labelled $\ket{0}$ and $\ket{1}$ in the \emph{computational basis}. Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$, where
+\begin{align}
+    \ket{+} &= \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
+    \ket{-} &= \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
+\end{align}
+In order to describe a collection of $n$ qubits together, we can take the tensor product of each of the Hilbert spaces that each qubit resides in to form a $2^n$ dimensional Hilbert space
+\begin{align}
+    \mathcal{H}_{2^n} &= \mathcal{H}_{2} \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{2}_2\\
+    & = \bigotimes_{i = 0}^{2^n - 1}\mathcal{H}_2
+\end{align}
+\subsubsection{Gates and Circuits}
+The circuit notation used in describing quantum circuit schematics is derived from circuits used in classical computation. Straight lines in our circuit represent qubits (rather than bits as in classical circuits). We represent operations on these qudits via gates placed on the straight lines corresponding to the qudits we wish to act on. A table of gates relevant for this report is given in Table \ref{table:gates}.
+\begin{table}
+    \begin{center}
+        \begin{tabular}{c | c}
+            Operator & Gate\\
+            \hline
+            (Pauli) X & \begin{tikzcd} \qw & \gate{X} & \qw \end{tikzcd}\\
+            (Pauli) Z & \begin{tikzcd} \qw & \gate{Z} & \qw \end{tikzcd}\\
+            Hadamard & \begin{tikzcd} \qw & \gate{H} & \qw \end{tikzcd}\\
+            QFT & \begin{tikzcd} \qw & \gate{F} & \qw \end{tikzcd}\\
+        \end{tabular}
+        \caption{Table of operators and their gate representations in quantum circuits.}
+        \label{table:gates}
+    \end{center}
+\end{table}
+
+When reading a circuit, time flows from left to right and a gate must finish its operation on a qudit before the next gate is operated. However, in the case of two seperate qudits the ordering of gates that do not interact between the two of them is irrelevant since they commute, as discussed in subsection \ref{subsubsection:mathfw}.

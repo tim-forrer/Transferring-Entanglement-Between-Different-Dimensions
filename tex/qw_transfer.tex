@@ -75,4 +75,13 @@ We use the same projectors in the two coin subspaces, $\mathcal{P}_\gamma \in \m
 
 In this way we have now accumulated two ebits in the walker subspace, and can continue to repeat this process to accumulate arbitrarily large amounts of entanglement into our walker subspace, noting that each $n^{th}$ iteration requires an additional $2^{n-1}$ steps in our quantum walk.
 
-\subsection{Using a general coin}
+\subsection{Drawbacks}
+In the example given above, which is the example given in \cite{giordani2020}, we have demonstrated that this protocol can transfer all of the entanglement to our qudits.
+However we are left with a crucial problem in that the example does not in fact use quantum walk dynamics to transfer the entanglement, seeing as there effectively is no coin driving the walk.
+In analysing the protocol with the Hadamard coin, I found that only one ebit of entanglement could be transferred efficiently and subsequent repetitions of the protocol to store further amounts of entanglement could not be done optimally.
+Simulations of the protocol found that at most around 1.6 ebits of entanglement can be stored with a Hadamard QW, as shown in Figure X.
+Furthermore, the projective measurements employed as part of the protocol mean that it is not unitary and is non trivial to reverse in order to retrieve the entanglement out from the entangled qudits.
+The experimental implementation suggested in the paper also required the use of post selection, where undesirable states were discarded and the protocol run again.
+All this in combination results in a protocol which is rather inefficient in achieving its aims.
+However, the example clearly shows that it is possible to efficiently transfer entanglement to qudits, but highlights that a different quantum computational model should perhaps be employed.
+In the \S{4}, an alternative protocol in the ancilla-based quantum computing model is proposed which solves most of the inefficiencies present in this QW based proposal.
