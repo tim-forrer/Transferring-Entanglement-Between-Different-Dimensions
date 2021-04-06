@@ -90,10 +90,10 @@ Given that this is a circuit that solely utilises unitary transformations, retri
 
 \subsection{Further uses of the circuit}
 \label{subsection:furtheruses}
-Although the goal of this research was to design a protocol in a similar setting to the QW based protocol that outperformed the QW protocol, further testing of the proposed circuit showed that it had further uses beyond storage of entanglement.
-In this section, we consider the setting where we are in one lab and have one qubit and one qudit, and therfore only have one half of the total circuit.
-By adding one additional gate which uncomputes $U$, as shown in Figure \ref{fig:aqc_qbit_store}, we can in fact store arbitrary qubit states in our qudits.
-Furthermore, if more than one qubit is stored in the circuit then it is in fact possible to retrieve the qubit states in a different order to that which they were stored, as long as the order in which they were stored is known.
+Although the goal of this research was to design a protocol in a similar setting to the QW based protocol that outperformed the QW protocol, further probing of the proposed circuit showed that it had further uses beyond storage of entanglement.
+In this section, we consider a setting in a single lab that has many qubits and a qudit, and we wishes to store the quantum state of the qubits.
+By taking one half of the circuit given for the two lab setting and adding a gate $U^{-1}$ that undoes the basis state map seen before, as shown in Figure \ref{fig:aqc_qbit_store}, we can in fact store arbitrary qubit states in our qudits.
+Furthermore, in the case that we store two or more qubit states via this circuit then it is in fact possible to retrieve the qubit states in a different order to that which they were stored, simply by keep a record of order in which they were stored.
 Therefore, this circuit can be utilised in turning qudits into quantum random access memory.
 
 \begin{figure}
@@ -115,7 +115,7 @@ Therefore, this circuit can be utilised in turning qudits into quantum random ac
 \label{subsubsection:qram}
 The procedure for utilising the circuit as a quantum random access memory is as follows.
 Assume that there is a qudit in state $\ket{0}_d$ and two qubits, qubit 1 and qubit 2, in states $a\ket{0}_2 + b\ket{1}_2$ and $c\ket{0}_2 + d\ket{1}_2$ respectively.
-We first run the circuit with the qudit and and qubit 1,
+We first run the circuit with the qudit and qubit 1,
 \begin{equation}
     \ket{0}_d \otimes \left(a\ket{0} + b\ket{1}\right) \longrightarrow \left(a\ket{0}_d + b\ket{1}_d\right) \otimes \ket{0}_2.
 \end{equation}
@@ -200,4 +200,20 @@ If we want to retrive qubit 1 then we require $M$ to perform the following map
     \ket{4} = \ket{100} &\mapsto \ket{001} = \ket{1}\\
     \ket{6} = \ket{110} &\mapsto \ket{011} = \ket{3}
 \end{align}
-with all other basis states mapped to themselves as they are identical when switching the first and last digits of their binary representations. Having operated $M$ on the qudit state, we can now run the circuit backwards in order to retrieve qubit 1. As with retrieving Bell pairs, any qubit in the state $\ket{0}$ can be used to retrieve qubit 1.
+with all other basis states mapped to themselves as they are identical when switching the first and last digits of their binary representations.
+Having operated $M$ on the qudit state, we can now run the circuit backwards in order to retrieve qubit 1. As with retrieving Bell pairs, any qubit in the state $\ket{0}$ can be used to retrieve qubit 1.
+
+In a practical setting it may be more efficient to build a gate, $P$, that permutes the order of the qubits instead of swapping two digits.
+One example of $P$ would be the map that permutes each qubit one place the right,
+\begin{align}
+    \ket{1} = \ket{001} &\mapsto \ket{100} = \ket{4}\\
+    \ket{2} = \ket{010} &\mapsto \ket{001} = \ket{1}\\
+    \ket{3} = \ket{011} &\mapsto \ket{101} = \ket{5}\\
+    \ket{4} = \ket{100} &\mapsto \ket{010} = \ket{2}\\
+    \ket{5} = \ket{101} &\mapsto \ket{110} = \ket{6}\\
+    \ket{6} = \ket{110} &\mapsto \ket{011} = \ket{3}.
+\end{align}
+Again $\ket{0}, \ket{7}$ are mapped to themselves as the permutation leaves them untouched.
+In this way we would be able to retrieve any of the qubits by continually applying $P$ until the qubit we wish to retrive is in the right "place".
+Utilising a single gate would also be more appropriate for the ancilla-based quantum computing setting where we wish to apply as few gates to the control qudits as possible.
+However, this would require multiple applications of the same gate which, without adequate error correction, would lead to greater decoherence of the quantum information than if just a single switching gate $M$ were applied.
