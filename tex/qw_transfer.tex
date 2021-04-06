@@ -79,10 +79,17 @@ In this way we have now accumulated two ebits in the walker subspace, and can co
 In the example given above, which is the example given in \cite{giordani2020}, we have demonstrated that this protocol can transfer all of the entanglement to our qudits.
 However, this example does not in fact use quantum walk dynamics to transfer the entanglement, seeing as there effectively is no coin driving the progression of the walk.
 In analysing the protocol with the Hadamard coin, I found that only one ebit of entanglement could be transferred efficiently and subsequent repetitions of the protocol to store further amounts of entanglement could not be done optimally.
-Simulations of the protocol for storing two Bell states, equivalent to two ebits, found that at most around 1.6 ebits of entanglement can be stored with a Hadamard QW, as shown in Figure X.
+Simulations of the protocol for storing two Bell states, equivalent to two ebits, found that at most around 1.6 ebits of entanglement can be stored with a Hadamard QW, as shown in Figure \ref{fig:2ebittransfer}.
 Furthermore, the projective measurements employed as part of the protocol mean that it is not unitary and is non trivial to reverse in order to retrieve the entanglement out from the entangled qudits.
 The experimental implementation suggested in the paper also required the use of post selection, where undesirable states were discarded and the protocol run again.
 All this in combination results in a protocol which is rather inefficient in achieving its aims.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.75]{2ebit_transfer.png}
+    \caption{Transferring two ebits using the quantum walk protocol proposed by \cite{giordani2020}. $\theta, \phi$ are the parameters describing $\ket{\gamma}$ that defines the projection operator $\mathcal{P}_\gamma$.}
+    \label{fig:2ebittransfer}
+\end{figure}
 
 However, the example clearly shows that it is possible to efficiently transfer entanglement to qudits, but highlights that an alternative computational model might be better suited in implementing the ideas proposed.
 In \S{\ref{section:aqc_transfer}, an alternative protocol in the ancilla-based quantum computing model is proposed which solves most of the inefficiencies present in this QW based proposal.

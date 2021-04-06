@@ -1,22 +1,28 @@
 \subsection{Entanglement}
+Entanglement is a property of quantum systems that is the source of many of the remarkable results displayed by quantum algorithms.
+Essentially it is the presence of correlations in a quantum system that is stronger than possible classically.
+Although entanglement can exist between multipartite systems, in this report only bipartite entanglement will be discussed.
+Therefore, all references to entanglement are specifically referring to bipartite entanglement.
+\begin{definition}[Separable Pure States]
+    Consider two qubits $A$ and $B$, residing in Hilbert spaces $\mathcal{H}_A$, $\mathcal{H}_B$. Their composite state $\ket{\Psi}$ resides in the composite Hilbert space $\mathcal{H}_A \otimes \mathcal{H}_B$.
+\end{definition}
+\begin{definition}[Entangled States]
+    Two qubits $A$ and $B$ are entangled if their composite state cannot be expressed as a seperable state.
+\end{definition}
+Generalising entanglement to higher dimensions in the context of this report is done by having entanglement between qudits as opposed to qubits. There is no requirement for the dimensions of the entangled qudits to be matching. For example,
+\begin{equation}
+    \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\left(\ket{+_0}_3\right) + \ket{1}_2\otimes\left(\ket{+_1}_3\right)\right),
+\end{equation}
+is a entangled state between a qubit and a qutrit ($d=3$).
 
 \subsubsection{Measuring entanglement}
-There are many different methods of quantifying entanglement, and there is no one standard method for doing so as different measures are preferable in different scenarios. 
-Here we will introduce and define two common measures of entanglement.\newline
+In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of quantifying entanglement.
+Indeed, there are many different methods of quantifying entanglement, and there is no one standard method preferred above all others.
+In order to qualify as an entanglement measure, the measure must be an entanglement monotone.
+That is, if a system becomes more entangled then the entanglement measure must too increase.
+Here I introduce and define two common measures of entanglement.\newline
 
-We first define \emph{von Neumann entropy}, $S$, used for pure states.
-\begin{equation}
-    S(\rho) = -\text{tr}(\rho \ln \rho),
-\end{equation}
-where $\rho$ is the density matrix representing the quantum system and $ln$ is the natural matrix logarithm. 
-It is often easier to compute this quantity using the spectral decomposition of $\rho$,
-\begin{equation}
-    \rho = \sum_a \lambda_a \ket{a}\bra{a}.
-\end{equation}
-Using this form we can compute the entropy by
-\begin{equation}
-    S(\rho) = -\sum_a \lambda_a \ln\lambda_a.
-\end{equation}
+The first measure 
 We define the \emph{ebit} as is the unit of bipartite entanglement. It is the entanglement contained in a Bell State \cite{Eisert_2000}. Maximally entangled states in $d \times d$ dimensions have $log_2(d)$ ebits.
 
 Whilst QW dynamics are unitary, which ensures that pure states retain their purity as the walk progresses, we will see that this measure of entanglement is not appropriate for measuring how well our entanglement has been transferred as our protocol will also involve projections, which are not unitary.
@@ -26,7 +32,34 @@ To this end, we introduce an alternative measure of entanglement called \emph{ne
 \end{equation}
 where $\rho^{\Gamma_A}$ denotes the \emph{partial transpose} of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $||X||_1 = Tr(\sqrt{X^\dagger X})$ denotes the \emph{trace norm} of $X$.\newline
 
-Similarly to von Neuman entropy, it is possible to rewrite this definition in terms of eigenvalues, this time eigenvalues of $\rho^{\Gamma_A}$,
+This definition can be rewritten in terms of the eigenvalues of $\rho^{\Gamma_A}$.
 \begin{equation}
     \mathcal{N}(\rho) = \sum_{\lambda_a < 0}|\lambda_a| = \sum_{\lambda_a} \frac{|\lambda_a| - \lambda_a}{2}.
 \end{equation}
+
+Another entanglement measure, which is closely related to the negativity, is the \emph{logarithmic negativity}.
+\begin{definition}[Logarithmic Negativity]
+    The logarithmic, or log, negativity, $E_\mathcal{N}(\rho)$, of a system described by the density matrix $\rho$ is defined as
+    \begin{equation}
+        E_\mathcal{N} = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert.
+    \end{equation}
+\end{definition}
+As implied by the name, the log negativity can be related to the negativity as follows,
+\begin{equation}
+    E_\mathcal{N} = \log_2\left(2\mathcal{N} + 1\right).
+\end{equation}
+As with most quantities that can be measured, entanglement also has a unit, namely the \emph{ebit}.
+\begin{definition}[Ebit]
+    The ebit is defined as the amount of entanglement present in a maximally entangled two qubit state (i.e. a Bell state). It is the unit of bipartite entanglement.
+\end{definition}
+Note that the definition of the ebit does not specify the entanglement measure used to quantify the entanglement present in a Bell state, but when making comparisons the same measure must be used.
+The notion of the ebit is useful in describing how many Bell pairs an entangled state is equivalent to, however to make such comparisons the correct entanglement measure must be used.
+For example, the state 
+\begin{equation}
+    \ket{00}_4 + \ket{11}_4 + \ket{22}_4 + \ket{33}_4
+\end{equation}
+has three ebits of entanglement when measured using the negativity, but only two ebits when measured using the log negativity.
+This is because to qualify as an entanglement measure, the measure must be an entanglement monotone; if the entanglement of a system goes up then so too must the monotone. 
+However, there is no requirement that the measure must be additive, that is, if a system goes from having one Bell pair equivalent to two, this does not mean that the measured entanglement must double, just that it must increase.
+The negativity is a measure that is non-additive, however the log negativity is additive.
+Therefore in this report, the log negativity shall be used in quantifying the amount of entanglement transferred.

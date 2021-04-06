@@ -77,13 +77,51 @@ Analogously to the QW protocol, the qudit can be thought of as a walker driven b
 
 \subsection{Examples}
 \label{subsection:examples}
-To explicitly demonstrate how the circuit operates, an example of storing two Bell states and retrieving them is given in the following three subsections.
-\subsubsection{Storage}
+\subsubsection{Transfer}
 \label{subsubsection:aqcstorage}
+Assume that we have two qudits in labs A and B which are spatially separated, and each lab shares a qubit each from an entanglement Bell pair. The composite state is therefore given by
+\begin{equation}
+    \ket{0}^{(A)}_d\ket{0}^{(B)}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2^{(A,B)} + \ket{11}_2^{(A,B)}\right).
+\end{equation}
+The qudits are Fourier transformed into the Fourier conjugate basis to give
+\begin{align}
+    &\ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2^{(A,B)} + \ket{11}_2^{(A,B)}\right)\\
+    =&\frac{1}{\sqrt{2}}\left(
+        \ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{00}_2^{(A,B)}
+        +\ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{11}_2^{(A,B)}
+        \right).
+\end{align}
+Using Proposition \ref{prop:COmegaCXinQFTbasis}, a single application of the controlled-$\Omega$ in both $A$ and $B$ gives the state
+\begin{equation}
+    \frac{1}{\sqrt{2}}\left(
+        \ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{00}_2^{(A,B)}
+        +\ket{+_1}^{(A)}_d\ket{+_1}^{(B)}_d \otimes \ket{11}_2^{(A,B)}
+        \right).
+\end{equation}
+The qudits are then transformed back into the computational basis and the qubits transformed into the Hadamard basis giving,
+\begin{equation}
+    \frac{1}{\sqrt{2}}\left(
+        \ket{0}^{(A)}_d\ket{0}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
+        +\ket{1}^{(A)}_d\ket{1}^{(B)}_d \otimes \ket{--}_2^{(A,B)}
+        \right).
+\end{equation}
+In this instance, the map $U$ can be ignored since all the even state qudits are paired with $\ket{+}$ and odd state qudits paired with $\ket{-}$. Applying the controlled Z gate therefore gives us
+\begin{equation}
+    \frac{1}{\sqrt{2}}\left(
+        \ket{0}^{(A)}_d\ket{0}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
+        +\ket{1}^{(A)}_d\ket{1}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
+        \right).
+\end{equation}
+Applying the final Hadamard gates on the qubits therefore gives us
+\begin{equation}
+    \label{eq:singletransferfinalstate}
+    \frac{1}{\sqrt{2}}\left(
+        \ket{0}^{(A)}_d\ket{0}^{(B)}_d +\ket{1}^{(A)}_d\ket{1}^{(B)}_d\right) \otimes \ket{00}_2^{(A,B)}.
+\end{equation}
 
 \subsubsection{Accumulation}
 \label{subsubsection:accumulation}
-
+Now it is assumed that one ebit of entanglement has been transferred to our qudit and we wish to transfer a further Bell pair into the qudits. Taking the final state given by 
 \subsubsection{Retrieval}
 \label{subsubsection:aqcretrieval}
 Given that this is a circuit that solely utilises unitary transformations, retrieval of entangled Bell pairs is trivially done by running the circuit backwards. Furthermore, there is no requirement to use the same ancilla qubits to retrieve the entanglement. By the end of the circuit the ancilla qubits are in the $\ket{0}$ state, therefore any pair of ancilla qubits in the $\ket{0}$ state may be used to retrieve the entanglement.
