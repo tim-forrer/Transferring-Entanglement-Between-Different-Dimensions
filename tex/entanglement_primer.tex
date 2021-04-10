@@ -11,55 +11,92 @@ Therefore, all references to entanglement are specifically referring to bipartit
 \end{definition}
 Generalising entanglement to higher dimensions in the context of this report is done by having entanglement between qudits as opposed to qubits. There is no requirement for the dimensions of the entangled qudits to be matching. For example,
 \begin{equation}
-    \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\left(\ket{+_0}_3\right) + \ket{1}_2\otimes\left(\ket{+_1}_3\right)\right),
+    \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\ket{+_0}_3 + \ket{1}_2\otimes\ket{+_1}_3\right),
 \end{equation}
 is a entangled state between a qubit and a qutrit ($d=3$).
 
 \subsubsection{Measuring entanglement}
-In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of quantifying entanglement.
-Indeed, there are many different methods of quantifying entanglement, and there is no one standard method preferred above all others.
-In order to qualify as an entanglement measure, the measure must be an entanglement monotone.
-That is, if a system becomes more entangled then the entanglement measure must too increase.
-Here I introduce and define two common measures of entanglement.\newline
-
-The first measure 
-We define the \emph{ebit} as is the unit of bipartite entanglement. It is the entanglement contained in a Bell State \cite{Eisert_2000}. Maximally entangled states in $d \times d$ dimensions have $log_2(d)$ ebits.
-
-Whilst QW dynamics are unitary, which ensures that pure states retain their purity as the walk progresses, we will see that this measure of entanglement is not appropriate for measuring how well our entanglement has been transferred as our protocol will also involve projections, which are not unitary.
-To this end, we introduce an alternative measure of entanglement called \emph{negativity,} $\mathcal{N}$ \cite{Vidal_2002}.
-\begin{equation}
-    \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
-\end{equation}
-where $\rho^{\Gamma_A}$ denotes the \emph{partial transpose} of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $||X||_1 = Tr(\sqrt{X^\dagger X})$ denotes the \emph{trace norm} of $X$.\newline
-
-This definition can be rewritten in terms of the eigenvalues of $\rho^{\Gamma_A}$.
-\begin{equation}
-    \mathcal{N}(\rho) = \sum_{\lambda_a < 0}|\lambda_a| = \sum_{\lambda_a} \frac{|\lambda_a| - \lambda_a}{2}.
-\end{equation}
-
-Another entanglement measure, which is closely related to the negativity, is the \emph{logarithmic negativity}.
-\begin{definition}[Logarithmic Negativity]
-    The logarithmic, or log, negativity, $E_\mathcal{N}(\rho)$, of a system described by the density matrix $\rho$ is defined as
+\label{subsubsection:measure_entanglement}
+In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of quantifying entanglement, of which numerous methods have been proposed and are used.
+For a full mathematical discussion on entanglement quantification, see \cite{Plenio_2007}.
+Here we will introduce two methods of quantifying entanglement.
+The first is the \emph{negativity}.
+\begin{definition}[Negativity]
+    \label{definition:negativity}
+    The negativity of a density matrix $\rho$ is given by
     \begin{equation}
-        E_\mathcal{N} = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert.
+        \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
+    \end{equation}
+    where $\rho^{\Gamma_A}$ denotes the partial transpose of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
+\end{definition}
+The second method is closely related to the negativity and is called the \emph{logarithmic}, or \emph{log}, \emph{negativity}.
+
+\begin{definition}[Logarithmic Negativity]
+    \label{definition:log_neg}
+    The logarithmic negativity, $E_\mathcal{N}(\rho)$, of a system described by the density matrix $\rho$ is given by
+    \begin{equation}
+        E_\mathcal{N}(\rho) = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1.
     \end{equation}
 \end{definition}
-As implied by the name, the log negativity can be related to the negativity as follows,
+From these definitions the relationship between $\mathcal{N}$ and $E_{\mathcal{N}}$ is easy to derive,
 \begin{equation}
     E_\mathcal{N} = \log_2\left(2\mathcal{N} + 1\right).
 \end{equation}
-As with most quantities that can be measured, entanglement also has a unit, namely the \emph{ebit}.
-\begin{definition}[Ebit]
-    The ebit is defined as the amount of entanglement present in a maximally entangled two qubit state (i.e. a Bell state). It is the unit of bipartite entanglement.
-\end{definition}
-Note that the definition of the ebit does not specify the entanglement measure used to quantify the entanglement present in a Bell state, but when making comparisons the same measure must be used.
-The notion of the ebit is useful in describing how many Bell pairs an entangled state is equivalent to, however to make such comparisons the correct entanglement measure must be used.
-For example, the state 
+One key difference between these two measures is they way in which they quantify entanglement of maximally entangled states.
+Bell states, which are maxially entangled two qubit states, have a negativity of $\frac{1}{2}$, and a log negativity of $1$.
+Consider now the maximally entangled ququart state ($d = 4$),
 \begin{equation}
-    \ket{00}_4 + \ket{11}_4 + \ket{22}_4 + \ket{33}_4
+    \frac{1}{2}\left(\ket{00} + \ket{11} + \ket{22} + \ket{33}\right).
 \end{equation}
-has three ebits of entanglement when measured using the negativity, but only two ebits when measured using the log negativity.
-This is because to qualify as an entanglement measure, the measure must be an entanglement monotone; if the entanglement of a system goes up then so too must the monotone. 
-However, there is no requirement that the measure must be additive, that is, if a system goes from having one Bell pair equivalent to two, this does not mean that the measured entanglement must double, just that it must increase.
-The negativity is a measure that is non-additive, however the log negativity is additive.
-Therefore in this report, the log negativity shall be used in quantifying the amount of entanglement transferred.
+This state can be considered equivalent to two Bell states, given that the state space is of the same dimension, 16, as two Bell states.
+Therefore, it would be desirable for our entanglement quantifier measure the entanglement in the ququart state to be twice the value for the Bell state, in order to make comparisons for entanglement transferred.
+Using the negativity, the ququart gives a value of 1.5.
+The log negativity however gives a value of 2.
+Hence, when quantifying entanglement transferred, in this report we will use the log negativity as it will allow for direct comparison.
+As with all quantities that can be measured there is a unit of bipartite entanglement.
+\begin{definition}[Ebit]
+    \label{definition:ebit}
+    The ebit is defined as the entanglement present in a maximally entangled two qubit state (a Bell state).
+\end{definition}
+Note that this definition is free from specifying a measure of entanglement, so it is not always the case that 2 ebits of entanglement is present in a state equivalent to 2 Bell states (the negativity is an example of this).
+As shown previously though, this is the case in the log negativity and indeed, 1 ebit is equal to 1 unit of log negativity.
+
+\begin{claim}
+    \label{claim:maximally_entangled_states}
+    A maximally entangled state in $d\times d$ dimensions has $\log_2d$ ebits when measured with log negativity.
+\end{claim}
+\begin{proof}
+    First, note that for a Hilbert space of dimension $d\times d$, the state
+    \begin{equation}
+        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}
+    \end{equation}
+    is maximally entangled, since its reduced density matrix is maximally mixed.
+    Therefore, to calculate the entanglement of a maximally mixed state it is sufficient to measure the entanglement of $\ket{\psi}$.
+    The density matrix of $\ket{\psi}$ is 
+    \begin{align}
+        \rho &= \ket{\psi}\bra{\psi}\\
+        &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}
+    \end{align}
+    To calculate $E_{\mathcal{N}}$ we need the partial transpose on one of the subsystems, the choice of which is irrelevant since they are both entangled with one another.
+    So we choose to find the partial transpose on $A$.
+    \begin{align}
+        \rho^{\Gamma_A} =\frac{1}{d} \sum_{j,k}\ket{k}\bra{j}\otimes\ket{j}\bra{k}
+    \end{align}
+    From this we wish to calculate the trace norm 
+    \begin{equation}
+        \Vert\rho\Vert_1 = \sqrt{\rho\rho^{\dagger}}.
+    \end{equation}
+    \begin{align}
+        \rho^{\Gamma_A}\left(\rho^{\Gamma_A}\right)^{\dagger} &= \frac{1}{d^2} \sum_{j,k}\ket{k}\bra{k}\otimes\ket{j}\bra{j}\\
+        &=\frac{1}{d^2}I_d\otimes I_d\\
+        &=\frac{1}{d^2}I_{d^2}\\
+        \implies \Vert\rho^{\Gamma_A}\Vert_1 &= \frac{1}{d}\Tr{\left(I_{d^2}\right)}\\
+        &= \frac{1}{d}\cdot d^2\\
+        &= d
+    \end{align}
+    Therefore, this gives us that
+    \begin{align}
+        E_{\mathcal{N}} &= \log_2\left\Vert \rho^{\Gamma_A}\right\Vert\\
+        &= \log_2d.
+    \end{align}
+\end{proof}

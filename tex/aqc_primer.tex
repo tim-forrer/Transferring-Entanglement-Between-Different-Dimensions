@@ -2,7 +2,7 @@
 Quantum walks is but one of many universal quantum computing models.
 Another model is known as \emph{ancilla-based quantum computing}, which, in particular, aims to resolve two conflicting demands when building quantum computers:
 We wish for our qubits to be well isolated to prevent decoherence, yet also want them to interact with each other to perform our quantum computations.
-However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely addresses these two issues. \paragraph{}
+However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely addresses these two issues.
 
 Ancilla-based quantum computing aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
 Using this model, it is possible to implement two complementary registers of qubits.
@@ -10,7 +10,7 @@ The main register can be designed to be strongly isolated from interactions, bar
 The ancilla can be reset to the initial state and used again for other computations.
 A simple example of a circuit designed for ancilla-based quantum computing is shown in Figure \ref{simple aqc}. 
 
-\begin{figure}
+\begin{figure}[h]
     \begin{center}
         \begin{tikzpicture}
             \node[scale=1.0] {
@@ -27,7 +27,25 @@ A simple example of a circuit designed for ancilla-based quantum computing is sh
     \caption{Two circuits that implement a $Z$ gate acting on an arbitrary qubit $\ket{\psi}$.}
     \label{simple aqc}
     \end{center}
-    \end{figure}
-The circuit on the left hand side of Figure \ref{simple aqc} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate. Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.\paragraph{}
+\end{figure}
+The circuit on the left hand side of Figure \ref{simple aqc} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate. Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.
+This model of quantum computing does not have to be reserved to qubit computing alone and applies to qudits and even quantum continous variables (QCVs).
+However, here the focus will be on utilising it with qubits and qudits.
+In fact there is no prerequisite to only using qudits of similar dimension, and defining quantum operators designed for mismatched dimensions is relatively straightforward to do.
+First examine the the case of the controlled NOT gate.
+In Section \ref{subsection:qc_primer} it was shown that the $\C{X}$ gate acts an $X$ gate on the target qubit if the control qubit is in the state $\ket{1}$. This can be summarised as follows
+\begin{equation}
+    \C{X}\left(\ket{i}_2\otimes\ket{j}_2\right) = \ket{i}_2 \otimes X^i\ket{y}_2.
+\end{equation}
+Expressed in this way there is quite a natural extension of the $\C{X}$ gate in the case that the control and target are both qudits of arbitrary dimension,
+\begin{equation}
+    \C{X}\left(\ket{i}_d\otimes\ket{j}_{d'}\right) = \ket{i}_d \otimes X^i\ket{y}_{d'},
+\end{equation}
+recalling that the general $X$ gate in $d'$ dimensions increments the basis states by 1, mod $d'$.
+Indeed any $\C{U}$ gate can be expressed in this manner
+\begin{equation}
+    \C{U}\left(\ket{i}_d\otimes\ket{j}_{d'}\right) = \ket{i}_d \otimes U^i\ket{y}_{d'},
+\end{equation}
+provided that $U$ has been well-defined in $d'$ dimensions.
 
 Later in this report I will highlight how this particular model of quantum computing is well suited for the protocol outlined in \cite{giordani2020}, which will be discussed in detail in the following section.

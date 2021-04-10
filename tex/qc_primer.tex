@@ -1,19 +1,76 @@
 \subsection{Quantum Computation}
-\subsubsection{Mathematical Framework}
-\label{subsubsection:mathfw}
-When describing a qubit, we say that it lives in a Hilbert space $\mathcal{H}$ spanned by two states, labelled $\ket{0}$ and $\ket{1}$ in the \emph{computational basis}. Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$, where
+\subsubsection{Qubits}
+\label{subsubsection:qubits}
+When describing a qubit, we say that it lives in a Hilbert space $\mathcal{H}$ spanned by two states, labelled $\ket{0}$ and $\ket{1}$ in the \emph{computational basis}. Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$.
+This basis is best known as the \emph{Hadamard basis}, as $\ket{+}$ and $\ket{-}$ are equal to $H\ket{0}$ and $H\ket{1}$, where $H$ is the Hadamard transform given by
 \begin{align}
-    \ket{+} &= \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
-    \ket{-} &= \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
+    \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
+    \ket{-} &= H\ket{1} = \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
 \end{align}
-In order to describe a collection of $n$ qubits together, we can take the tensor product of each of the Hilbert spaces that each qubit resides in to form a $2^n$ dimensional Hilbert space
+A state that describes $n$ qubits is found by taking the tensor product of states describing each of the individual qubits
+\begin{equation}
+    \ket{\Psi} = \ket{\psi_0} \otimes \ket{\psi_1} \otimes \dots \otimes \ket{\psi_{n-1}}.
+\end{equation}
+
+\subsubsection{Qudits}
+\label{subsubsection:qudits}
+In quantum computing, or indeed classical computing, there is no physical constraint that necessitates the use of two level qubits or bits.
+In classical computing, the bit can be generalised to a unit that takes on one of $d$ states, known as the \emph{dit}.
+Similarly, the quantum dit is the \emph{qudit}, which can be in superposition of up to $d$ states.
+Many aspects of quantum computing specific to qubits generalise nicely to qudits.
+The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{i}\}_{i=0}^{d-1}$.
+To distinguish kets representing states of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state of dimensions $d$.
+For compactness, operators will not have their dimension explicitly labelled, since their dimension will match the states that they are acting on.
+Similar to qubits, there are many different bases that can be used to describe our qudit states.
+The $d$ dimensional analogue to the Hadamard transform is the \emph{quantum Fourier transform} is given by
+\begin{equation}
+    F\ket{x}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{y=0}^{d-1} \omega^{xy}\ket{y}_d,
+\end{equation}
+where $\omega = e^{i\frac{2\pi}{d}}$.
+Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_i}\}_{i=0}^{d-1}$, where
+\begin{equation}
+    \ket{+_i}_d = F\ket{i}_d.
+\end{equation}
+Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.
+
+\subsubsection{Operators}
+\label{subsubsection:operators}
+There are a wide variety of other operators beyond ones that equate to a change of bases.
+One of the most common the (Pauli) $X$ gate, or NOT gate.
+As the second name implies, in the qubit setting acts in the same way as the classical NOT gate,
 \begin{align}
-    \mathcal{H}_{2^n} &= \mathcal{H}_{2} \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{2}_2\\
-    & = \bigotimes_{i = 0}^{2^n - 1}\mathcal{H}_2
+    \ket{0} \mapsto \ket{1}\\
+    \ket{1} \mapsto \ket{0}.
 \end{align}
+More generally in the qudit setting,
+\begin{equation}
+    X\ket{i}_d = \ket{i + 1 \text{ mod } d}_d.
+\end{equation}
+This is gate is essentially the same as the classical NOT gate.
+However, there are other gates that do not have a classical analogue.
+The most common example is the (Pauli) $Z$ gate, which in the qubit setting acts as the identity on $\ket{0}$ but applies a relative -1 phase to $\ket{1} \mapsto -\ket{1}$.
+Again this can be generalised to the qudit setting
+\begin{equation}
+    Z\ket{i}_d = \omega^i\ket{i}_d,
+\end{equation}
+where $\omega = e^{i\frac{2\pi}{d}}$ is the $d^{th}$ root of unity.
+Both of these operators are sometimes referred to as Pauli operators as their matrix representations in the computational basis are given by the Pauli matrices $\sigma_x$ and $\sigma_z$.
+There is also the $Y$ operator corresponding to the Pauli $\sigma_y$ matrix but this is often omitted from consideration as
+\begin{equation}
+    ZX = iY
+\end{equation}
+so when building gates for a quantum computer, there is no theoretical need to build one as it already exists up to a global phase, which is essentially irrelevant in quantum computations, and quantum mechanics in general.
+Another important operation is the Hadamard operator $H$, and we have already seen how this is generalised to qudits by the quantum Fourier transform $F$.
+The final operation to be introduced in the section is the $\C{U}$, or controlled-$U$ operator, where $U$ is any unitary operation.
+This operator is distinct from the others previously introduced in that it acts on two qudits rather than just one, although it only directly alters the state of one of the two qudits.
+
+Quantum operations on qudits are not limited to these, and in fact any unitary transformation is a valid operation since unitary operations are reversible, which is a key ingredient for much of quantum computing, although one-way quantum computing is an area of research where reversibility is not obeyed.
+
 \subsubsection{Gates and Circuits}
-The circuit notation used in describing quantum circuit schematics is derived from circuits used in classical computation. Straight lines in our circuit represent qubits (rather than bits as in classical circuits). We represent operations on these qudits via gates placed on the straight lines corresponding to the qudits we wish to act on. A table of gates relevant for this report is given in Table \ref{table:gates}.
-\begin{table}
+The circuit notation used in describing quantum circuit schematics is derived from circuits used in classical computation.
+Straight lines in our circuit represent qubits (rather than bits as in classical circuits).
+We represent operations on these qudits via gates placed on the straight lines corresponding to the qudits we wish to act on. A table of gates relevant for this report is given in Table \ref{table:gates}.
+\begin{table}[h]
     \begin{center}
         \begin{tabular}{c | c}
             Operator & Gate\\

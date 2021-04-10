@@ -38,8 +38,17 @@
 \usepackage{amsfonts}
 \usepackage{braket}
 \usepackage{amsthm}
-\newtheorem{definition}{Definition}
-\newtheorem{proposition}{Proposition}
+
+% Custom math environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+
+% Custom math operators
+\DeclareMathOperator{\Tr}{Tr}
+
+\newcommand{\C}[1]{C\text{-}#1}
 
 % Graphics and images.
 \usepackage{graphicx}

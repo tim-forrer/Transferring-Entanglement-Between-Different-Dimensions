@@ -75,10 +75,8 @@ We act with a controlled operation, where the qudit is the control and the qubit
 This idea is crucial for this proposal to achieve the desired outcomes, as we are required to shift the qudit states, but are unable to do so without being in the Fourier basis, where delocalised phase changes shift the Fourier basis states.
 Analogously to the QW protocol, the qudit can be thought of as a walker driven by the ancilla qubit "coin".
 
-\subsection{Examples}
-\label{subsection:examples}
-\subsubsection{Transfer}
-\label{subsubsection:aqcstorage}
+\subsection{Transfer}
+\label{subsection:aqcstorage}
 Assume that we have two qudits in labs A and B which are spatially separated, and each lab shares a qubit each from an entanglement Bell pair. The composite state is therefore given by
 \begin{equation}
     \ket{0}^{(A)}_d\ket{0}^{(B)}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2^{(A,B)} + \ket{11}_2^{(A,B)}\right).
@@ -119,11 +117,11 @@ Applying the final Hadamard gates on the qubits therefore gives us
         \ket{0}^{(A)}_d\ket{0}^{(B)}_d +\ket{1}^{(A)}_d\ket{1}^{(B)}_d\right) \otimes \ket{00}_2^{(A,B)}.
 \end{equation}
 
-\subsubsection{Accumulation}
-\label{subsubsection:accumulation}
+\subsection{Accumulation}
+\label{subsection:accumulation}
 Now it is assumed that one ebit of entanglement has been transferred to our qudit and we wish to transfer a further Bell pair into the qudits. Taking the final state given by 
-\subsubsection{Retrieval}
-\label{subsubsection:aqcretrieval}
+\subsection{Retrieval}
+\label{subsection:aqcretrieval}
 Given that this is a circuit that solely utilises unitary transformations, retrieval of entangled Bell pairs is trivially done by running the circuit backwards. Furthermore, there is no requirement to use the same ancilla qubits to retrieve the entanglement. By the end of the circuit the ancilla qubits are in the $\ket{0}$ state, therefore any pair of ancilla qubits in the $\ket{0}$ state may be used to retrieve the entanglement.
 
 \subsection{Further uses of the circuit}
@@ -171,7 +169,7 @@ Rewrite each of the qudit basis state numbers in binary, i.e.
     \ket{2} &= \ket{10}\\
     \ket{3} &= \ket{11}.
 \end{align}
-Rewriting the final state of (\ref{eqn:twoqbitsinqdit}) in this way we obtain the following expression
+Rewriting the final state of equation \ref{eqn:twoqbitsinqdit} in this way we obtain the following expression
 \begin{equation}
     ac\ket{0} + bc\ket{1} + ad\ket{2} + bd\ket{3} = ac\ket{00} + bc\ket{01} + ad\ket{10} + bd\ket{11},
     \label{eqn:binaryexpression}
@@ -180,12 +178,14 @@ which can be rewritten as the product state
 \begin{equation}
     \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}} \otimes \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}}.
 \end{equation}
-Quite remarkably the qudit has an intuitive alternative expression as the product state of qubit 1 and qubit 2. In order to retrieve qubit 1 by running the circuit backwards, we need to instead be able to express the qudit state as
+Quite remarkably the qudit has an intuitive alternative expression as the product state of qubit 1 and qubit 2.
+If the circuit is run backwards, we will retrieve qubit 2.
+Therefore, to retrieve qubit 1 instead, the qudit state should be expressable as
 \begin{equation}
     \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}} \otimes \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}}.
 \end{equation}
 This can be thought of as switching the positions of our two qubits, which leads us to the unitary transformation we need.
-We need a map, $M$, which will flip the positions of our two qubits.
+We need a map, $M$, which will switch the positions of our two qubits.
 $M$ is found by mapping each of the binary qudit state representations $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$ to the basis state with the binary digits switched.
 \begin{align}
     \ket{00} &\mapsto \ket{00}\\
@@ -193,7 +193,7 @@ $M$ is found by mapping each of the binary qudit state representations $\{\ket{0
     \ket{10} &\mapsto \ket{01}\\
     \ket{11} &\mapsto \ket{00}.
 \end{align}
-We can check that this gives us the form that we want taking the RHS of (\ref{eqn:binaryexpression}) and acting $M$ on it to obtain
+We can check that this gives us the form that we want taking the RHS of equation \ref{eqn:binaryexpression} and acting $M$ on it to obtain
 \begin{align}
     M\left(ac\ket{00} + ad\ket{01} + bc\ket{10} + bd\ket{11}\right) 
     &=  ac\ket{00} + ad\ket{10} + bc\ket{01} + bd\ket{11}\\
@@ -251,7 +251,7 @@ One example of $P$ would be the map that permutes each qubit one place the right
     \ket{5} = \ket{101} &\mapsto \ket{110} = \ket{6}\\
     \ket{6} = \ket{110} &\mapsto \ket{011} = \ket{3}.
 \end{align}
-Again $\ket{0}, \ket{7}$ are mapped to themselves as the permutation leaves them untouched.
-In this way we would be able to retrieve any of the qubits by continually applying $P$ until the qubit we wish to retrive is in the right "place".
-Utilising a single gate would also be more appropriate for the ancilla-based quantum computing setting where we wish to apply as few gates to the control qudits as possible.
+Again $\ket{0}, \ket{7}$ are mapped to themselves as the permutation does not affect them.
+In this way we would be able to retrieve any of the qubits by continually applying $P$ until the qubit we wish to retrieve is in the right "place".
+Utilising a single gate would also be more appropriate for the ancilla-based quantum computing setting where we wish to have a minimal gate set applied to the control qudits.
 However, this would require multiple applications of the same gate which, without adequate error correction, would lead to greater decoherence of the quantum information than if just a single switching gate $M$ were applied.
