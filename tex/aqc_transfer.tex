@@ -1,59 +1,52 @@
-I will now outline an alternative entanglement transfer scheme designed to operate in the same setting at the QW based protocol, but instead is able to transfer entanglement deterministically and also retrieve it perfectly as well.
+In this section an alternative entanglement transfer scheme is outlined.
+It is designed to operate in the same setting at the QW based protocol, but instead is able to transfer entanglement deterministically and also retrieve it perfectly as well.
 
-A circuit schematic is given in Figure \ref{fig:aqc_circuit_schematic}, and essentially is two copies of the same circuit.
+The protocol can be succintly summarised by the circuit schematic given in figure \ref{fig:aqc_circuit_schematic}, and essentially is two copies of the same circuit.
 
 \begin{figure}[h]
     \begin{center}
         \begin{tikzpicture}
             \node[scale=1.0] {
                 \begin{quantikz}
-                    \lstick{$\ket{d}_A$} & \gate{F} & \ctrl{1} & \gate{F^{-1}} & \gate{U} & \ctrl{1} & \qw\\
-                    \lstick{$\ket{b}_A$} & \qw & \gate{\Omega^{j}} & \gate{H} & \qw & \gate{Z} & \gate{H}\\
+                    \lstick{$\ket{d}^{(A)}$} & \gate{F} & \ctrl{1} & \gate{F^{-1}} & \gate{U} & \ctrl{1} & \qw\\
+                    \lstick{$\ket{b}^{(A)}$} & \qw & \gate{\Omega^{j}} & \qw & \qw & \gate{X} & \qw\\
                     - & - & - & - & - & - & - \\
-                    \lstick{$\ket{b}_B$} & \qw & \gate{\Omega^{j}} & \gate{H} & \qw & \gate{Z} & \gate{H}\\
-                    \lstick{$\ket{d}_B$} & \gate{F} & \ctrl{-1} & \gate{F^{-1}} & \gate{U} & \ctrl{-1} & \qw\\
+                    \lstick{$\ket{b}^{(B)}$} & \qw & \gate{\Omega^{j}} & \qw & \qw & \gate{X} & \qw\\
+                    \lstick{$\ket{d}^{(B)}$} & \gate{F} & \ctrl{-1} & \gate{F^{-1}} & \gate{U} & \ctrl{-1} & \qw\\
                 \end{quantikz}
             };
         \end{tikzpicture}
-    \caption{The AQC circuit for entanglement transfer.}
+    \caption{The AQC circuit for entanglement transfer. The schematic shows two separated circuits that exist in spatially separated labs, $A$ and $B$. The qudits and qubits belonging to each individual lab are labelled by their superscripts.}
     \label{fig:aqc_circuit_schematic}
     \end{center}
 \end{figure}
-Since the two halves of the circuit are completely seperate from each other, this circuit is suitable for the same experimental setup described for the QW protocol, where it is imagined that there are two labs which are spatially seperated, and have a shared source of Bell state entangled qubits which are sent individually to each lab.
-The $F$ gate is one that acts the Quantum Fourier Transform on the qudit basis states,
-\begin{equation}
-    F\ket{x} = \frac{1}{2^{\frac{d}{2}}} \sum_{y=0}^{d-1} \omega^{xy}\ket{y},
-\end{equation}
-where $\omega = e^{i\frac{2\pi}{d}}$. The matrix representation of $F$ in the computational basis is given by by the $d\times d$ matrix
-\begin{equation}
-    F = \begin{pmatrix}
-        1 & 1 & 1 & \hdots & 1 & 1\\
-        1 & \omega & \omega^2 & \hdots & \omega^{d-2} & \omega^{d-1}\\
-        1 & \omega^2 & \omega^4 & \hdots & \omega^{2(d-2)} & \omega^{2(d-1)}\\
-        \vdots & \vdots & \vdots & & \vdots & \vdots\\
-        1 & \omega^{d-1} & \omega^{2(d-1)} & \hdots & \omega^{(d-2)(d-1)} & \omega^{(d-1)^2}
-    \end{pmatrix}
-\end{equation}
-
-The gate $\Omega$ is given by
-\begin{equation}
-    \Omega = 
+Since the two halves of the circuit are completely separate from each other, this circuit is suitable for the same experimental setup described for the QW protocol, where it is imagined that there are two labs which are spatially separated, and have a shared source of Bell state entangled qubits which are sent individually to each lab.
+The majority of the gates shown in the schematic are discussed in Section \ref{subsubsection:circuits_and_gates}, with the exception of the gate $\Omega^j$.
+The action of $\Omega$ on the computational basis states is given by the matrix
+\begin{align}
+    \Omega &= 
     \begin{pmatrix}
         1 & 0\\
         0 & \omega
-    \end{pmatrix},
-\end{equation}
-therefore the controlled-$\Omega$ gates are ones that act as 
+    \end{pmatrix}\\
+    \implies \Omega^j &=
+    \begin{pmatrix}
+        1 & 0\\
+        0 & \omega^j
+    \end{pmatrix}.
+\end{align}
+Essentially it is the similar to the $Z$ operator in that it applies relative phase difference, but instead of a phase of -1, a phase corresponding to the $d^{th}$ root of unity is introduced on the $\ket{1}_2$ states, with $d$ corresponding to the dimension of the control qudits.
+Therefore $\C{\Omega}$ operator is one that acts as
 \begin{align}
     C\text{-}\Omega^j (\ket{x}_d\ket{y}_2) &= \ket{x}_d\otimes \Omega^{xj}\ket{y}_2\\
     & = \ket{x}_d\otimes \omega^{xyj}\ket{y}_2
 \end{align}
 where $\ket{x}_d$ is the control qudit and $\ket{y}_2$ the target qubit.
 
-\begin{proposition}
-    \label{prop:COmegaCXinQFTbasis}
+\begin{claim}
+    \label{claim:COmegaCXinQFTbasis}
     In the Fourier basis, the $C\text{-}\Omega^j$ operator acts on the product state $\ket{+_k}_d\otimes\ket{1}_2$ to give $\ket{+_{k+j}}_d\otimes\ket{1}_2$
-\end{proposition}
+\end{claim}
 \begin{proof}
     The Fourier basis state $\ket{+_k}_d$ is given by
     \begin{equation}
@@ -70,56 +63,119 @@ where $\ket{x}_d$ is the control qudit and $\ket{y}_2$ the target qubit.
     \end{align}
 \end{proof}
 
-Proposition \ref{prop:COmegaCXinQFTbasis} highlights the somewhat counterintuitive nature of the circuit, and indeed the counterintuitive way ancilla-based quantum computing can exploit quantum phenomena.
-We act with a controlled operation, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".
+Claim \ref{claim:COmegaCXinQFTbasis} demonstrates the role of the index $j$, which essentially dictates in the Fourier basis how many states each Fourier basis state is shifted, and is analgous to the $\C{X}$ operator in the computational basis.
+It also highlights the somewhat counterintuitive nature of the circuit, and indeed the counterintuitive way ancilla-based quantum computing can exploit quantum phenomena.
+A controlled operation is utilised, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".
 This idea is crucial for this proposal to achieve the desired outcomes, as we are required to shift the qudit states, but are unable to do so without being in the Fourier basis, where delocalised phase changes shift the Fourier basis states.
 Analogously to the QW protocol, the qudit can be thought of as a walker driven by the ancilla qubit "coin".
 
 \subsection{Transfer}
-\label{subsection:aqcstorage}
+\label{subsection:aqctransfer}
 Assume that we have two qudits in labs A and B which are spatially separated, and each lab shares a qubit each from an entanglement Bell pair. The composite state is therefore given by
 \begin{equation}
-    \ket{0}^{(A)}_d\ket{0}^{(B)}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2^{(A,B)} + \ket{11}_2^{(A,B)}\right).
+    \ket{00}_d^{(A,B)}\otimes\frac{1}{\sqrt{2}}\left(\ket{00}^{(A,B)}_2 + \ket{11}^{(A,B)}_2\right).
 \end{equation}
-The qudits are Fourier transformed into the Fourier conjugate basis to give
+Note that in the above expression, the qudits and qubits in both labs, $A$ and $B$, are in fact in the same states.
+This is true for the entire running of the circuit and as such there is no need to explictly differentiate the qudits and ancilla qubits in either lab so the superscript labelling is dropped for the rest of this section.\newline
+
+The qudits are first Fourier transformed into the Fourier conjugate basis to give
 \begin{align}
-    &\ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2^{(A,B)} + \ket{11}_2^{(A,B)}\right)\\
-    =&\frac{1}{\sqrt{2}}\left(
-        \ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{00}_2^{(A,B)}
-        +\ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{11}_2^{(A,B)}
-        \right).
+    &\ket{+_0 +_0}_d\otimes\frac{1}{\sqrt{2}}\left(\ket{00}_2 + \ket{11}_2\right)\\
+    &=\frac{1}{\sqrt{2}}\Big(
+        \ket{+_0 +_0}_d \otimes \ket{00}_2
+        +\ket{+_0 +_0}_d \otimes \ket{11}_2
+        \Big).
 \end{align}
-Using Proposition \ref{prop:COmegaCXinQFTbasis}, a single application of the controlled-$\Omega$ in both $A$ and $B$ gives the state
+The change of basis is neccessary because to have entanglement in our qudits, they must be in superposition of at least two states of non-zero amplitude.
+Since only amplitudes can be delocalised across the qudits and ancilla qubits, in order to give other qudit states a non-zero amplitude, it is necessary to be in a basis where the basis states are related to one another by differences in their amplitudes.
+The Fourier basis is one where the basis states are in equal superposition of the all the computational basis states but differ by the relative phases in the superposition.
+Hence the need to be in the Fourier basis when using the delocalised amplitudes to effect changes in the qudits.
+The index $j$ on the $\Omega$ has an analogy to the QW protocol where the iteration number dictates how many steps need to be taken in the QW.
+Using the same line of reasoning as outlined in Claim \ref{claim:min_steps}, on the $n^{th}$ iteration of the protocol, $j = 2^{n-1}$ so in this instance ($n=1$) $j=1$.
+Using Claim \ref{claim:COmegaCXinQFTbasis}, acting $\C{\Omega}$ in both $A$ and $B$ gives the state
 \begin{equation}
     \frac{1}{\sqrt{2}}\left(
-        \ket{+_0}^{(A)}_d\ket{+_0}^{(B)}_d \otimes \ket{00}_2^{(A,B)}
-        +\ket{+_1}^{(A)}_d\ket{+_1}^{(B)}_d \otimes \ket{11}_2^{(A,B)}
+        \ket{+_0 +_0}_d \otimes \ket{00}_2
+        +\ket{+_1 +_1}_d \otimes \ket{11}_2
         \right).
 \end{equation}
-The qudits are then transformed back into the computational basis and the qubits transformed into the Hadamard basis giving,
+The qudits are then transformed back into the computational basis,
 \begin{equation}
     \frac{1}{\sqrt{2}}\left(
-        \ket{0}^{(A)}_d\ket{0}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
-        +\ket{1}^{(A)}_d\ket{1}^{(B)}_d \otimes \ket{--}_2^{(A,B)}
+        \ket{0 0}_d \otimes \ket{00}_2
+        +\ket{1 1}_d \otimes \ket{11}_2
         \right).
 \end{equation}
-In this instance, the map $U$ can be ignored since all the even state qudits are paired with $\ket{+}$ and odd state qudits paired with $\ket{-}$. Applying the controlled Z gate therefore gives us
-\begin{equation}
-    \frac{1}{\sqrt{2}}\left(
-        \ket{0}^{(A)}_d\ket{0}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
-        +\ket{1}^{(A)}_d\ket{1}^{(B)}_d \otimes \ket{++}_2^{(A,B)}
-        \right).
-\end{equation}
-Applying the final Hadamard gates on the qubits therefore gives us
-\begin{equation}
-    \label{eq:singletransferfinalstate}
-    \frac{1}{\sqrt{2}}\left(
-        \ket{0}^{(A)}_d\ket{0}^{(B)}_d +\ket{1}^{(A)}_d\ket{1}^{(B)}_d\right) \otimes \ket{00}_2^{(A,B)}.
-\end{equation}
+The operator $U$ is a correctional gate that essentially pairs all the even numbered computational qudit basis states with $\ket{0}_2$ and the odd numbered computational basis states with $\ket{1}_2$.
+(A more complete explanation for this is given in Section \ref{subsection:accumulation}.)
+In this instance, $U$ can be ignored since no corrections are needed, so $\C{X}$ is directly applied, giving
+\begin{align}
+    &\frac{1}{\sqrt{2}}\left(
+        \ket{00}_d \otimes \ket{00}_2
+        +\ket{11}_d \otimes \ket{00}_2
+        \right).\\
+    =&\underbrace{
+        \frac{1}{\sqrt{2}}\left(\ket{00}_d +\ket{11}_d\right)
+    }_{\text{Bell state}}
+    \otimes \ket{00}_2.    
+    \label{eqn:single_aqc_transfer_final}
+\end{align}
+As shown in equation \ref{eqn:single_aqc_transfer_final}, the qudits now effectively form a Bell pair and the qubits are no longer entangled - the entanglement has been transferred to the qudits.
 
 \subsection{Accumulation}
 \label{subsection:accumulation}
-Now it is assumed that one ebit of entanglement has been transferred to our qudit and we wish to transfer a further Bell pair into the qudits. Taking the final state given by 
+Assume that one ebit has been transferred to our qudits and a second ebit is to be transferred.
+Taking the final state given by equation \ref{eqn:single_aqc_transfer_final} and replacing the ancilla qubits with another entangled Bell pair gives
+\begin{equation}
+    \frac{1}{2}\left(
+            \ket{00}_d +\ket{11}_d
+        \right)
+        \otimes 
+        \left(
+            \ket{00}_2 +\ket{11}_2
+        \right).
+\end{equation}
+Again, the qudits are transformed to the Fourier basis before the $\C{\Omega^j}$ gate.
+As noted in the discussion on $\C{\Omega^j}$ above, for this iteration ($n=2$) $j=2$, giving the state
+\begin{equation}
+    \frac{1}{2}\Big[
+            (\ket{+_0 +_0}_d + \ket{+_1 +_1}_d)\otimes\ket{00}_2
+            +(\ket{+_2 +_2}_d + \ket{+_3 +_3}_d)\otimes\ket{11}_2
+        \Big].
+\end{equation}
+After doing transforming back to the computational basis, the total state becomes
+\begin{equation}
+    \frac{1}{2}\Big[
+            (\ket{00}_d + \ket{11}_d)\otimes\ket{00}_2
+            +(\ket{22}_d + \ket{33}_d)\otimes\ket{11}_2
+        \Big].
+\end{equation}
+Unlike the previous example for $n=1$, here the correctional operator $U$ is needed so that the $\C{X}$ will ensure all the qubit states are $\ket{0}_2$, allowing our qubit state to be completely separable from its associated qudit.
+In order for the $\C{X}$ to do this, it must act as the identity on $\ket{0}_2$, implement an $X$ operation on $\ket{1}_2$.
+Recall from equation \ref{eq:controlled_x} that since $X$ is self inverse for $d=2$, the control must be even when the target is $\ket{0}_2$ and odd when the target is $\ket{1}_2$.
+Hence, $U$ must implement
+\begin{align}
+    \ket{1} &\mapsto \ket{2}\\
+    \ket{2} &\mapsto \ket{1},
+\end{align}
+which then gives the state
+\begin{equation}
+    \frac{1}{2}\Big[
+            (\ket{00}_d + \ket{22}_d)\otimes\ket{00}_2
+            +(\ket{11}_d + \ket{33}_d)\otimes\ket{11}_2
+        \Big].
+\end{equation}
+As stated in Section \ref{subsection:aqctransfer}, $U$ has paired even numbered qudit basis states with $\ket{00}_2$ and odd numbered qudit basis states with $\ket{11}_2$.
+Therefore after the $\C{X}$ operation the state becomes
+\begin{align}
+    &\frac{1}{2}
+    (\ket{00}_d + \ket{22}_d + \ket{11}_d + \ket{33}_d)
+    \otimes\ket{00}_2.
+\end{align}
+The two qudits are now in an entangled state with a log negativity of 2, and there is again no entanglement in the qubits, so the entanglement has been perfectly transferred.
+This protocol can be repeated again and again with the sole change needed being the index $j$ of $\C{\Omega^j}$ and the operator $U$.
+For $n>2$ there is no unique choice of $U$, as long as odd numbered states less than $2^{n-1}$ and the even states greater than or equal to $2^{n-1}$ are swapped in some way.
+
 \subsection{Retrieval}
 \label{subsection:aqcretrieval}
 Given that this is a circuit that solely utilises unitary transformations, retrieval of entangled Bell pairs is trivially done by running the circuit backwards. Furthermore, there is no requirement to use the same ancilla qubits to retrieve the entanglement. By the end of the circuit the ancilla qubits are in the $\ket{0}$ state, therefore any pair of ancilla qubits in the $\ket{0}$ state may be used to retrieve the entanglement.
@@ -138,7 +194,7 @@ Therefore, this circuit can be utilised in turning qudits into quantum random ac
             \node[scale=1.0] {
                 \begin{quantikz}
                     \lstick{$\ket{d}$} & \gate{F} & \ctrl{1} & \gate{F^{-1}} & \gate{U} & \ctrl{1} & \qw & \gate{U^{-1}} & \qw\\
-                    \lstick{$\ket{b}$} & \qw & \gate{\Omega} & \gate{H} & \qw & \gate{Z} & \gate{H} & \qw & \qw\\
+                    \lstick{$\ket{b}$} & \qw & \gate{\Omega} & \qw & \qw & \gate{X} & \qw & \qw & \qw\\
                 \end{quantikz}
             };
         \end{tikzpicture}

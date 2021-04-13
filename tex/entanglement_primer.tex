@@ -1,17 +1,13 @@
 \subsection{Entanglement}
 Entanglement is a property of quantum systems that is the source of many of the remarkable results displayed by quantum algorithms.
 Essentially it is the presence of correlations in a quantum system that is stronger than possible classically.
-Although entanglement can exist between multipartite systems, in this report only bipartite entanglement will be discussed.
+Although entanglement can exist between multipartite systems, such as in the case of GHZ states or W states, in this report only bipartite entanglement will be discussed.
 Therefore, all references to entanglement are specifically referring to bipartite entanglement.
-\begin{definition}[Separable Pure States]
-    Consider two qubits $A$ and $B$, residing in Hilbert spaces $\mathcal{H}_A$, $\mathcal{H}_B$. Their composite state $\ket{\Psi}$ resides in the composite Hilbert space $\mathcal{H}_A \otimes \mathcal{H}_B$.
-\end{definition}
-\begin{definition}[Entangled States]
-    Two qubits $A$ and $B$ are entangled if their composite state cannot be expressed as a seperable state.
-\end{definition}
-Generalising entanglement to higher dimensions in the context of this report is done by having entanglement between qudits as opposed to qubits. There is no requirement for the dimensions of the entangled qudits to be matching. For example,
+Generalising entanglement to higher dimensions in the bipartite setting is done by having entanglement between qudits as opposed to qubits.
+There is no requirement for the dimensions of the entangled qudits to be matching.
+For example,
 \begin{equation}
-    \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\ket{+_0}_3 + \ket{1}_2\otimes\ket{+_1}_3\right),
+    \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\ket{0}_3 + \ket{1}_2\otimes\ket{1}_3\right),
 \end{equation}
 is a entangled state between a qubit and a qutrit ($d=3$).
 
@@ -19,11 +15,11 @@ is a entangled state between a qubit and a qutrit ($d=3$).
 \label{subsubsection:measure_entanglement}
 In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of quantifying entanglement, of which numerous methods have been proposed and are used.
 For a full mathematical discussion on entanglement quantification, see \cite{Plenio_2007}.
-Here we will introduce two methods of quantifying entanglement.
-The first is the \emph{negativity}.
+Here two methods of quantifying entanglement are defined.
 \begin{definition}[Negativity]
     \label{definition:negativity}
-    The negativity of a density matrix $\rho$ is given by
+    Let $\rho$ be a density matrix describing a bipartite quantum system $\mathcal{H} = \mathcal{H}_A \otimes \mathcal{H}_B$.
+    The negativity, $\mathcal{N}$, of $\rho$ is defined as
     \begin{equation}
         \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
     \end{equation}
@@ -33,10 +29,12 @@ The second method is closely related to the negativity and is called the \emph{l
 
 \begin{definition}[Logarithmic Negativity]
     \label{definition:log_neg}
-    The logarithmic negativity, $E_\mathcal{N}(\rho)$, of a system described by the density matrix $\rho$ is given by
+    Let $\rho$ be the same as in definition \ref{definition:negativity}.
+    The logarithmic negativity, $E_\mathcal{N}(\rho)$, of $\rho$ is defined as
     \begin{equation}
         E_\mathcal{N}(\rho) = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1.
     \end{equation}
+    $\rho^{\Gamma_A}$ and $\Vert X \Vert_1$ denote the same operations as definition \ref{definition:negativity}.
 \end{definition}
 From these definitions the relationship between $\mathcal{N}$ and $E_{\mathcal{N}}$ is easy to derive,
 \begin{equation}
@@ -48,10 +46,10 @@ Consider now the maximally entangled ququart state ($d = 4$),
 \begin{equation}
     \frac{1}{2}\left(\ket{00} + \ket{11} + \ket{22} + \ket{33}\right).
 \end{equation}
-This state can be considered equivalent to two Bell states, given that the state space is of the same dimension, 16, as two Bell states.
+This state can be considered equivalent to two Bell states (see Appendix XXX).
 Therefore, it would be desirable for our entanglement quantifier measure the entanglement in the ququart state to be twice the value for the Bell state, in order to make comparisons for entanglement transferred.
-Using the negativity, the ququart gives a value of 1.5.
-The log negativity however gives a value of 2.
+Using the negativity, the ququart gives a value of 1.5 (three times the negativity of a Bell state).
+The log negativity however gives a value of 2 (twice the log negativity of a Bell state).
 Hence, when quantifying entanglement transferred, in this report we will use the log negativity as it will allow for direct comparison.
 As with all quantities that can be measured there is a unit of bipartite entanglement.
 \begin{definition}[Ebit]
@@ -72,7 +70,7 @@ As shown previously though, this is the case in the log negativity and indeed, 1
     \end{equation}
     is maximally entangled, since its reduced density matrix is maximally mixed.
     Therefore, to calculate the entanglement of a maximally mixed state it is sufficient to measure the entanglement of $\ket{\psi}$.
-    The density matrix of $\ket{\psi}$ is 
+    Since $\ket{\psi}$ is a pure state, its density matrix is given by 
     \begin{align}
         \rho &= \ket{\psi}\bra{\psi}\\
         &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}

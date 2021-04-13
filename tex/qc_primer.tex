@@ -7,10 +7,6 @@ This basis is best known as the \emph{Hadamard basis}, as $\ket{+}$ and $\ket{-}
     \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
     \ket{-} &= H\ket{1} = \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
 \end{align}
-A state that describes $n$ qubits is found by taking the tensor product of states describing each of the individual qubits
-\begin{equation}
-    \ket{\Psi} = \ket{\psi_0} \otimes \ket{\psi_1} \otimes \dots \otimes \ket{\psi_{n-1}}.
-\end{equation}
 
 \subsubsection{Qudits}
 \label{subsubsection:qudits}
@@ -26,51 +22,106 @@ The $d$ dimensional analogue to the Hadamard transform is the \emph{quantum Four
 \begin{equation}
     F\ket{x}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{y=0}^{d-1} \omega^{xy}\ket{y}_d,
 \end{equation}
-where $\omega = e^{i\frac{2\pi}{d}}$.
+where $\omega = e^{i\frac{2\pi}{d}}$, i.e. it is the $d^{th}$ root of unity.
 Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_i}\}_{i=0}^{d-1}$, where
 \begin{equation}
     \ket{+_i}_d = F\ket{i}_d.
 \end{equation}
-Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.
+Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.\newline
+
+Qudits considered in isolation are not overly useful for quantum computations and in general a collection of qudits is needed for a given algorithm.
+The state of a collection of $n$ qudits, which are not neccessarily all of the same dimension, is found by taking the tensor product, denoted by $\otimes$, of states describing each of the individual qudits
+\begin{equation}
+    \ket{\Psi} = \ket{\psi_0}_{d_0} \otimes \ket{\psi_1}_{d_1} \otimes \dots \otimes \ket{\psi_{n-1}}_{d_{n-1}}.
+\end{equation}
+This notation can be further simplified by the omission of the tensor product symbol,
+\begin{equation}
+    \ket{\Psi} = \ket{\psi_0}_{d_0}\ket{\psi_1}_{d_1}\dots\ket{\psi_{n-1}}_{d_{n-1}}.
+\end{equation}
+Where there are qudits of equal dimension it is possible to further reduce the notation by combining kets together,
+\begin{align}
+    &\ket{\psi_0}_d \otimes \ket{\psi_1}_d \otimes \dots \otimes \ket{\psi_{n-1}}_d\\
+    = &\ket{\psi_0}_d\ket{\psi_1}_d\dots\ket{\psi_{n-1}}_d\\
+    = &\ket{\psi_0\psi_1\dots\psi_{n-1}}_d.
+\end{align}
+Since tensor products distribute over sums, when combining kets in superpositions they must also be distributed over.
+For example with two qudits,
+\begin{align}
+    &(\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d\\
+    = &(\ket{0}_d + \ket{1})_d\ket{2}_d\\
+    = &\ket{02}_d + \ket{12}_d
+\end{align}
+Recall also from the properties of the tensor product that it is not commutative, therefore care must be taken in ensuring that the order of qudits is preserved throughout,
+\begin{equation}
+    \ket{01}_2 \neq \ket{10}_2.
+\end{equation}
+In this report all three methods of expression will be used, with clarity given due preference over compactness.
+The subscripts denoting the dimension of a qudit state will also be dropped when their dimension has already been explictly stated.
 
 \subsubsection{Operators}
 \label{subsubsection:operators}
-There are a wide variety of other operators beyond ones that equate to a change of bases.
-One of the most common the (Pauli) $X$ gate, or NOT gate.
-As the second name implies, in the qubit setting acts in the same way as the classical NOT gate,
+There are a wide variety of other operators beyond those introduced above that equate to a change of bases.
+One of the most common is the (Pauli) $X$, or NOT, operator.
+As the second name implies, in the qubit setting acts in the same way as the classical NOT operator,
 \begin{align}
-    \ket{0} \mapsto \ket{1}\\
-    \ket{1} \mapsto \ket{0}.
+    \ket{0} &\mapsto \ket{1}\\
+    \ket{1} &\mapsto \ket{0}.
 \end{align}
 More generally in the qudit setting,
 \begin{equation}
     X\ket{i}_d = \ket{i + 1 \text{ mod } d}_d.
 \end{equation}
-This is gate is essentially the same as the classical NOT gate.
-However, there are other gates that do not have a classical analogue.
-The most common example is the (Pauli) $Z$ gate, which in the qubit setting acts as the identity on $\ket{0}$ but applies a relative -1 phase to $\ket{1} \mapsto -\ket{1}$.
+However, there are other gates that do not have a classical analogue such as the  the (Pauli) $Z$ gate.
+In the qubit setting acts $Z$ as the identity on $\ket{0}$ and applies a relative phase to $\ket{1} \mapsto -\ket{1}$.
 Again this can be generalised to the qudit setting
 \begin{equation}
     Z\ket{i}_d = \omega^i\ket{i}_d,
 \end{equation}
-where $\omega = e^{i\frac{2\pi}{d}}$ is the $d^{th}$ root of unity.
+where $\omega$ is again the $d^{th}$ root of unity.
 Both of these operators are sometimes referred to as Pauli operators as their matrix representations in the computational basis are given by the Pauli matrices $\sigma_x$ and $\sigma_z$.
 There is also the $Y$ operator corresponding to the Pauli $\sigma_y$ matrix but this is often omitted from consideration as
 \begin{equation}
-    ZX = iY
+    ZX = iY.
 \end{equation}
-so when building gates for a quantum computer, there is no theoretical need to build one as it already exists up to a global phase, which is essentially irrelevant in quantum computations, and quantum mechanics in general.
-Another important operation is the Hadamard operator $H$, and we have already seen how this is generalised to qudits by the quantum Fourier transform $F$.
+Hence when designing a set of operators for a quantum computer, there is no theoretical need for $Y$ as it already exists up to a global phase, which is essentially irrelevant.
 The final operation to be introduced in the section is the $\C{U}$, or controlled-$U$ operator, where $U$ is any unitary operation.
 This operator is distinct from the others previously introduced in that it acts on two qudits rather than just one, although it only directly alters the state of one of the two qudits.
+In the qubit setting, one qubit is designated as the control qubit and the other the target.
+If the control qubit is in the state $\ket{0}$, then nothing happens to the target qubit.
+If the control qubit is in the state $\ket{1}$, then the operator $U$ is applied to the target qubit.
+Written mathematically, where the left hand qubit is the control, the right hand qubit is the target in some arbitrary qubit state $\ket{\psi}$,
+\begin{align}
+    \C{U}\left(\ket{0}\otimes\ket{\psi}\right) &= \ket{0}\otimes\ket{\psi}
+    \label{eq:controlled_0}\\
+    \C{U}\left(\ket{1}\otimes\ket{\psi}\right) &= \ket{1}\otimes U\ket{\psi}.
+    \label{eq:controlled_1}
+\end{align}
+To extend this to the qudit setting, first note that \crefrange{eq:controlled_0}{eq:controlled_1} can be compactly written as
+\begin{equation}
+    \C{U}\left(\ket{x}\otimes\ket{\psi}\right) = \ket{x}\otimes U^x\ket{\psi}.
+    \label{eq:controlled_x}
+\end{equation}
+This equation now is well-defined for qudits, where instead of just taking values $0$ or $1$, $x$ can now take values from $\{0, 1, \dots, d-1\}$.
+Note that this definition applies also when the dimensions of the control and target are not equal, provided that the action of $U$ on the target is well-defined
+\begin{equation}
+    \C{U}\left(\ket{x}_d\otimes\ket{\psi}_{d'}\right) = \ket{x}_d\otimes U^x\ket{\psi}_{d'}.
+\end{equation}
+In this report, unless otherwise stated, it is assumed that control qudits are always on the left and target qubits on the right.\newline
 
-Quantum operations on qudits are not limited to these, and in fact any unitary transformation is a valid operation since unitary operations are reversible, which is a key ingredient for much of quantum computing, although one-way quantum computing is an area of research where reversibility is not obeyed.
+It is sometimes neccessary to have operators that act on single qudits in a collection of $n$ qudits.
+These can be expressed by taking the tensor product with the identity acting on the other qudits in the collection.
+For example, the operator that acts with an $X$ on the qudit of index 1 in the state $\ket{\psi_0}\otimes\ket{\psi_1}\otimes\ket{\psi_2}$ is given by
+\begin{equation}
+    I\otimes X\otimes I.
+\end{equation}
 
-\subsubsection{Gates and Circuits}
-The circuit notation used in describing quantum circuit schematics is derived from circuits used in classical computation.
-Straight lines in our circuit represent qubits (rather than bits as in classical circuits).
-We represent operations on these qudits via gates placed on the straight lines corresponding to the qudits we wish to act on. A table of gates relevant for this report is given in Table \ref{table:gates}.
-\begin{table}[h]
+\subsubsection{Circuits and Gates}
+\label{subsubsection:circuits_and_gates}
+When describing a circuit that implements a series of operators on our qudits, it is often much clearer and simpler to use a circuit diagram.
+Straight lines in the circuits represent qubits/qudits.
+Operations on qudits are represented by gates placed on the straight lines corresponding to the qudits we wish to act on.
+A table of gates relevant for this report is given in table \ref{table:gates}.
+\begin{table}
     \begin{center}
         \begin{tabular}{c | c}
             Operator & Gate\\
@@ -85,4 +136,23 @@ We represent operations on these qudits via gates placed on the straight lines c
     \end{center}
 \end{table}
 
-When reading a circuit, time flows from left to right and a gate must finish its operation on a qudit before the next gate is operated. However, in the case of two seperate qudits the ordering of gates that do not interact between the two of them is irrelevant since they commute, as discussed in subsection \ref{subsubsection:mathfw}.
+When reading a circuit, time flows from left to right and a gate must finish its operation on a qudit before the next gate on the same qudit is enacted. Figure \ref{fig:sample_circuit} is an example of a two qubit circuit implementing the following series of operations
+\begin{equation}
+    \C{X}(Z\otimes I)(X\otimes I)\left(\ket{0}_2\otimes\ket{\psi}_2\right).
+    \label{eqn:sample_operations}
+\end{equation}
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[scale=1.0] {
+                \begin{quantikz}
+                    \lstick{$\ket{0}_2$} & \gate{X} & \gate{Z} & \ctrl{1} & \qw\\
+                    \lstick{$\ket{\psi}_2$} & \qw & \qw & \targ{} & \qw
+                \end{quantikz}
+            };
+        \end{tikzpicture}
+    \caption{An example of a circuit schematic representing the expression given in equation \ref{eqn:sample_operations}.}
+    \label{fig:sample_circuit}
+    \end{center}
+\end{figure}

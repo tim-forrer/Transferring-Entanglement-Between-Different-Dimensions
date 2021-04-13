@@ -13,7 +13,6 @@ In our walker system, we can divide the overall Hilbert space of the QW, $\mathc
 \begin{equation}
     \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
 \end{equation}
-We note that whilst we do not place any constraints on the size of $\mathcal{H}_W$, we choose $dim(\mathcal{H}_C) = 2$, which is the natural thing to do when quantising our classical walk since the classical coin has two possible states. 
 To aid distinguishability between coin states and position states, we write that
 \begin{align}
     \langle\mathcal{H}_C\rangle &= \{\ket{\uparrow}, \ket{\downarrow}\}\\
@@ -21,9 +20,11 @@ To aid distinguishability between coin states and position states, we write that
 \end{align}
 where $\langle U \rangle$ denotes a set of vectors which span $U$. 
 Therefore, the states $\ket{\uparrow}, \ket{\downarrow}$ take the place of heads and tails on our quantum "coin". 
+Note in particular that there is no constraint placed on the dimensionality of $\mathcal{H}_W$, and therefore the walker can be taken to be a qudit, whereas $\dim{\mathcal{H}_C} = 2$ and the coin is taken to be a qubit.
 Having defined the Hilbert space within which the walk will be conducted, we can now define operators within our space that will dictate how the QW will proceed. We first define the "coin flip" operator $C\in \mathcal{H}_C$. 
-There are several choices for $C$, details of which can be found here \cite{Tregenna2003}. 
-As detailed in \cite{Tregenna2003}, for walks on a line, if we restrict ourselves to choosing an unbiased coin with real coefficients the Hadamard coin
+There is a continuum of choices for $C$, details of which can be found here \cite{Tregenna2003}. 
+For walks on a line, if we restrict ourselves to choosing an unbiased coin with real coefficients the Hadamard coin is the only choice of coin available.
+This takes on the same form as the Hadamard transform defined in Section \ref{subsection:qc_primer},
 \begin{align}
     C &= \frac{1}{\sqrt{2}}\Big[
     \ket{\uparrow}\bra{\uparrow} +
@@ -32,9 +33,10 @@ As detailed in \cite{Tregenna2003}, for walks on a line, if we restrict ourselve
     \ket{\downarrow}\bra{\downarrow}\Big]\\
     &= \frac{1}{\sqrt{2}}\Big[(\ket{\uparrow} + \ket{\downarrow})\bra{\uparrow} +
     (\ket{\uparrow} - \ket{\downarrow})\bra{\downarrow}\Big]
+    \label{equation:hadamard_coin}
 \end{align}
-is the only choice of coin available. 
-Equation (5) makes obvious the action of $C$; if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$. 
+where $\ket{0} \rightarrow \ket{\uparrow}$ and $\ket{1} \rightarrow \ket{\downarrow}$.
+Equation \ref{equation:hadamard_coin} makes obvious the action of $C$; if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$. 
 These two equal superpositions are often denoted as $\ket{+}$ and $\ket{-}$ respectively.\newline
 We then define our shift operator $S \in \mathcal{H}$ which allows the position of our walker to change, dependent on the state of the coin.
 \begin{equation}

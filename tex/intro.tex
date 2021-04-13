@@ -1,29 +1,31 @@
 Quantum computing is an area of intense active research, with its sensational results often making it into mainstream media.
 Loosely speaking, it is a field that seeks to examine how quantum phenomena can be exploited to allow for greater and more powerful computations than currently possible using classical computers.
-Many schemes for quantum computation utilise qubits, the quantum analogue of the classical bit which is the unit of information in classical computing.
+Many schemes for quantum computation utilise qubits, the quantum analogue of the bit which is the unit of information in classical computing.
 The main difference between the bit and the qubit, is that the bit can only exist in one of two states at any one time, whereas the qubit, due to it's quantum nature, can exist in superposition of both the possible states.
-Other models utilising qudits, which exist in superposition of $d$ states rather than just two, have been proposed and they can unlock certain advantages at the cost of being more complex to implement.
+Other models utilising qudits, which exist in superposition of $d$ states rather than just two, have been proposed as they can unlock further advantages at the cost of being more complex to implement physically.
 
 In addition to superposition, another well known quantum phenomena that is often taken advantage of in quantum computing is \emph{entanglement}, correlations present in quantum systems that are far stronger than possible to find in classical systems.
 There are a variety of protocols that require the presence of entangled qubits in order to achieve results not possible with classical computers, for example superdense coding \cite{Superdense}, quantum key distribution \cite{qkd} and quantum teleportation \cite{qteleport}.
-Higher dimensional entanglement, that is entanglement between qudits, is able to unlock even further benefits in quantum algorithms and as such its generation is extremely important but comes with its own challenges. \paragraph{}
+Higher dimensional entanglement, entanglement between qudits, further enhances the power of quantum algorithms, for example superdense coding.
+As such the ability to possess and manipulate entangled states in higher dimensions has further benefits but again comes with its own challenges. \newline
 
-Quantum walks are powerful tools in the landscape of quantum computing. 
+Quantum walks (QWs) are powerful tools in the landscape of quantum computing. 
 Much like their classical analogues, they exhibit many properties that are desirable for computations and are an extremely useful building block for many algorithms designed for quantum computers \cite{shenvi2003}. 
-Specific research interest into the quantum variant stems from their very significant divergences from the classical, including different spreading speeds and quantum correlations, known as entanglement, that have no classical comparison. 
-Their power is such that quantum walks can simulate any quantum computation and therefore are a model for universal quantum computing \cite{Childs_2009}.
+Specific research interest into the quantum variant stems from their very significant divergences from the classical, including different spreading speeds and ability to traverse multiple paths at once. 
+Their power is such that QWs can simulate any quantum computation and therefore are a model for universal quantum computing \cite{Childs_2009}.
 There is also evidence of robust performance even when the quantum computer is not perfectly isolated from its environment, and in certain situations it has been shown that decoherences due to interactions with the environment is beneficial for a given computation \cite{KENDON_2007}. 
 Quantum walks are divided into two categories, \emph{discrete} and \emph{continuous} time, these labels describing the nature of the evolution of the walker as the quantum walk progresses.
-Continuous time quantum walks have been shown to solve a wide range of problems in a number of different settings, in some cases exponentially faster than a classical computer is able to \cite{Childs_2003}. 
-However, the focus of this report will be on entangled state generation and transfer which requires more than one subspace in our system, a setting which lends itself much more readily to discrete time quantum walks.\paragraph{}
+Continuous time QWs have been shown to solve a wide range of problems in a number of different settings, in some cases exponentially faster than a classical computer is able to \cite{Childs_2003}. 
+However, the focus of this report will be on entangled state generation and transfer which requires more than one subspace in our system, lending itself much more readily to discrete time QWs.\paragraph{}
 
-A potential solution to the demanding task of generating higher dimensional entanglement has been proposed \cite{giordani2020} which uses the dynamics of quantum walks to transfer lower dimensional entanglement between qubits, which is far simpler to generate, into the high dimensional qudits. 
-Whilst this scheme can be used to some moderate degree of success, I will present an alternative devised to operate in a similar setting but utilising ancilla-based quantum computing to instead transfer entanglement optimally.\paragraph{}
+A potential solution to the demanding task of generating higher dimensional entanglement has been proposed \cite{giordani2020} which uses the dynamics of QWs to transfer lower dimensional entanglement between qubits, which is far simpler to generate, into the high dimensional qudits. 
+Whilst this scheme can be used to some moderate degree of success, I will present an alternative devised to operate in a similar setting but utilising ancilla-based quantum computing (AQC) to instead transfer entanglement optimally.\paragraph{}
 
-In this report, a primer on entanglement, and two models of quantum computing, quantum walks and ancilla-based quantum computing, is given in \S{\ref{section:background}}
-Following this, \S{\ref{section:qw_transfer}} will focus on the protocol that uses quantum walk dynamics to facilitate the transfer of entanglement, in particular analysing it's efficiency in achieving the aim of entanglement transfer. The ancilla-based quantum computing scheme for entanglement transfer is presented in \S{\ref{section:aqc_transfer}}, and comparison is also given highlighting the advantages this scheme has over the quantum walk based protocol. Further uses of the AQC scheme are also presented in this section.
-
-Finally, a short summary is presented in \S{\ref{section:conclusion}}.\newline
+In this report, a primer on entanglement, and two models of quantum computing, quantum walks and ancilla-based quantum computing, is given in section {\ref{section:background}}
+Following this, section {\ref{section:qw_transfer}} will focus on the protocol that uses QW dynamics to facilitate the transfer of entanglement, in particular analysing its efficiency in achieving the aim of entanglement transfer. 
+The AQC scheme for entanglement transfer is presented in section \ref{section:aqc_transfer}. 
+Further uses of the AQC scheme beyond the transfer of entanglement are also presented in this section. 
+Finally, a discussion on the results presented in the report, further work and a brief summary is presented in section {\ref{section:discussion}}.\newline
 
 MOVE TO WHEN NEEDED
 As mentioned above, discrete time quantum walks are much more suited for the purposes of this report, therefore future references to quantum walks will be assumed to be the discrete variant unless stated otherwise. 

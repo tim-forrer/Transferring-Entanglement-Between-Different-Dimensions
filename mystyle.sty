@@ -66,6 +66,10 @@
     linkcolor=blue,
     urlcolor=blue
 }
+\usepackage{cleveref} % Reference group of equations, must be loaded after hypperef.
+\crefrangelabelformat{equation}{#3#1#4-#5#2#6}
+\crefname{equation}{equation}{equations}
+\Crefname{equation}{Equation}{Equations}
 
 % Localisation.
 \usepackage[english]{babel}
