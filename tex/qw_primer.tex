@@ -1,32 +1,36 @@
 \subsection{Random Walks}
 \subsubsection{Classical Random Walk}
-Before discussing quantum random walks, I will first motivate their design using the example of a classical random walk on a discrete number line.
+Quantum random walks, like much of quantum computing, can be motivated from a classical predecessor, the \emph{classical random walk}.
 In the classical random walk, a walker (often described as being somewhat inebriated) is constrained to moving up and down a discrete number line, starting their walk at the origin.
-To determine whether to take a step to the left (-1) or the right (+1), the walkers flips an unbiased coin, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
-The process is can be repeated over and over until a desired stopping point is reached, after a given number of coin flips, or until the walker has reached a specific destination, such as their house in the case of the inebriated walker.
-The walk can also continue on forever and in this limit, the walker will reach every point on the number line.
-The probability distribution describing the probability of the walker being in any given position away from the origin is given by a binomial distribution, shown in orange in Figure \ref{fig:discVSclass} for 100 coin flips. 
+To determine whether to take a step to the left (-1) or the right (+1), the walker flips an unbiased coin, moving to the right if the coin lands on heads and to the left if the coin lands on tails. 
+This process of flipping a coin and taking a step can be repeated until a desired stopping point is reached, e.g. after a given number of coin flips, or until the walker has reached a specific destination.
+The walk can also continue on forever and in this limit, the walker will reach every point on the number line - however in this report only finite length walks are considered.
+Without much thought it can be concluded that after $T$ steps the walker can be at most at $\pm T$, corresponding to the case where every step taken is in the same direction.
+The probability distribution describing the probability of the walker being in any given position away from the origin is given by a binomial distribution, an example of which is shown in orange in figure \ref{fig:discVSclass} for 100 coin flips. 
 
 \subsubsection{Quantum Random Walk}
-With the classical random walk model in mind, we are now in a position to "quantise" it into the \emph{quantum random walk}.
-In our walker system, we can divide the overall Hilbert space of the QW, $\mathcal{H}$, into two subspaces, the coin subspace $\mathcal{H}_C$ and the position subspace of the walker $\mathcal{H}_W$. 
+With the classical random walk model in mind, it can now be "quantised" into the \emph{quantum random walk} like so.
+The QW is considered as a composite system of the coin, belonging to the Hilbert space $\mathcal{H}_C$ and walker, $\mathcal{H}_C$,
 \begin{equation}
     \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
 \end{equation}
-To aid distinguishability between coin states and position states, we write that
+Note that this use of subscript does not depart from the earlier usage to indicate the dimension of the Hilbert space, since the $\mathcal{H}_C$ is spanned by two states (the "heads" state and the "tails" state), and $\mathcal{H}_W$ is spanned by all the points on the number line to be walked upon, so can be thought of as an unspecified $d$ dimensional space.
+Therefore the labels $C$ and $W$, also serve to indicate the dimension of the labelled space.\newline
+To aid distinguishability between coin states and position states, they are labelled by
 \begin{align}
     \langle\mathcal{H}_C\rangle &= \{\ket{\uparrow}, \ket{\downarrow}\}\\
-    \langle\mathcal{H}_W\rangle &= \{\ket{k} | k\in\mathbb{Z}\},
+    \langle\mathcal{H}_W\rangle &= \{\ket{k} | -T\leq k \leq +T, k\in\mathbb{Z}\},
 \end{align}
-where $\langle U \rangle$ denotes a set of vectors which span $U$. 
+where $\langle U \rangle$ denotes a set of states which span $U$, and $T$ again is the number of "coin flips" (see below). 
 Therefore, the states $\ket{\uparrow}, \ket{\downarrow}$ take the place of heads and tails on our quantum "coin". 
 Note in particular that there is no constraint placed on the dimensionality of $\mathcal{H}_W$, and therefore the walker can be taken to be a qudit, whereas $\dim{\mathcal{H}_C} = 2$ and the coin is taken to be a qubit.
-Having defined the Hilbert space within which the walk will be conducted, we can now define operators within our space that will dictate how the QW will proceed. We first define the "coin flip" operator $C\in \mathcal{H}_C$. 
-There is a continuum of choices for $C$, details of which can be found here \cite{Tregenna2003}. 
+Now that the Hilbert space of the system has been contructed, operators are required in order for the system to evolve.
+In the classical random walk, the first operation needed was a coin flip so in similar fashion the quantum walk too needs a coin flip operator, $C\in \mathcal{H}_C$. 
+There is a continuum of choices for $C$, details of which can be found in \cite{Tregenna2003}. 
 For walks on a line, if we restrict ourselves to choosing an unbiased coin with real coefficients the Hadamard coin is the only choice of coin available.
-This takes on the same form as the Hadamard transform defined in Section \ref{subsection:qc_primer},
+This takes on the same form as the Hadamard transform defined in Section \ref{subsection:qc_primer}, here written explicitly as
 \begin{align}
-    C &= \frac{1}{\sqrt{2}}\Big[
+    H &= \frac{1}{\sqrt{2}}\Big[
     \ket{\uparrow}\bra{\uparrow} +
     \ket{\uparrow}\bra{\downarrow} +
     \ket{\downarrow}\bra{\uparrow} -
@@ -36,15 +40,14 @@ This takes on the same form as the Hadamard transform defined in Section \ref{su
     \label{equation:hadamard_coin}
 \end{align}
 where $\ket{0} \rightarrow \ket{\uparrow}$ and $\ket{1} \rightarrow \ket{\downarrow}$.
-Equation \ref{equation:hadamard_coin} makes obvious the action of $C$; if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$. 
-These two equal superpositions are often denoted as $\ket{+}$ and $\ket{-}$ respectively.\newline
-We then define our shift operator $S \in \mathcal{H}$ which allows the position of our walker to change, dependent on the state of the coin.
+As before, if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$ and this is made clear in particular by equation \ref{equation:hadamard_coin}.
+Following this, a shift operator $S \in \mathcal{H}$ is needed to move the walker dependent on the state of the coin.
 \begin{equation}
     S = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
 \end{equation}
-Again, this representation of $S$ makes manifest its effect on our walker. 
-If the coin is in the $\ket{\uparrow}$, then we take a step in the +1 direction, if in the $\ket{\downarrow}$ then we take a step in the -1 direction. 
-The probability distribution of such a walk is plotted in Fig \ref{fig:discVSclass}, where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk.\newline
+Again, representing $S$ in this way makes manifest its effect on our walker. 
+If the coin is in the $\ket{\uparrow}$, the walker takes a step in the +1 direction, if in the $\ket{\downarrow}$ then a step in the -1 direction is taken.
+The probability distribution of such a walk is plotted in fig \ref{fig:discVSclass}, where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk.\newline
 
 \begin{figure}
     \centering
@@ -53,11 +56,14 @@ The probability distribution of such a walk is plotted in Fig \ref{fig:discVScla
     \label{fig:discVSclass}
 \end{figure}
 
-Whilst the above choice of $S$ is the most common on the number line, it is also possible to define an alternative choice of shift operator,
+Whilst the above choice of $S$ is the most common on the number line, there are alternatives such as
 \begin{equation}
     \tilde{S} = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k + 1}\bra{k}.
 \end{equation}
-Th subtle difference between $\tilde{S}$ and $S$ is that $\tilde{S}$ can only move in the $+1$ direction of the number line and has no "left moving" part, so to speak. 
+Th subtle difference between $\tilde{S}$ and $S$ is that $\tilde{S}$ can only move in the $+1$ direction of the number line and has no "left moving" part.
 This means that $\tilde{S}$ is restricted to the non-negative integers and unlike $S$, can occupy all $\ket{x}$ for $0\leq x\leq T$, where $T$ is the number of time steps in our QW.
-
+In fact $\tilde{S}$ is an operator that was introduced earlier in section \ref{subsubsection:operators},
+\begin{equation}
+    \tilde{S} = \C{X}.
+\end{equation}
 \FloatBarrier

@@ -1,14 +1,16 @@
 \subsection{Ancilla-Based Quantum Computing}
-Quantum walks is but one of many universal quantum computing models.
-Another model is known as \emph{ancilla-based quantum computing}, which, in particular, aims to resolve two conflicting demands when building quantum computers:
-We wish for our qubits to be well isolated to prevent decoherence, yet also want them to interact with each other to perform our quantum computations.
-However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely addresses these two issues.
+The quantum walk model of quantum computation is but one of many universal quantum computing models.
+Another model is known as \emph{ancilla-based quantum computing} (AQC), which, in particular, aims to resolve two conflicting demands when building quantum computers:
+Qubits must be well isolated to prevent decoherence, yet it must also be possible for them to interact with one another in certain settings, such as implementing the $\C{X}$ operator.
+However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely fulfils both of these aims.
 
-Ancilla-based quantum computing aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
+AQC aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
 Using this model, it is possible to implement two complementary registers of qubits.
-The main register can be designed to be strongly isolated from interactions, bar a select few natural interactions with the ancilla registry, whose qubits can be easily manipulated but decohere much faster. Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the register and the ancilla. After performing a computation on the ancilla qubit, the quantum information is then \emph{relocalised} back into the main register.
-The ancilla can be reset to the initial state and used again for other computations.
-A simple example of a circuit designed for ancilla-based quantum computing is shown in Figure \ref{simple aqc}. 
+The main register can be designed to be strongly isolated from interactions, bar a limited number of interactions with the ancilla registry, whose qubits can be easily manipulated but decohere much faster.
+Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the register and the ancilla.
+After performing a computation on the ancilla qubit, the quantum information is then \emph{relocalised} back into the main register.
+The ancilla can then be reset to the initial state and used again for other computations.
+A simple example of a circuit designed for ancilla-based quantum computing is shown in figure \ref{figure:aqc_Z}. 
 
 \begin{figure}[h]
     \begin{center}
@@ -20,32 +22,37 @@ A simple example of a circuit designed for ancilla-based quantum computing is sh
                 \end{quantikz}
                 $\equiv$
                 \begin{quantikz}
-                    \lstick{$\ket{\psi}$} & \gate{Z} & \qw
+                    \lstick{$\ket{\psi}$} & \gate{Z} & \qw\\
                 \end{quantikz}
             };
         \end{tikzpicture}
-    \caption{Two circuits that implement a $Z$ gate acting on an arbitrary qubit $\ket{\psi}$.}
-    \label{simple aqc}
+    \caption{Two circuits that implement a $Z$ gate acting on an arbitrary qubit $\ket{\psi}$. The circuit on the left does so indirectly via interactions with an ancilla qubit.}
+    \label{figure:aqc_Z}
     \end{center}
 \end{figure}
-The circuit on the left hand side of Figure \ref{simple aqc} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate. Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.
-This model of quantum computing does not have to be reserved to qubit computing alone and applies to qudits and even quantum continous variables (QCVs).
-However, here the focus will be on utilising it with qubits and qudits.
-In fact there is no prerequisite to only using qudits of similar dimension, and defining quantum operators designed for mismatched dimensions is relatively straightforward to do.
-First examine the the case of the controlled NOT gate.
-In Section \ref{subsection:qc_primer} it was shown that the $\C{X}$ gate acts an $X$ gate on the target qubit if the control qubit is in the state $\ket{1}$. This can be summarised as follows
-\begin{equation}
-    \C{X}\left(\ket{i}_2\otimes\ket{j}_2\right) = \ket{i}_2 \otimes X^i\ket{y}_2.
-\end{equation}
-Expressed in this way there is quite a natural extension of the $\C{X}$ gate in the case that the control and target are both qudits of arbitrary dimension,
-\begin{equation}
-    \C{X}\left(\ket{i}_d\otimes\ket{j}_{d'}\right) = \ket{i}_d \otimes X^i\ket{y}_{d'},
-\end{equation}
-recalling that the general $X$ gate in $d'$ dimensions increments the basis states by 1, mod $d'$.
-Indeed any $\C{U}$ gate can be expressed in this manner
-\begin{equation}
-    \C{U}\left(\ket{i}_d\otimes\ket{j}_{d'}\right) = \ket{i}_d \otimes U^i\ket{y}_{d'},
-\end{equation}
-provided that $U$ has been well-defined in $d'$ dimensions.
-
-Later in this report I will highlight how this particular model of quantum computing is well suited for the protocol outlined in \cite{giordani2020}, which will be discussed in detail in the following section.
+The circuit on the left hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate.
+Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.
+Note however that this would not directly work to implement an $X$ gate on $\ket{\psi}$ if the $Z$ gate were directly switched with an $X$ gate.
+This is because only amplitudes can be delocalised and relocalised, computational basis states cannot be directly affected by ancilla interactions.
+If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states differ by their amplitudes, before the $Z$ circuit and mapped back afterwards (see figure \ref{figure:aqc_X}), then it is possible to effect an $X$ operator in the AQC setting.
+\begin{figure}[h]
+    \begin{center}
+        \begin{tikzpicture}
+            \node[scale=1.0] {
+                \begin{quantikz}
+                    \lstick{$\ket{\psi}$} & \gate{H} & \ctrl{1} & \qw &\ctrl{1} & \gate{H} & \qw\\
+                    \lstick{$\ket{0}$} & \qw & \targ{} & \gate{Z} & \targ{} & \qw &\qw
+                \end{quantikz}
+                $\equiv$
+                \begin{quantikz}
+                    \lstick{$\ket{\psi}$} & \gate{X} & \qw\\
+                \end{quantikz}
+            };
+        \end{tikzpicture}
+    \caption{Implementing an $X$ gate on $\ket{\psi}$ in the AQC setting by first mapping $\ket{\psi}$ to the Hadamard basis before and after the $Z$ circuit given in fig \ref{figure:aqc_Z}}
+    \label{figure:aqc_X}
+    \end{center}
+\end{figure}
+This model of quantum computing does not have to be reserved to qubit computing alone and can be extended to qudits simply by using the general forms of operators, as described in section \ref{subsubsection:operators}.
+An further advantage of AQC is that it is particularly well placed to used registers of qudits with mismatched dimensions.
+Therefore, it is an extremely suitable model of quantum computation for entanglement transfer as entangled qubits can be used as the ancilla (to be regularly replaced once the entanglement is transferred), and qudits of arbitrary dimension can be the main register to ensure the entanglement transferred is long-lived.
