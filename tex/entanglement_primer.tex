@@ -13,77 +13,47 @@ is a entangled state between a qubit and a qutrit ($d=3$).
 
 \subsubsection{Measuring entanglement}
 \label{subsubsection:measure_entanglement}
-In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of quantifying entanglement, of which numerous methods have been proposed and are used.
+In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of measuring entanglement, of which numerous methods have been proposed and are used.
 For a full mathematical discussion on entanglement quantification, see \cite{Plenio_2007}.
-Here two methods of quantifying entanglement are defined.
-\begin{definition}[Negativity]
-    \label{definition:negativity}
-    Let $\rho$ be a density matrix describing a bipartite quantum system $\mathcal{H} = \mathcal{H}_A \otimes \mathcal{H}_B$.
-    The negativity, $\mathcal{N}$, of $\rho$ is defined as
-    \begin{equation}
-        \mathcal{N}(\rho) = \frac{||\rho^{\Gamma_A}||_1-1}{2},
-    \end{equation}
-    where $\rho^{\Gamma_A}$ denotes the partial transpose of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
-\end{definition}
-The second method is closely related to the negativity and is called the \emph{logarithmic}, or \emph{log}, \emph{negativity}.
-
+In this report, the measure of entanglement used is the \emph{logarithmic negativity}, first presented by Vidal \cite{Vidal_2002}.
 \begin{definition}[Logarithmic Negativity]
     \label{definition:log_neg}
-    Let $\rho$ be the same as in definition \ref{definition:negativity}.
+    Let $\rho$ be a density matrix describing a bipartite quantum system $\mathcal{H} = \mathcal{H}_A \otimes \mathcal{H}_B$.
     The logarithmic negativity, $E_\mathcal{N}(\rho)$, of $\rho$ is defined as
     \begin{equation}
         E_\mathcal{N}(\rho) = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1.
     \end{equation}
-    $\rho^{\Gamma_A}$ and $\Vert X \Vert_1$ denote the same operations as definition \ref{definition:negativity}.
+    where $\rho^{\Gamma_A}$ denotes the partial transpose of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
 \end{definition}
-From these definitions the relationship between $\mathcal{N}$ and $E_{\mathcal{N}}$ is easy to derive,
+The logarithmic negativity is also referred to as the log negativity.
+It is an appropriate choice for the purpose of this report as it is an entanglement measure that is computable for mixed as well as pure states, and satisfies (strong) additivity
 \begin{equation}
-    E_\mathcal{N} = \log_2\left(2\mathcal{N} + 1\right).
+    E_\mathcal{N}(\rho \otimes \sigma) = E_\mathcal{N}(\rho) + E_\mathcal{N}(\rho).
 \end{equation}
-One key difference between these two measures is they way in which they quantify entanglement of maximally entangled states.
-Bell states, which are maxially entangled two qubit states, have a negativity of $\frac{1}{2}$, and a log negativity of $1$.
-Consider now the maximally entangled ququart state ($d = 4$),
-\begin{equation}
-    \frac{1}{2}\left(\ket{00} + \ket{11} + \ket{22} + \ket{33}\right).
-\end{equation}
-This state can be considered equivalent to two Bell states (see Appendix XXX).
-Therefore, it would be desirable for our entanglement quantifier measure the entanglement in the ququart state to be twice the value for the Bell state, in order to make comparisons for entanglement transferred.
-Using the negativity, the ququart gives a value of 1.5 (three times the negativity of a Bell state).
-The log negativity however gives a value of 2 (twice the log negativity of a Bell state).
-Hence, when quantifying entanglement transferred, in this report we will use the log negativity as it will allow for direct comparison.
-As with all quantities that can be measured there is a unit of bipartite entanglement.
-\begin{definition}[Ebit]
-    \label{definition:ebit}
-    The ebit is defined as the entanglement present in a maximally entangled two qubit state (a Bell state).
-\end{definition}
-Note that this definition is free from specifying a measure of entanglement, so it is not always the case that 2 ebits of entanglement is present in a state equivalent to 2 Bell states (the negativity is an example of this).
-As shown previously though, this is the case in the log negativity and indeed, 1 ebit is equal to 1 unit of log negativity.
-
+A proof for this is given in \cite{Vidal_2002}.\newline
+This usefulness of this can be demonstrated with the use of the following claim.
 \begin{claim}
     \label{claim:maximally_entangled_states}
-    A maximally entangled state in $d\times d$ dimensions has $\log_2d$ ebits when measured with log negativity.
+    A maximally entangled state in $d\times d$ dimensions has a log negativity of $\log_2d$.
 \end{claim}
 \begin{proof}
     First, note that for a Hilbert space of dimension $d\times d$, the state
     \begin{equation}
-        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}
+        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}_A \otimes \mathcal{H}_B
     \end{equation}
-    is maximally entangled, since its reduced density matrix is maximally mixed.
-    Therefore, to calculate the entanglement of a maximally mixed state it is sufficient to measure the entanglement of $\ket{\psi}$.
-    Since $\ket{\psi}$ is a pure state, its density matrix is given by 
+    is maximally entangled, since its reduced density matrix in either subspace is maximally mixed.
+    So to quantify the entanglement of any maximally entangled state it is sufficient to calculate the log negativity of the density matrix, $\rho$ associated with $\ket{\psi}$.
+    Since $\ket{\psi}$ is a pure state
     \begin{align}
         \rho &= \ket{\psi}\bra{\psi}\\
         &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}
     \end{align}
-    To calculate $E_{\mathcal{N}}$ we need the partial transpose on one of the subsystems, the choice of which is irrelevant since they are both entangled with one another.
-    So we choose to find the partial transpose on $A$.
+    To calculate $E_{\mathcal{N}}(\rho)$ we need the partial transpose on one of the subspaces, the choice of which is irrelevant since they are both equally entangled with one another.
+    So choose to find the partial transpose in $\mathcal{H}_A$.
     \begin{align}
         \rho^{\Gamma_A} =\frac{1}{d} \sum_{j,k}\ket{k}\bra{j}\otimes\ket{j}\bra{k}
     \end{align}
-    From this we wish to calculate the trace norm 
-    \begin{equation}
-        \Vert\rho\Vert_1 = \sqrt{\rho\rho^{\dagger}}.
-    \end{equation}
+    From this we wish to calculate the trace norm $\Vert X\Vert_1 = \Tr\left(\sqrt{XX^{\dagger}}\right)$.
     \begin{align}
         \rho^{\Gamma_A}\left(\rho^{\Gamma_A}\right)^{\dagger} &= \frac{1}{d^2} \sum_{j,k}\ket{k}\bra{k}\otimes\ket{j}\bra{j}\\
         &=\frac{1}{d^2}I_d\otimes I_d\\
@@ -92,9 +62,12 @@ As shown previously though, this is the case in the log negativity and indeed, 1
         &= \frac{1}{d}\cdot d^2\\
         &= d
     \end{align}
-    Therefore, this gives us that
+    Therefore, this gives
     \begin{align}
         E_{\mathcal{N}} &= \log_2\left\Vert \rho^{\Gamma_A}\right\Vert\\
         &= \log_2d.
     \end{align}
 \end{proof}
+This combined with the strong additivity condition is what makes the choice of log negativity an apt one.
+In comparing how efficient the transfer of entanglement from the Bell pairs to a qudit pair, the log negativity allows for direct comparison of the entanglement transferred into the two qudit system, and the entanglement of the resultant state of the qudit pair.
+If the entanglement in $n$ Bell states is transferred, then the final state of the qudit pair has log negativity $n$ in the case of optimal transfer.
