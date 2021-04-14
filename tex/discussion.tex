@@ -1,9 +1,17 @@
+In the example given in section \ref{section:qw_transfer}, it is shown that the protocol proposed in the QW setting can optimally transfer all the entanglement to the qudit pair.
+However, this is with the significant caveat that the example does not use quantum walk dynamics in order to transfer the entanglement, as using the identity as a coin is akin to having no coin at all.
+In analysing the protocol with the Hadamard coin, it was only possible to transfer one Bell state's worth of entanglement optimally and
+numerical simulations of the protocol for storing two Bell states, found that the resulting state had around 1.585 units of log negativity (figure \ref{fig:2ebittransfer}).
+Furthermore, the projective measurements employed as part of the protocol mean that it is not a unitary protocol, therefore not deterministic and non-trivial to reverse in order to retrieve the entanglement out from the entangled qudits.
+The experimental implementation suggested in the paper also required the use of post selection, where undesirable states were discarded and the protocol run again.
+All this in combination results in a protocol which is rather inefficient in achieving its aims, and serves more as a proof of concept in that it is possible to use quantum walk dynamics to transfer entanglement, but falls short in being a suitable implementation for the task.
+
+Adapting the identity coin example to the ancilla-based quantum computing circuit given in section \ref{section:aqc_transfer} resulted in a circuit that solved these inefficiencies.
+The entanglement can always be transferred optimally and exclusive utilisation of unitary operators means that the circuit can just be reversed with any ancilla qubit in the $\ket{0}$ state.
+
 \subsection{Further Steps}
 \label{subsection:furthersteps}
-As discussed in Section \ref{subsection:furtheruses}, the circuit given in Figure \ref{fig:aqc_circuit_schematic} has potential uses beyond the original scope in which is has been designed.
+As discussed in Section \ref{subsection:furtheruses}, the circuit given in figure \ref{fig:aqc_circuit_schematic} has potential uses beyond the original scope in which is has been designed.
 It would be of interest to see if it can also be applied to a scenario where we wish to transfer multipartite entanglement to higher dimensional qudits, for example transferring GHZ states or W states.
 Such analysis should be relatively straightforward to generalise to the multipartite scenario, although extending computational simulations may not be so trivial without adequate computational power.
-Furthermore, the analysis of this work could be brought to greater completion if the circuit was generalised to the scenario where we wish to store qudit states rather than just qubit states.
-
-\subsection{Conclusions}
-\label{subsection:conclusions}
+Furthermore, the analysis of this work could be brought to greater completion if the circuit was generalised to the scenario where we wish to store qudit states, or entanglement associated with qudit pairs, rather than just qubit states.

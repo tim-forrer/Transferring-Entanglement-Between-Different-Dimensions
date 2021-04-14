@@ -78,3 +78,12 @@
 
 % No indentation on new paragraph.
 \usepackage[parfill]{parskip}
+
+% Allow ranges on item labels in enumerate environment.
+\def\itemrange#1{%
+\addtocounter{enumi}{1}%
+\edef\labelenumi{\theenumi.--\noexpand\theenumi.}%
+\addtocounter{enumi}{-1}%
+\addtocounter{enumi}{#1}%
+\item
+\def\labelenumi{\theenumi}}
