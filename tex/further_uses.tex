@@ -1,0 +1,128 @@
+Although the goal of this research was to design a protocol in a similar setting to the QW based protocol that could optimally generate maximally entangled states, further probing of the AQC circuit shows that it has further uses beyond storage of entanglement.
+In this section, consider a scenario where the quantum information contained in a collection of qubits is to be stored.
+By taking one half of the circuit given for the two lab setting and adding a gate $U^{-1}$ that undoes the basis state map seen before, as shown in figure \ref{fig:aqc_qbit_store}, arbitrary qubit states can be stored in the qudit, provided that $d \geq 2^n$, where $n$ is the number of qubit states to be stored.
+Furthermore, in the case that two or more qubit states are stored via this circuit then it is in fact possible to retrieve the qubit states in a different order to that in which they were stored, as long as the original order they were stored in is known.
+Therefore, this circuit can be utilised in turning qudits into quantum random access memory.
+
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[scale=1.0] {
+                \begin{quantikz}
+                    \lstick{$\ket{d}$} & \gate{F} & \ctrl{1} & \gate{F^{-1}} & \gate{U} & \ctrl{1} & \qw & \gate{U^{-1}} & \qw\\
+                    \lstick{$\ket{b}$} & \qw & \gate{\Omega} & \qw & \qw & \gate{X} & \qw & \qw & \qw\\
+                \end{quantikz}
+            };
+        \end{tikzpicture}
+    \caption{The AQC circuit with one qudit and qubit which can store arbitrary qubit states in the qudit.}
+    \label{fig:aqc_qbit_store}
+    \end{center}
+\end{figure}
+
+\subsection{Quantum Random Access Memory}
+\label{subsection:qram}
+The procedure for utilising the circuit as a quantum random access memory is as follows.
+Assume that there is a qudit in state $\ket{0}_d$ and two qubits, qubit 1 and qubit 2, in states $a\ket{0}_2 + b\ket{1}_2$ and $c\ket{0}_2 + d\ket{1}_2$ respectively.
+We first run the circuit with the qudit and qubit 1,
+\begin{equation}
+    \ket{0}_d \otimes \left(a\ket{0} + b\ket{1}\right) \longrightarrow \left(a\ket{0}_d + b\ket{1}_d\right) \otimes \ket{0}_2.
+\end{equation}
+We then replace qubit 1 with qubit 2 and run the circuit again,
+\begin{equation}
+    \left(a\ket{0}_d + b\ket{1}_d\right) \otimes \left(c\ket{0}_2 + d\ket{1}_2 \right) \longrightarrow \left(ac\ket{0}_d + bc\ket{1}_d + ad\ket{2}_d + bd\ket{3}_d \right)\otimes\ket{0}_2.
+    \label{eqn:twoqbitsinqdit}
+\end{equation}
+In order to retrieve qubit 2 back, this can be done simply by running the circuit backwards.
+However, if we wish to retrieve the qubit 1 state then we first require a specific unitary operator. The form of the unitary transform can be found as follows.
+Rewrite each of the qudit basis state numbers in binary, i.e.
+\begin{align}
+    \ket{0} &= \ket{00}\\
+    \ket{1} &= \ket{01}\\
+    \ket{2} &= \ket{10}\\
+    \ket{3} &= \ket{11}.
+\end{align}
+Rewriting the final state of equation \ref{eqn:twoqbitsinqdit} in this way we obtain the following expression
+\begin{equation}
+    ac\ket{0} + bc\ket{1} + ad\ket{2} + bd\ket{3} = ac\ket{00} + bc\ket{01} + ad\ket{10} + bd\ket{11},
+    \label{eqn:binaryexpression}
+\end{equation}
+which can be rewritten as the product state
+\begin{equation}
+    \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}} \otimes \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}}.
+\end{equation}
+Quite remarkably the qudit has an intuitive alternative expression as the product state of qubit 1 and qubit 2.
+If the circuit is run backwards, we will retrieve qubit 2.
+Therefore, to retrieve qubit 1 instead, the qudit state should be expressable as
+\begin{equation}
+    \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}} \otimes \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}}.
+\end{equation}
+This can be thought of as switching the positions of our two qubits, which leads us to the unitary transformation we need.
+We need a map, $M$, which will switch the positions of our two qubits.
+$M$ is found by mapping each of the binary qudit state representations $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$ to the basis state with the binary digits switched.
+\begin{align}
+    \ket{00} &\mapsto \ket{00}\\
+    \ket{01} &\mapsto \ket{10}\\
+    \ket{10} &\mapsto \ket{01}\\
+    \ket{11} &\mapsto \ket{00}.
+\end{align}
+We can check that this gives us the form that we want taking the RHS of equation \ref{eqn:binaryexpression} and acting $M$ on it to obtain
+\begin{align}
+    M\left(ac\ket{00} + ad\ket{01} + bc\ket{10} + bd\ket{11}\right) 
+    &=  ac\ket{00} + ad\ket{10} + bc\ket{01} + bd\ket{11}\\
+    &= \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}} \otimes \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}},
+\end{align}
+as required.
+$M$ can be expressed in terms of the original qudit state labelling by converting the binary back
+\begin{align}
+    \ket{0} &\mapsto \ket{0}\\
+    \ket{1} &\mapsto \ket{2}\\
+    \ket{2} &\mapsto \ket{1}\\
+    \ket{3} &\mapsto \ket{3}.
+\end{align}
+The matrix representation of $M$ is given by
+\begin{equation}
+    M = 
+    \begin{pmatrix}
+        1 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 1\\
+    \end{pmatrix}.
+\end{equation}
+Generalising this to larger numbers of qubits stored is done via the same thought process.
+Imagine that there is now third qubit to be stored in the qudit, qubit 3, in the state
+\begin{equation}
+    e\ket{0} + f\ket{1}.
+\end{equation}
+When qubits 1, 2 and 3 are stored in that same order, it results in the state
+\begin{equation}
+    ace\ket{0} + ade\ket{1} + bce\ket{2} + bde\ket{3} + ace\ket{4} + adf\ket{5} + bcf\ket{6} + bdf\ket{7},
+\end{equation}
+which again, when converted to binary numbers, can be expressed as the product state
+\begin{equation}
+    \left(e\ket{0} + f\ket{1}\right) \otimes \left(c\ket{0} + d\ket{1}\right) \otimes \left(a\ket{0} + b\ket{1}\right).
+\end{equation}
+If the state of qubit 1 is needed then $M$ must implement the map
+\begin{align}
+    \ket{1} = \ket{001} &\mapsto \ket{100} = \ket{4}\\
+    \ket{3} = \ket{011} &\mapsto \ket{110} = \ket{6}\\
+    \ket{4} = \ket{100} &\mapsto \ket{001} = \ket{1}\\
+    \ket{6} = \ket{110} &\mapsto \ket{011} = \ket{3}
+\end{align}
+with all other basis states mapped to themselves as they are identical when switching the first and last digits of their binary representations.
+Having operated $M$ on the qudit state, the circuit can be run backwards in order to retrieve qubit 1. As with retrieving Bell pairs in section \ref{section:aqc_transfer}, any qubit in the state $\ket{0}$ can be used to retrieve qubit 1.
+
+In a practical setting it may be more efficient to build a gate, $P$, that permutes the order of the qubits instead of swapping two digits.
+One example of $P$ would be the map that permutes each qubit one place the right,
+\begin{align}
+    \ket{1} = \ket{001} &\mapsto \ket{100} = \ket{4}\\
+    \ket{2} = \ket{010} &\mapsto \ket{001} = \ket{1}\\
+    \ket{3} = \ket{011} &\mapsto \ket{101} = \ket{5}\\
+    \ket{4} = \ket{100} &\mapsto \ket{010} = \ket{2}\\
+    \ket{5} = \ket{101} &\mapsto \ket{110} = \ket{6}\\
+    \ket{6} = \ket{110} &\mapsto \ket{011} = \ket{3}.
+\end{align}
+Again $\ket{0}, \ket{7}$ are mapped to themselves as the permutation does not affect them.
+In this way, any of the qubit states can be retrieved by continually applying $P$ until the qubit state to be retrieved is in the right "place".
+Utilising a single gate would also be more appropriate for the ancilla-based quantum computing setting where a minimal gate set is desired for the control qudits.
+However, this would require multiple applications of the same gate which, without adequate error correction, would lead to greater decoherence of the quantum information than if just a single switching gate $M$ were applied.

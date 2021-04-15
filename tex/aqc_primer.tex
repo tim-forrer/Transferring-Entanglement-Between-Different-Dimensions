@@ -53,6 +53,8 @@ If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states
     \label{figure:aqc_X}
     \end{center}
 \end{figure}
+These two circuits highlight the somewhat counterintuitive nature of AQC.
+A controlled operation is utilised, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".\newline
 This model of quantum computing does not have to be reserved to qubit computing alone and can be extended to qudits simply by using the general forms of operators, as described in section \ref{subsubsection:operators}.
 An further advantage of AQC is that it is particularly well placed to used registers of qudits with mismatched dimensions.
 Therefore, it is an extremely suitable model of quantum computation for entanglement transfer as entangled qubits can be used as the ancilla (to be regularly replaced once the entanglement is transferred), and qudits of arbitrary dimension can be the main register to ensure the entanglement transferred is long-lived.

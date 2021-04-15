@@ -1,12 +1,47 @@
 \subsection{Quantum Computation}
 \subsubsection{Qubits}
 \label{subsubsection:qubits}
-When describing a qubit, we say that it lives in a Hilbert space $\mathcal{H}$ spanned by two states, labelled $\ket{0}$ and $\ket{1}$ in the \emph{computational basis}. Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$.
+A qubits can be described by a state belonging to a Hilbert space $\mathcal{H}$ of dimension two.
+A common basis for $\mathcal{H}$ is \emph{computational basis}, labelled by $\ket{0}$ and $\ket{1}$.
+Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$.
 This basis is best known as the \emph{Hadamard basis}, as $\ket{+}$ and $\ket{-}$ are equal to $H\ket{0}$ and $H\ket{1}$, where $H$ is the Hadamard transform given by
 \begin{align}
     \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
     \ket{-} &= H\ket{1} = \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
 \end{align}
+Qubits can also be written out in vector form, and the most common choice for this is to assign the computational basis states as
+\begin{align}
+    \ket{0} = 
+    \begin{pmatrix}
+        1 \\
+        0
+    \end{pmatrix}, \;
+    \ket{1} = 
+    \begin{pmatrix}
+        0 \\
+        1
+    \end{pmatrix}.
+\end{align}
+Therefore the Hadamard transform and associated basis states are given by
+\begin{equation}
+    \begin{gathered}
+        H = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1 & 1\\
+            1 & -1
+        \end{pmatrix}\\
+        \ket{+} = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1 \\
+            1
+        \end{pmatrix}, \;
+        \ket{-} = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1 \\
+            -1
+        \end{pmatrix}.
+    \end{gathered}
+\end{equation}
 
 \subsubsection{Qudits}
 \label{subsubsection:qudits}
@@ -15,8 +50,8 @@ In classical computing, the bit can be generalised to a unit that takes on one o
 Similarly, the quantum dit is the \emph{qudit}, which can be in superposition of up to $d$ states.
 Many aspects of quantum computing specific to qubits generalise nicely to qudits.
 The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{i}\}_{i=0}^{d-1}$.
-To distinguish kets representing states of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state of dimensions $d$.
-For compactness, operators will not have their dimension explicitly labelled, since their dimension will match the states that they are acting on.
+To distinguish kets representing belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to a Hilbert space $\mathcal{H}_d$ where denotes a Hilbert space of dimension $d$.
+For compactness, operators will not have their dimension explicitly labelled, since they belong to the same Hilbert space as the state they are acting on.
 Similar to qubits, there are many different bases that can be used to describe our qudit states.
 The $d$ dimensional analogue to the Hadamard transform is the \emph{quantum Fourier transform} is given by
 \begin{equation}
@@ -29,34 +64,73 @@ Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_i
 \end{equation}
 Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.\newline
 
+Again, qudits can also be written as vectors, with the computational basis states again assigned as
+\begin{equation}
+    \ket{0} = 
+    \begin{pmatrix}
+        1 \\
+        0 \\
+        \vdots\\
+        0
+    \end{pmatrix}, \;
+    \ket{1} = 
+    \begin{pmatrix}
+        0 \\
+        1 \\
+        \vdots \\
+        0
+    \end{pmatrix}, \dots, \;
+    \ket{d - 1} =
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        \vdots \\
+        1
+    \end{pmatrix}.
+\end{equation}
+The Fourier transform can also be given as the matrix
+\begin{equation}
+    F = \begin{pmatrix}
+        1 & 1 & \cdots & 1\\
+        1 & \omega & \cdots & \omega^{d-1}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        1 & \omega^{d-1} & \cdots & \omega^{{(d-1)}^2}
+    \end{pmatrix},
+\end{equation}
+and the associated Fourier basis states are found by applying the matrix representation of $F$ to the computational basis state vectors.
+
+\subsubsection{Collections of Qudits}
 Qudits considered in isolation are not overly useful for quantum computations and in general a collection of qudits is needed for a given algorithm.
-The state of a collection of $n$ qudits, which are not neccessarily all of the same dimension, is found by taking the tensor product, denoted by $\otimes$, of states describing each of the individual qudits
+The Hilbert space of a collection of $n$ qudits, which are not neccessarily all of the same dimension, is found by taking the tensor product, $\otimes$, of the Hilbert spaces of each of the individual qudits
 \begin{equation}
-    \ket{\Psi} = \ket{\psi_0}_{d_0} \otimes \ket{\psi_1}_{d_1} \otimes \dots \otimes \ket{\psi_{n-1}}_{d_{n-1}}.
+    \mathcal{H} = \mathcal{H}_{d_0} \otimes \mathcal{H}_{d_1} \otimes \dots \otimes \mathcal{H}_{d_{n-1}}.
 \end{equation}
-This notation can be further simplified by the omission of the tensor product symbol,
+The computational basis state for the combined Hilbert space is found by taking all possible tensor product combinations of the basis states for each constituent Hilbert space.
+The state 
 \begin{equation}
-    \ket{\Psi} = \ket{\psi_0}_{d_0}\ket{\psi_1}_{d_1}\dots\ket{\psi_{n-1}}_{d_{n-1}}.
+    \ket{0}_{d_0}\otimes\ket{0}_{d_1}\otimes\dots\otimes\ket{0}_{d_{n-1}}
 \end{equation}
-Where there are qudits of equal dimension it is possible to further reduce the notation by combining kets together,
+is an example of such a basis state.
+Notationally, this state can be further simplified by the omission of the tensor product symbol,
+\begin{equation}
+    \ket{0}_{d_0}\ket{0}_{d_1}\dots\ket{0}_{d_{n-1}}.
+\end{equation}
+If the kets are of the same dimension then this can be further compactified by contracting them,
 \begin{align}
-    &\ket{\psi_0}_d \otimes \ket{\psi_1}_d \otimes \dots \otimes \ket{\psi_{n-1}}_d\\
-    = &\ket{\psi_0}_d\ket{\psi_1}_d\dots\ket{\psi_{n-1}}_d\\
-    = &\ket{\psi_0\psi_1\dots\psi_{n-1}}_d.
+    \ket{0}_{d}\ket{0}_{d}\dots\ket{0}_{d} = \ket{00\dots0}_d.
 \end{align}
-Since tensor products distribute over sums, when combining kets in superpositions they must also be distributed over.
+Since tensor products distribute over sums, when combining states in superposition they must also be distributed over.
 For example with two qudits,
 \begin{align}
-    &(\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d\\
-    = &(\ket{0}_d + \ket{1})_d\ket{2}_d\\
-    = &\ket{02}_d + \ket{12}_d
+    (\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d &= (\ket{0}_d + \ket{1})_d\ket{2}_d\\
+    &= \ket{02}_d + \ket{12}_d
 \end{align}
 Recall also from the properties of the tensor product that it is not commutative, therefore care must be taken in ensuring that the order of qudits is preserved throughout,
 \begin{equation}
     \ket{01}_2 \neq \ket{10}_2.
 \end{equation}
-In this report all three methods of expression will be used, with clarity given due preference over compactness.
-The subscripts denoting the dimension of a qudit state will also be dropped when their dimension has already been explictly stated.
+In this report all three notational methods are used, with clarity given due preference over compactness.
+The subscripts are often dropped when the meaning is clear.
 
 \subsubsection{Operators}
 \label{subsubsection:operators}

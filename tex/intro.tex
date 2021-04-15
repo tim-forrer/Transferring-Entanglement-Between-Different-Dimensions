@@ -16,19 +16,17 @@ Their power is such that QWs can simulate any quantum computation and therefore 
 There is also evidence of robust performance even when the quantum computer is not perfectly isolated from its environment, and in certain situations it has been shown that decoherences due to interactions with the environment is beneficial for a given computation \cite{KENDON_2007}. 
 Quantum walks are divided into two categories, \emph{discrete} and \emph{continuous} time, these labels describing the nature of the evolution of the walker as the quantum walk progresses.
 Continuous time QWs have been shown to solve a wide range of problems in a number of different settings, in some cases exponentially faster than a classical computer is able to \cite{Childs_2003}. 
-However, the focus of this report will be on entangled state generation and transfer which requires more than one subspace in our system, lending itself much more readily to discrete time QWs.\paragraph{}
 
-A potential solution to the demanding task of generating higher dimensional entanglement has been proposed \cite{giordani2020} which uses the dynamics of QWs to transfer lower dimensional entanglement between qubits, which is far simpler to generate, into the high dimensional qudits. 
-Whilst this scheme can be used to some moderate degree of success, I will present an alternative devised to operate in a similar setting but utilising ancilla-based quantum computing (AQC) to instead transfer entanglement optimally.\paragraph{}
+A potential solution to the demanding task of generating higher dimensional entanglement has been proposed \cite{giordani2020} which uses the dynamics of discrete QWs to transfer lower dimensional entanglement between qubits, which is far simpler to generate, into the high dimensional qudits.
+Whilst this scheme can be used to some moderate degree of success, I will present an alternative devised to operate in a similar setting but utilising ancilla-based quantum computing (AQC) to instead transfer entanglement optimally.\newline
 
 In this report, a primer on entanglement, and two models of quantum computing, quantum walks and ancilla-based quantum computing, is given in section {\ref{section:background}}
-Following this, section {\ref{section:qw_transfer}} will focus on the protocol that uses QW dynamics to facilitate the transfer of entanglement, in particular analysing its efficiency in achieving the aim of entanglement transfer. 
+Following this, section {\ref{section:qw_transfer}} will focus on the protocol that uses discrete QW dynamics to facilitate the transfer of entanglement, in particular analysing its efficiency in achieving the aim of entanglement transfer. 
 The AQC scheme for entanglement transfer is presented in section \ref{section:aqc_transfer}. 
 Further uses of the AQC scheme beyond the transfer of entanglement are also presented in this section. 
-Finally, a discussion on the results presented in the report, further work and a brief summary is presented in section {\ref{section:discussion}}.\newline
+Finally, a discussion on the results presented in the report, further work and a brief summary is presented in section {\ref{section:discussion}}.
 
 MOVE TO WHEN NEEDED
 As mentioned above, discrete time quantum walks are much more suited for the purposes of this report, therefore future references to quantum walks will be assumed to be the discrete variant unless stated otherwise. 
 We will also use QW to denote (discrete) quantum walk. 
-The mathematical notation used in this report follows standard conventions, in particular it should be made clear the equivalency between $\ket{u_1, u_2}\equiv\ket{u_1}\ket{u_2} \equiv \ket{u_1} \otimes \ket{u_2}$, where all forms will be used interchangeably.
 MOVE TO WHEN NEEDED

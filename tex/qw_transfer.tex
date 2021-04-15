@@ -30,20 +30,19 @@ The basic premise of this protocol is this:
     \caption{The initial prepared state has entanglement solely between the two coin subspaces. Figure is an edited version of FIG 3 from \cite{giordani2020}.}
     \label{fig:preparation}
 \end{figure}
-
-In this way, arbitrary amounts of higher dimensional entanglement can be generated.
+In this way, arbitrary amounts of higher dimensional entanglement can be generated.\newline
 The ordering of steps 3 and 4 is not overly important since the full operators describing the projective measurements are given by
 \begin{align}
     \ket{\gamma}\bra{\gamma} \otimes I \otimes I \otimes I\\
     I \otimes I \otimes \ket{\delta}\bra{\delta} \otimes I
 \end{align}
 which clearly commute.
-As is the case with many quantum walk based protocols, particular attention must be paid to the choice of coin used for the quantum walk, as it will have a large impact on the outcomes of the protocol.
+As is the case with many quantum walk based protocols, particular attention must be paid to the choice of coin used for the quantum walk, as it will have a large impact on the success of the protocol.
 The shift operator used in this protocol is the $\tilde{S}$, as outlined in section \ref{subsubsection:q_r_w}.
 
 \subsection{Transfer using identity coin operator}
 \label{subsection:qw_transfer}
-To illustrate the basic principles of the protocol, consider the case where our coin is the identity $I$.
+To illustrate the basic principles of the protocol, consider the case where $C = I$.
 \begin{enumerate}
     \item A state $\ket{\psi(0)}$ is prepared with the coin states entangled and walkers at the origin
     \begin{equation}
@@ -135,11 +134,21 @@ If the accumulation of entanglement can be reversed to get Bell pairs back, then
 In the identity coin example, it is rather simple to use a near identical setup, where the qudits play the role of the coins and the qubits are the walkers, to retrive entangled Bell pairs out of the qudits.
 For a general coin, it is also possible in principle to retrieve some entanglement back out of the entangled qudits.
 However, retrieval after more than 1 ebit has been transferred for the non-identity coin is not simple within the framework of a quantum walk based protocol, due to the non maximal nature of the entanglement present in the qudits.
-For example, figure \ref{fig:2ebittransfer} shows the maximal possible entanglement that can be transferred when the QW protocol is done twice using two Bell states is approximately 1.585, using the same projective operator $\mathcal{P}_\gamma$ on both of the coins.
-*****Numerical simulations using different projective operators $\mathcal{P}_\gamma, \mathcal{P}_\delta$ show 1.585 is still the maximum possible.********
+
+\subsection{Results}
+\label{subsection:results}
+Despite their simple setup, the state of a quantum walk becomes extremely complex after even just a few steps in most cases due increase in effective size of the Hilbert space.
+This is doubly true for two quantum walks running in conjunction.
+Hence to analyse the protocol in settings that are not as trivial as the identity coin example, numerical simulations were run using Python and some associated packages [CITE SCIPY, NUMPY, MATH].
+Figure \ref{fig:2ebittransfer} shows that the protocol, when using a Hadamard coin, can generate a state with log negativity up to approximately 1.585 when the protocol is done twice, assuming both quantum coins are projected onto the same state $\ket{\gamma} = \cos{\theta}\ket{0} + e^{i\phi}\sin{\theta}\ket{1}$.
+Hence a maximally entangled state cannot be generated with the Hadamard coin.
+*****Simulations using different projective operators $\mathcal{P}_\gamma, \mathcal{P}_\delta$ show 1.585 is still the maximum possible.********
+Compare this to the case $C = I$, where optimal transfer is possible.
 \begin{figure}
     \centering
     \includegraphics[scale=0.75]{2ebit_transfer.png}
     \caption{Transferring two ebits using the quantum walk protocol proposed by \cite{giordani2020}. $\theta, \phi$ are the parameters describing $\ket{\gamma}$ that defines the projection operator $\mathcal{P}_\gamma$.}
     \label{fig:2ebittransfer}
 \end{figure}
+
+Clearly whilst this would be a suitable method for a quantum walk based model of quantum computing, there are alternative settings that would be better suited to achieve the aims of entanglement transfer. One possible candidate is presented in section \ref{section:aqc_transfer}.
