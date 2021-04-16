@@ -12,6 +12,21 @@ The entanglement can always be transferred optimally and exclusive utilisation o
 \subsection{Further Steps}
 \label{subsection:furthersteps}
 As discussed in Section \ref{section:furtheruses}, the circuit given in figure \ref{fig:aqc_circuit_schematic} has potential uses beyond the original scope in which is has been designed.
-It would be of interest to see if it can also be applied to a scenario where we wish to transfer multipartite entanglement to higher dimensional qudits, for example transferring GHZ states or W states.
-Such analysis should be relatively straightforward to generalise to the multipartite scenario, although extending computational simulations may not be so trivial without adequate computational power.
-Furthermore, the analysis of this work could be brought to greater completion if the circuit was generalised to the scenario where we wish to store qudit states, or entanglement associated with qudit pairs, rather than just qubit states.
+It would be of interest to see if it can also be applied to transferring multipartite entanglement to higher dimensions, for example the entanglement in transferring GHZ states or W states.
+Further analysis to see if Bell states could be used to generate multipartite entangled states would also be interesting to carry out.
+The analysis of this work could be brought to greater completion if the circuit was generalised to transferring entanglement between qudit pairs of arbitrary dimension instead of just entangled Bell pairs, although this would likely be more for academic rather than practical purposes, since the practical goal of the circuit is to take advantage of Bell pair generating schemes to generate higher dimensional entanglement.
+
+\subsection{Conclusions}
+\label{subsection:conclusions}
+Overall, the QW protocol aims to solve an interesting problem with a suitable set of contraints that might be realistic ones to consider in future as quantum computing technologies develop.
+In principle it does away with the need to repeatedly design different entanglement schemes for qudits of differing dimension, since the same scheme can used to accumulate entanglement in any dimension, just by using entangled Bell states to transfer the entanglement from.
+However, it was shown that in practice this protocol scaled inefficiently as more entanglement was transferred when actually using quantum walk dynamics, and optimal transfer is not possible..
+It also suffers from difficulties in transferring entanglement back to the qubits due to its non-unitary nature.
+Post-selection is also needed further decreasing the efficiency of the protocol.\newline
+
+Instead, an alternative scheme was proposed to operate in the same physical setting, but based on an AQC model which came with a slightly different set of constraints.
+It was shown that this alternative scheme is able to achieve optimal transfer of entanglement, no matter the number of Bell states to be stored.
+Retrieval of entangled Bell pairs is also simple to do, since the entirety of the protocol was unitary, and retrieval amounted to reversing the circuit given in figure \ref{fig:aqc_circuit_schematic}.
+Furthermore, it was also shown that the circuit had further uses outside of entanglement transfer and could be utilised to turn qudits into quantum random access memory.
+This increased versatility gives greater practical benefits to the AQC circuit as only one circuit is needed to achieve multiple aims.
+Its relative simplicity also makes it an effective circuit to implement on a practical quantum computer, with only a select few gates needed to implement it.

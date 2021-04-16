@@ -1,8 +1,31 @@
 \subsection{Entanglement}
 Entanglement is a property of quantum systems that is the source of many of the remarkable results displayed by quantum algorithms.
-Essentially it is the presence of correlations in a quantum system that is stronger than possible classically.
-Although entanglement can exist between multipartite systems, such as in the case of GHZ states or W states, in this report only bipartite entanglement will be discussed.
-Therefore, all references to entanglement are specifically referring to bipartite entanglement.
+Loosely, it is the presence of strong correlations in a quantum system, much stronger than possible classically.
+Strictly speaking, an entangled state is one that cannot be expressed as a separable state.
+A separable state is one that can be written as a tensor product of states in the Hilbert subspaces of a multipartite system.
+All of the basis states formed in section \ref{subsubsection:collections_qbits} are examples of separable states, as they are formed by taking the tensor product of basis states in each of the constituent Hilbert spaces.
+An example of an entangled state would be this state between two qubits
+\begin{equation}
+    \label{eqn:bell_state}
+    \frac{1}{\sqrt{2}}(\ket{00}_2 + \ket{11}_2).
+\end{equation}
+It is impossible to write this state in the form $\left(a\ket{0}_2 + b\ket{1}_2\right) \otimes \left(c\ket{0}_2 + d\ket{1}_2 \right)$, hence it is not separable.
+This is one of the four Bell states which are the \emph{maximally entangled} two qubit states.
+\begin{definition}[Maximally Entangled State]
+    A state $\ket{\psi}$ describing a bipartite system $\mathcal{H} = \mathcal{H}^{(A)} \otimes \mathcal{H}^{B}$ is maximally entangled if the reduced density matrix representing the same state $\ket{\psi}$ in either subspace is maximally mixed, that is, it is directly proportional to the identity.
+\end{definition}
+Taking the Bell state given in equation \ref{eqn:bell_state}, its density matrix is given by
+\begin{align}
+    \rho &= \frac{1}{2}\left(\ket{00}\bra{00} + \ket{00}\bra{11} + \ket{11}\bra{00} + \ket{11}\bra{11}\right)\\
+    &= \frac{1}{2}\left(\ket{0}\bra{0}\otimes\ket{0}\bra{0} + \ket{0}\bra{1}\otimes\ket{0}\bra{1} + \ket{1}\bra{0}\otimes\ket{1}\bra{0} + \ket{1}\bra{1}\otimes\ket{1}\bra{1}\right)
+\end{align}
+The reduced density matrix in $\mathcal{H}^{(A)}$ is therefore
+\begin{equation}
+    \rho^{(A)} = \Tr_B(\rho) = \frac{1}{2}\left(\ket{0}\bra{0} + \ket{1}\bra{1}\right) = \frac{1}{2}I,
+\end{equation}
+where $\Tr_B$ denotes the partial trace over subspace $\mathcal{H}^{(B)}$.
+
+\subsubsection{Higher Dimensional Entanglement}
 Generalising entanglement to higher dimensions in the bipartite setting is done by having entanglement between qudits as opposed to qubits.
 There is no requirement for the dimensions of the entangled qudits to be matching.
 For example,
@@ -10,28 +33,32 @@ For example,
     \ket{\psi} = \frac{1}{\sqrt{2}}\left(\ket{0}_2\otimes\ket{0}_3 + \ket{1}_2\otimes\ket{1}_3\right),
 \end{equation}
 is a entangled state between a qubit and a qutrit ($d=3$).
+Higher dimensional entanglement can also refer to entanglement between multipartite systems, such as GHZ states or W states [CITE THESE THINGS], in this report only bipartite entanglement is of concern.
 
 \subsubsection{Measuring entanglement}
 \label{subsubsection:measure_entanglement}
 In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of measuring entanglement, of which numerous methods have been proposed and are used.
-For a full mathematical discussion on entanglement quantification, see \cite{Plenio_2007}.
-In this report, the measure of entanglement used is the \emph{logarithmic negativity}, first presented by Vidal \cite{Vidal_2002}.
+For a full mathematical discussion on entanglement measures, see \cite{Plenio_2007}.
+In this report, the measure of entanglement used is the \emph{logarithmic negativity}, presented in depth in \cite{Vidal_2002}.
 \begin{definition}[Logarithmic Negativity]
     \label{definition:log_neg}
-    Let $\rho$ be a density matrix describing a bipartite quantum system $\mathcal{H} = \mathcal{H}_A \otimes \mathcal{H}_B$.
+    Let $\rho$ be a density matrix describing a bipartite quantum system $\mathcal{H} = \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}$.
     The logarithmic negativity, $E_\mathcal{N}(\rho)$, of $\rho$ is defined as
     \begin{equation}
         E_\mathcal{N}(\rho) = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1.
     \end{equation}
-    where $\rho^{\Gamma_A}$ denotes the partial transpose of $\rho$ with respect to the subsystem $\mathcal{H}_A$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
+    where $X^{\Gamma_A}$ denotes the partial transpose of $X$ with respect to the subsystem $\mathcal{H}^{(A)}$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
 \end{definition}
 The logarithmic negativity is also referred to as the log negativity.
 It is an appropriate choice for the purpose of this report as it is an entanglement measure that is computable for mixed as well as pure states, and satisfies (strong) additivity
 \begin{equation}
-    E_\mathcal{N}(\rho \otimes \sigma) = E_\mathcal{N}(\rho) + E_\mathcal{N}(\rho).
+    E_\mathcal{N}(\rho \otimes \sigma) = E_\mathcal{N}(\rho) + E_\mathcal{N}(\sigma),
 \end{equation}
-A proof for this is given in \cite{Vidal_2002}.\newline
-This usefulness of this can be demonstrated with the use of the following claim.
+where $\rho,\sigma$ are the density matrices describing two bipartite systems.
+A proof for this is given in \cite{Vidal_2002}.
+This means that, if a protocol is executed to transfer entanglement from the system represented by $\sigma$ to that represented by $\rho$, if $\Delta E_{\mathcal{N}}(\rho) = \Delta E_{\mathcal{N}}(\sigma)$ this can be considered optimal transfer.
+If, however,  $\Delta E_{\mathcal{N}}(\rho) < \Delta E_{\mathcal{N}}(\sigma)$, then the entanglement has not been optimally transferred and the overall system has lost some entanglement.
+Another useful property of log negativity is that it is easy to compute, particularly in the case that a state is maximally entangled in the Hilbert space of some dimension $d$ (not neccessarily the dimension of the full Hilbert space in which the bipartite system resides).
 \begin{claim}
     \label{claim:maximally_entangled_states}
     A maximally entangled state in $d\times d$ dimensions has a log negativity of $\log_2d$.
@@ -39,7 +66,7 @@ This usefulness of this can be demonstrated with the use of the following claim.
 \begin{proof}
     First, note that for a Hilbert space of dimension $d\times d$, the state
     \begin{equation}
-        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}_A \otimes \mathcal{H}_B
+        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}
     \end{equation}
     is maximally entangled, since its reduced density matrix in either subspace is maximally mixed.
     So to quantify the entanglement of any maximally entangled state it is sufficient to calculate the log negativity of the density matrix, $\rho$ associated with $\ket{\psi}$.

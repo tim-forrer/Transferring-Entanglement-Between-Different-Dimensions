@@ -24,7 +24,7 @@ Therefore, this circuit can be utilised in turning qudits into quantum random ac
 The procedure for utilising the circuit as a quantum random access memory is as follows.
 Assume that there is a qudit in state $\ket{0}_d$ and two qubits, qubit 1 and qubit 2, in states $a\ket{0}_2 + b\ket{1}_2$ and $c\ket{0}_2 + d\ket{1}_2$ respectively.
 We first run the circuit with the qudit and qubit 1,
-\begin{equation}
+\begin{equation}\label{eqn:single_qbit_store}
     \ket{0}_d \otimes \left(a\ket{0} + b\ket{1}\right) \longrightarrow \left(a\ket{0}_d + b\ket{1}_d\right) \otimes \ket{0}_2.
 \end{equation}
 We then replace qubit 1 with qubit 2 and run the circuit again,
