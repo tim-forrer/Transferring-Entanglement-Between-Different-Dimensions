@@ -30,10 +30,10 @@ A simple example of a circuit designed for ancilla-based quantum computing is sh
     \label{figure:aqc_Z}
     \end{center}
 \end{figure}
-The circuit on the left hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a CNOT gate.
-Acting a $Z$ gate on the ancilla and relocalising the quantum information with another CNOT gate "passes on" the effects of the $Z$ gate.
+The circuit on the left hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a $\C{X}$ gate.
+Acting a $Z$ gate on the ancilla and relocalising the quantum information with another $\C{X}$ gate "passes on" the effects of the $Z$ gate.
 Note however that this would not directly work to implement an $X$ gate on $\ket{\psi}$ if the $Z$ gate were directly switched with an $X$ gate.
-This is because only amplitudes can be delocalised and relocalised, computational basis states cannot be directly affected by ancilla interactions.
+This is because only amplitudes can be delocalised and relocalised, computational basis states cannot be directly shifted by ancilla interactions.
 If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states differ by their amplitudes, before the $Z$ circuit and mapped back afterwards (see figure \ref{figure:aqc_X}), then it is possible to effect an $X$ operator in the AQC setting.
 \begin{figure}[h]
     \begin{center}
@@ -54,7 +54,8 @@ If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states
     \end{center}
 \end{figure}
 These two circuits highlight the somewhat counterintuitive nature of AQC.
-A controlled operation is utilised, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".\newline
+A controlled operation is utilised, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".
+
 This model of quantum computing does not have to be reserved to qubit computing alone and can be extended to qudits simply by using the general forms of operators, as described in section \ref{subsubsection:operators}.
 An further advantage of AQC is that it is particularly well placed to used registers of qudits with mismatched dimensions.
 Therefore, it is an extremely suitable model of quantum computation for entanglement transfer as entangled qubits can be used as the ancilla (to be regularly replaced once the entanglement is transferred), and qudits of arbitrary dimension can be the main register to ensure the entanglement transferred is long-lived.

@@ -49,22 +49,22 @@ In quantum computing, or indeed classical computing, there is no physical constr
 In classical computing, the bit can be generalised to a unit that takes on one of $d$ states, known as the \emph{dit}.
 Similarly, the quantum dit is the \emph{qudit}, which can be in superposition of up to $d$ states.
 Many aspects of quantum computing specific to qubits generalise nicely to qudits.
-The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{i}\}_{i=0}^{d-1}$.
-To distinguish kets representing belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to a Hilbert space $\mathcal{H}_d$ where denotes a Hilbert space of dimension $d$.
+The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{j}\}_{j=0}^{d-1}$.
+To distinguish kets representing belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to $\mathcal{H}_d$, a Hilbert space of dimension $d$.
 For compactness, operators will not have their dimension explicitly labelled, since they belong to the same Hilbert space as the state they are acting on.
 Similar to qubits, there are many different bases that can be used to describe our qudit states.
 The $d$ dimensional analogue to the Hadamard transform is the \emph{quantum Fourier transform} is given by
 \begin{equation}
-    F\ket{x}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{y=0}^{d-1} \omega^{xy}\ket{y}_d,
+    F\ket{j}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{k=0}^{d-1} \omega^{jk}\ket{k}_d,
 \end{equation}
 where $\omega = e^{i\frac{2\pi}{d}}$, i.e. it is the $d^{th}$ root of unity.
-Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_i}\}_{i=0}^{d-1}$, where
+Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_j}\}_{j=0}^{d-1}$, where
 \begin{equation}
-    \ket{+_i}_d = F\ket{i}_d.
+    \ket{+_j}_d = F\ket{j}_d.
 \end{equation}
-Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.\newline
+Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.
 
-Again, qudits can also be written as vectors, with the computational basis states again assigned as
+Again, qudits can also be represented by vectors, with the computational basis states again assigned as
 \begin{equation}
     \ket{0} = 
     \begin{pmatrix}
@@ -88,7 +88,7 @@ Again, qudits can also be written as vectors, with the computational basis state
         1
     \end{pmatrix}.
 \end{equation}
-The Fourier transform can also be given as the matrix
+In this basis, the Fourier transform is given by the matrix
 \begin{equation}
     F = \begin{pmatrix}
         1 & 1 & \cdots & 1\\
@@ -137,20 +137,20 @@ The subscripts are often dropped when the meaning is clear.
 \label{subsubsection:operators}
 There are a wide variety of other operators beyond those introduced above that equate to a change of bases.
 One of the most common is the (Pauli) $X$, or NOT, operator.
-As the second name implies, in the qubit setting acts in the same way as the classical NOT operator,
+As the second name implies, in the qubit setting this acts in the same way as the classical NOT operator,
 \begin{align}
     \ket{0} &\mapsto \ket{1}\\
     \ket{1} &\mapsto \ket{0}.
 \end{align}
 More generally in the qudit setting,
 \begin{equation}
-    X\ket{i}_d = \ket{i + 1 \text{ mod } d}_d.
+    X\ket{j}_d = \ket{j + 1 \text{ mod } d}_d.
 \end{equation}
 However, there are other gates that do not have a classical analogue such as the  the (Pauli) $Z$ gate.
 In the qubit setting acts $Z$ as the identity on $\ket{0}$ and applies a relative phase to $\ket{1} \mapsto -\ket{1}$.
 Again this can be generalised to the qudit setting
 \begin{equation}
-    Z\ket{i}_d = \omega^i\ket{i}_d,
+    Z\ket{j}_d = \omega^j\ket{j}_d,
 \end{equation}
 where $\omega$ is again the $d^{th}$ root of unity.
 Both of these operators are sometimes referred to as Pauli operators as their matrix representations in the computational basis are given by the Pauli matrices $\sigma_x$ and $\sigma_z$.
@@ -173,15 +173,15 @@ Written mathematically, where the left hand qubit is the control, the right hand
 \end{align}
 To extend this to the qudit setting, first note that \crefrange{eq:controlled_0}{eq:controlled_1} can be compactly written as
 \begin{equation}
-    \C{U}\left(\ket{x}\otimes\ket{\psi}\right) = \ket{x}\otimes U^x\ket{\psi}.
+    \C{U}\left(\ket{j}\otimes\ket{\psi}\right) = \ket{j}\otimes U^j\ket{\psi}.
     \label{eq:controlled_x}
 \end{equation}
-This equation now is well-defined for qudits, where instead of just taking values $0$ or $1$, $x$ can now take values from $\{0, 1, \dots, d-1\}$.
+This equation now is well-defined for qudits, where instead of just taking values $0$ or $1$, $j$ can now take values from $\{0, 1, \dots, d-1\}$.
 Note that this definition applies also when the dimensions of the control and target are not equal, provided that the action of $U$ on the target is well-defined
 \begin{equation}
-    \C{U}\left(\ket{x}_d\otimes\ket{\psi}_{d'}\right) = \ket{x}_d\otimes U^x\ket{\psi}_{d'}.
+    \C{U}\left(\ket{j}_d\otimes\ket{\psi}_{d'}\right) = \ket{j}_d\otimes U^j\ket{\psi}_{d'}.
 \end{equation}
-In this report, unless otherwise stated, it is assumed that control qudits are always on the left and target qubits on the right.\newline
+In this report, unless otherwise stated, it is assumed that control qudits are always on the left and target qubits on the right.
 
 It is sometimes neccessary to have operators that act on single qudits in a collection of $n$ qudits.
 These can be expressed by taking the tensor product with the identity acting on the other qudits in the collection.
@@ -193,20 +193,22 @@ For example, the operator that acts with an $X$ on the qudit of index 1 in the s
 \subsubsection{Circuits and Gates}
 \label{subsubsection:circuits_and_gates}
 When describing a circuit that implements a series of operators on our qudits, it is often much clearer and simpler to use a circuit diagram.
-Straight lines in the circuits represent qubits/qudits.
+Straight lines in the circuits represent qudits.
 Operations on qudits are represented by gates placed on the straight lines corresponding to the qudits we wish to act on.
-A table of gates relevant for this report is given in table \ref{table:gates}.
+A table of common gates relevant for this report is given in table \ref{table:gates}.
 \begin{table}
     \begin{center}
         \begin{tabular}{c | c}
             Operator & Gate\\
             \hline
-            (Pauli) X & \begin{tikzcd} \qw & \gate{X} & \qw \end{tikzcd}\\
-            (Pauli) Z & \begin{tikzcd} \qw & \gate{Z} & \qw \end{tikzcd}\\
+            (Pauli) $X$ & \begin{tikzcd} \qw & \gate{X} & \qw \end{tikzcd}\\
+            (Pauli) $Z$ & \begin{tikzcd} \qw & \gate{Z} & \qw \end{tikzcd}\\
             Hadamard & \begin{tikzcd} \qw & \gate{H} & \qw \end{tikzcd}\\
             QFT & \begin{tikzcd} \qw & \gate{F} & \qw \end{tikzcd}\\
+            $\C{X}$ & \begin{tikzcd} \qw & \ctrl{1} & \qw \\ \qw & \targ{} & \qw \end{tikzcd}\\
+            $\C{U}$ & \begin{tikzcd} \qw & \ctrl{1} & \qw \\ \qw & \gate{U} & \qw \end{tikzcd}\\
         \end{tabular}
-        \caption{Table of operators and their gate representations in quantum circuits.}
+        \caption{Table of operators and their gate representations in quantum circuits. The $\C{X}$ gate can also be written in general $\C{U}$ form.}
         \label{table:gates}
     \end{center}
 \end{table}

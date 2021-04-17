@@ -20,13 +20,33 @@
 \usepackage[
     backend=biber,
     style=numeric-comp,
-    sorting=none]
+    isbn=false,
+    giveninits=true,
+    sorting=none,
+    date=year]
     {biblatex}
 \addbibresource{bib.bib}
 
 \makeatletter % Forces numbered citations.
 \RequireBibliographyStyle{numeric}
 \makeatother
+
+\AtEveryBibitem{\clearfield{pages}}
+\AtEveryBibitem{\clearfield{month}}
+\AtEveryBibitem{\clearfield{day}}
+
+\renewbibmacro*{doi+eprint+url}{%
+  \iftoggle{bbx:doi}
+    {\iffieldundef{url}{\printfield{doi}}{}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \newunit\newblock
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}}
+    {}}
 
 % Customise appendix appearance.
 \usepackage{appendix}
