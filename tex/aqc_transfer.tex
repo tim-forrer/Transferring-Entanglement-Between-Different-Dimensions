@@ -86,12 +86,12 @@ The qudits are first Fourier transformed into the Fourier basis to give
         +\ket{+_0 +_0}_d \otimes \ket{11}_2
         \Big).
 \end{align}
-The change of basis is neccessary because to have entanglement in the qudits, they must be in superposition of at least two states of non-zero amplitude.
+The change of basis is needed because to have entanglement in the qudits, they must be in superposition of at least two states of non-zero amplitude.
 Since only amplitudes can be delocalised across the qudits and ancilla qubits, in order to give other qudit states a non-zero amplitude, it is necessary to be in a basis where the basis states are related to one another by differences in their amplitudes.
-The Fourier basis is one such basis where the basis states are in equal superposition of the all the computational basis states but differ by the relative phases in the superposition.
+The Fourier basis is one such basis where the basis states are in equal superposition of all the computational basis states but differ by the relative phases in the superposition.
 Hence the need to be in the Fourier basis when using the delocalised amplitudes to effect changes in the qudit basis states.
 The index $j$ on the $\Omega$ has an analogy to the QW protocol where the iteration number dictates how many steps need to be taken in the QW.
-Using the same line of reasoning as outlined in Claim \ref{claim:min_steps}, on the $n^{th}$ iteration of the protocol, $j = 2^{n-1}$ so in this instance ($n=1$) $j=1$.
+Using the same line of reasoning as outlined in Claim \ref{claim:min_steps}, on the $n^{th}$ iteration of the protocol, $j = 2^{n-1}$ so in this instance (where $n=1$) $j=1$.
 Using claim \ref{claim:COmegaCXinQFTbasis}, acting $\C{\Omega}$ in both $A$ and $B$ gives the state
 \begin{equation}
     \frac{1}{\sqrt{2}}\left(
@@ -113,7 +113,7 @@ In this instance, $U$ can be ignored since no corrections are needed, so $\C{X}$
     &\frac{1}{\sqrt{2}}\left(
         \ket{00}_d \otimes \ket{00}_2
         +\ket{11}_d \otimes \ket{00}_2
-        \right).\\
+        \right)\\
     =&\underbrace{
         \frac{1}{\sqrt{2}}\left(\ket{00}_d +\ket{11}_d\right)
     }_{\text{Bell state}}
@@ -136,14 +136,14 @@ Taking the final state given by equation \ref{eqn:single_aqc_transfer_final} and
         \right).
 \end{equation}
 Again, the qudits are transformed to the Fourier basis before the $\C{\Omega^j}$ gate.
-As noted in the discussion on $\C{\Omega^j}$ above, for this iteration ($n=2$) $j=2$, giving the state
+As noted in the discussion on $\C{\Omega^j}$ above, for this iteration (where $n=2$) $j=2$, giving the state
 \begin{equation}
     \frac{1}{2}\Big[
             (\ket{+_0 +_0}_d + \ket{+_1 +_1}_d)\otimes\ket{00}_2
             +(\ket{+_2 +_2}_d + \ket{+_3 +_3}_d)\otimes\ket{11}_2
         \Big].
 \end{equation}
-After doing transforming back to the computational basis, the total state becomes
+After transforming back to the computational basis, the total state becomes
 \begin{equation}
     \frac{1}{2}\Big[
             (\ket{00}_d + \ket{11}_d)\otimes\ket{00}_2

@@ -1,11 +1,11 @@
-Here the protocol presented in \cite{giordani2020} which utilises quantum walk dynamics in order to generate higher dimensional entanglement is summarised.
-
+Here the protocol presented by Giordani et al. \cite{giordani2020} is summarised.
+The aim of the protocol is to generate higher dimensional entanglement via the use of quantum walks.
 The imagined setup of this protocol is that there are two labs, $A$ and $B$, which have a shared source of entangled qubits but are otherwise spatially separated and cannot interact with one another.
 
-In this section we use following notation:
+In this section the following notation is employed:
 \begin{itemize}
-    \item $\ket{\psi}_J$ is a state belonging to the subspace $\mathcal{H}_J = \mathcal{H}^{(A)}_J \otimes \mathcal{H}^{(B)}_J, J\in\{C,W\}$.
-    \item $\ket{\psi}^{(K)}$ is a state belonging to the subspace $\mathcal{H}^{(K)} = \mathcal{H}^{(K)}_C \otimes \mathcal{H}^{(K)}_W, K\in\{A,B\}$.
+    \item $\ket{\psi}_J$ is a state belonging to the subspace $\mathcal{H}_J = \mathcal{H}^{(A)}_J \otimes \mathcal{H}^{(B)}_J, J\in\{C,W\}$. It is a state that describes the combined state of the coins or walkers.
+    \item $\ket{\psi}^{(K)}$ is a state belonging to the subspace $\mathcal{H}^{(K)} = \mathcal{H}^{(K)}_C \otimes \mathcal{H}^{(K)}_W, K\in\{A,B\}$. It is a state that describes the combined state of one of the quantum walks.
     \item  $\ket{\psi}^{(K)}_J$ is a state belonging to the subspace $\mathcal{H}^{(K)}_J$.
 \end{itemize}
 
@@ -14,7 +14,7 @@ In this mathematical framework the overall Hilbert space is comprised of two qua
     \mathcal{H} &= \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}\\
                 &= \mathcal{H}^{(A)}_C \otimes \mathcal{H}^{(A)}_W \otimes \mathcal{H}^{(B)}_C \otimes \mathcal{H}^{(B)}_W.
 \end{align}
-Although due to the difficulty in writing entangled states when the entangled spaces are not adjacent, states will be written with the following ordering
+Due to the difficulty, however, in writing entangled states when the entangled spaces are not adjacent, states will be written with the following ordering
 \begin{equation}
     \mathcal{H} = \mathcal{H}^{(A)}_W \otimes \mathcal{H}^{(B)}_W \otimes \mathcal{H}^{(A)}_C \otimes \mathcal{H}^{(B)}_C,
 \end{equation} 
@@ -22,7 +22,7 @@ i.e. with the walker subspaces adjacent to each other and the coin subspaces adj
 
 The basic premise of this protocol is this:
 \begin{enumerate}
-    \item Entangle the two coin spaces of the walkers $\mathcal{H}^{(K)}_C$. (Fig \ref{fig:preparation}.)
+    \item Entangle the two coin spaces of the walkers $\mathcal{H}^{(K)}_C$. (Figure \ref{fig:preparation}.)
     \item Proceed with the quantum walk for some determined number of steps.
     \item Use a projective measurement $\mathcal{P}_\gamma = \ket{\gamma}\bra{\gamma}, \ket{\gamma}\in\mathcal{H}^{(A)}_C$ to then transfer the entanglement so that it solely exists in the subspace $\mathcal{H}^{(A)}_W \otimes \mathcal{H}^{(B)}_C \otimes \mathcal{H}^{(B)}_W$.
     \item In similar fashion, find a projection $\mathcal{P}_\delta = \ket{\delta}\bra{\delta}, \ket{\delta}\in\mathcal{H}^{(B)}_C$ to transfer the entanglement to exist between the two walker subspaces, $\mathcal{H}^{(i)}_W$, only.
@@ -52,7 +52,7 @@ To illustrate the basic principles of the protocol, consider the case where
 \begin{equation}
     C = \underbrace{I_2 \otimes I_2}_{\text{"Coin" operators}} \otimes I_d \otimes I_d = I.
 \end{equation}
-Note that this is not actual an instance of using quantum walk dynamics, since an identity coin equates to no coin at all.
+Note that this is not actually an instance of using quantum walk dynamics, since an identity coin equates to no coin at all.
 
 \begin{enumerate}
     \item A state $\ket{\psi(0)}$ is prepared with the walkers at the origin and coin states entangled,
@@ -129,14 +129,17 @@ Using claim \ref{claim:maximally_entangled_states}, the upper bound on the log n
 This implies the following condition on the total number of steps
 \begin{equation}
     \log_2(s+1) = n \implies s = 2^n -1.
+    \label{eqn:equality_on_s}
 \end{equation}
 This is an equality rather than an inequality $\log_2(s+1) \geq n$, since the state of the walkers is to be maximally entangled.
-This means that the combined walker Hilbert space must be reducible to one of dimension $(s+1) \times (s+1)$.
-This is only possible when taking the minimum number of steps (if more steps are taken then there are more than $s+1$ basis states of non-zero amplitude).
-Assuming that this has been satisfied for the $n-1^{th}$ iteration of the protocol gives a total step number prior to the $n^{th}$ iteration of the walk of $s' = 2^{n-1} -1$ .
-Therefore, the minimum number of steps for the $n^{th}$ iteration is given by
+This means that the combined walker Hilbert space $\mathcal{H}_W$ must be reducible to one of dimension $(s+1) \times (s+1)$.
+This is only possible when taking the minimum number of steps in each quantum walk (if more steps are taken then there are more than $s+1$ basis states of non-zero amplitude).
+
+Let $s_{n-1}$ be the total number of steps taken up to the $(n-1)^\text{th}$ iteration of the protocol.
+Assuming that $s_{n-1}$ satisfies equation \ref{eqn:equality_on_s} implies $s_{n-1} = 2^{n-1} -1$ .
+Therefore, the number of steps for the $n^{\text{th}}$ iteration is given by
 \begin{align}
-    s - s' &= 2^{n} - 1 - (2^{n-1} -1)\\
+    s - s_{n-1} &= 2^{n} - 1 - (2^{n-1} -1)\\
     &= 2^n - 2^{n-1}\\
     &= 2 \times 2^{n-1} - 2^{n-1}\\
     &= 2^{n-1}.

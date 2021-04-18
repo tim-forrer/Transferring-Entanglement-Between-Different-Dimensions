@@ -23,64 +23,64 @@ Here it is proven by induction that the circuit presented in section \ref{sectio
     \end{equation}
     Furthermore, assume that this can be re-expressed as a tensor product of $n$ qubits by converting the computational basis state labels to their binary equivalents and "expanding" to give
     \begin{align}
-        (a_k\ket{0} + b_k\ket{1})\otimes(a_{k-1}\ket{0} + b_{k-1}\ket{1})\otimes\cdots\otimes(a_1\ket{0} + b_1\ket{1})\otimes\ket{0}_2\\
-        =&\bigotimes_{i = k}^{1}\left(a_i\ket{0} + b_i\ket{1}\right)\otimes\ket{0}_2,
+        &(a_k\ket{0} + b_k\ket{1})\otimes(a_{k-1}\ket{0} + b_{k-1}\ket{1})\otimes\cdots\otimes(a_1\ket{0} + b_1\ket{1})\otimes\ket{0}_2\\
+        &=\bigotimes_{i = k}^{1}\left(a_i\ket{0} + b_i\ket{1}\right)\otimes\ket{0}_2,
     \end{align}
     where the coefficients $a_{i}$ and $b_{i}$ match the amplitudes of the $i^{th}$ qubit state that was stored.
     Note that the assumption that the state can be expanded in such a way implies equation \ref{eqn:sum_qudit_state} where
     \begin{equation}
         c_j = \prod_{i=1}^{k}(a_i \delta^{0}_{j_{2_i}} + b_i\delta^{1}_{j_{2_i}}),
     \end{equation}
-    where $j_{2_i}$ is the $i^{th}$ digit of the binary expression of $j$, and $\delta$ is the Kronecker delta.\newline
+    where $j_{2_i}$ is the $i^{th}$ digit of the binary expression of $j$, and $\delta^m_n$ is the Kronecker delta.\newline
 
     $n=k+1$\newline
     The entire state prior to running the circuit with an additional qubit to be stored is given by
     \begin{align}
         &\left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes(a_{k+1}\ket{0}_2 + b_{k+1}\ket{1}_2)\\
-        =&\left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes a_{k+1}\ket{0}_2\label{eqn:first_summand}\\ 
+        &=\left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes a_{k+1}\ket{0}_2\label{eqn:sum_state}
         +
-        &\left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes b_{k+1}\ket{1}_2. \label{eqn:second_summand}
+        \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes b_{k+1}\ket{1}_2.
     \end{align}
     This state is now put through the circuit.
     Note that the summand which is tensored with $\ket{0}_2$ is not affected by the $\C{\Omega^j}$ since the target is $\ket{0}_2$.
     Therefore only the summand tensored with $\ket{1}_2$ is advanced, and by claim \ref{claim:COmegaCXinQFTbasis}, the basis states are shifted up by $j$ steps.
     From claim \ref{claim:min_steps}, for the $\C{\Omega^j}$ gate, $j = 2^k$.
     Consider what this means in terms of computational basis states.
-    When written terms of computational basis states, \crefrange{eqn:first_summand}{eqn:second_summand} are given by the sum
+    When written terms of computational basis states, equation \ref{eqn:sum_state} is given by the sum
     \begin{align}
-        &\left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes a_{k+1}\ket{0}_2\\
-        +&\left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes b_{k+1}\ket{1}_2.
+        &\left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes a_{k+1}\ket{0}_2
+        +\left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes b_{k+1}\ket{1}_2.
     \end{align}
     Shifting all of the computational basis states in the second summand by $j=2^k$ yields
     \begin{align}
-        &\left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes a_{k+1}\ket{0}_2\\
-        +&\left(\sum_{i=0}^{2^k - 1}c_i\ket{i + 2^k}_d\right) \otimes b_{k+1}\ket{1}_2.
+        \left(\sum_{i=0}^{2^k - 1}c_i\ket{i}_d\right) \otimes a_{k+1}\ket{0}_2
+        +\left(\sum_{i=0}^{2^k - 1}c_i\ket{i + 2^k}_d\right) \otimes b_{k+1}\ket{1}_2.
     \end{align}
     In binary, adding $2^k$ to a number that is less than $2^k$ can be thought of as placing an additional 1 at the start of the string of binary digits.
     For example, where $(x)_2$ denotes that the number $x$ is written in binary,
     \begin{equation}
         7 + 8 = (2^3 - 1) + (2^3) = (111)_2 + (1000)_2 = (1111)_2.
     \end{equation}
-    In this way, the action of the $\C{\Omega^j}$ gate on the tensor representation of the qudit given in \crefrange{eqn:first_summand}{eqn:second_summand} can be thought of as adding a $\ket{1}$ in front of all of the binary representations of the computational basis states tensored with $\ket{1}_2$.
+    In this way, the action of the $\C{\Omega^j}$ gate on the tensor representation of the qudit given in equation \ref{eqn:sum_state} can be thought of as adding a $\ket{1}$ in front of all of the binary representations of the computational basis states tensored with $\ket{1}_2$.
     Similarly, a $\ket{0}$ can be added in front of the binary representations of the computational basis states tensored with $\ket{0}_2$, since it still represents the same number ($01 = 1$).
     \begin{align}
-        &\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes a_{k+1}\ket{0}_2\\ 
+        &\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes a_{k+1}\ket{0}_2
         +
-        &\ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes b_{k+1}\ket{1}_2\\
-        =  &a_{k+1}\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\ 
+        \ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes b_{k+1}\ket{1}_2\\
+        &= a_{k+1}\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2
         +
-        &b_{k+1} \ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{1}_2.
+        b_{k+1} \ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{1}_2.
     \end{align}
     It is only possible to add these additional kets if the $d \geq 2^{k+1}$, else the Hilbert space is not large enough to accomodate the additional states being represented, hence the need for that contraint.
     The next step of the circuit is to use some map $U$ to pair the even numbered computational basis states with $\ket{0}_2$ and the odd numbered computational basis states with $\ket{1}_2$ to convert the $\ket{1}_2$ to a $\ket{0}_2$ via a $\C{X}$ operation, after which $U$ is uncomputed.
     On the qudit state, since no amplitude changes are involved this is akin to doing a $UU^{-1}=I$ and so leaves the qudit state untouched.
     Therefore the final state is given by
     \begin{align}
-        &a_{k+1}\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\ 
+        &a_{k+1}\ket{0} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2
         +
-        &b_{k+1} \ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\
-        =&\left(a_{k+1}\ket{0}+b_{k+1} \ket{1}\right) \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\
-        =&\left(\bigotimes_{i = k+1}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2
+        b_{k+1} \ket{1} \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\
+        &=\left(a_{k+1}\ket{0}+b_{k+1} \ket{1}\right) \otimes \left(\bigotimes_{i = k}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2\\
+        &=\left(\bigotimes_{i = k+1}^{1}(a_i\ket{0} + b_i\ket{1})\right)\otimes \ket{0}_2
     \end{align}
     So the statement is true by induction.
 \end{proof}

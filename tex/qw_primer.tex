@@ -1,5 +1,5 @@
 \subsection{Quantum Random Walks}
-Quantum random walks, as mentioned in section \ref{section:intro}, are a model for universal quantum computation, meaning that any computation that is possible for a quantum computer can be simulated by a QW.
+Quantum random walks, as touched on in section \ref{section:intro}, are a model for universal quantum computation, meaning that any computation that is possible for a quantum computer can be simulated by a QW.
 Like much of quantum computing, QWs can be motivated from a classical predecessor, the \emph{classical random walk}.
 Here the classical random walk is used specifically to motivate the discrete QW since the protocol presented in section \ref{section:qw_transfer} makes use of such a QW.
 Hence all future references to QWs are assumed to be of the discrete variant.
@@ -17,7 +17,7 @@ The probability distribution describing the probability of the walker being in a
 \subsubsection{Quantum Walk on a Line}
 \label{subsubsection:q_r_w}
 Having described the classical random walk, it can now be "quantised" into the \emph{quantum random walk}.
-The QW is considered as a composite system of the coin, belonging to the Hilbert space $\mathcal{H}_C$ and walker, $\mathcal{H}_C$,
+The QW is considered as a composite system of the coin, belonging to the Hilbert space $\mathcal{H}_C$ and walker, $\mathcal{H}_W$,
 \begin{equation}
     \mathcal{H} = \mathcal{H}_C \otimes \mathcal{H}_W.
 \end{equation}
@@ -43,19 +43,19 @@ This takes on the same form as the Hadamard transform defined in section \ref{su
     \ket{\uparrow}\bra{\downarrow} +
     \ket{\downarrow}\bra{\uparrow} -
     \ket{\downarrow}\bra{\downarrow}\Big]\\
-    &= \frac{1}{\sqrt{2}}\Big[(\ket{\uparrow} + \ket{\downarrow})\bra{\uparrow} +
-    (\ket{\uparrow} - \ket{\downarrow})\bra{\downarrow}\Big]
+    &= \frac{1}{\sqrt{2}}\bigg[\Big(\ket{\uparrow} + \ket{\downarrow}\Big)\bra{\uparrow} +
+    \Big(\ket{\uparrow} - \ket{\downarrow}\Big)\bra{\downarrow}\bigg]
     \label{equation:hadamard_coin}
 \end{align}
 where $\ket{0} \rightarrow \ket{\uparrow}$ and $\ket{1} \rightarrow \ket{\downarrow}$.
-As before, if the coin state is $\ket{\uparrow}$ then it becomes an equal superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then we get an equal superposition of $\ket{\uparrow} - \ket{\downarrow}$ and this is made particularly clear by equation \ref{equation:hadamard_coin}.
+As before, if the coin state is $\ket{\uparrow}$ then it becomes an equal in phase superposition of $\ket{\uparrow} + \ket{\downarrow}$, if the coin state is in $\ket{\downarrow}$ then it becomes equal antiphase superposition of $\ket{\uparrow} - \ket{\downarrow}$ and this is made particularly clear by equation \ref{equation:hadamard_coin}.
 Following this, a shift operator $S \in \mathcal{H}$ is needed to move the walker dependent on the state of the coin.
 \begin{equation}
     S = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k + 1}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k - 1}\bra{k}.
 \end{equation}
 Again, representing $S$ in this way makes manifest its effect on the walker. 
 If the coin state is $\ket{\uparrow}$, the walker takes a step in the +1 direction, if it is $\ket{\downarrow}$ then a step in the -1 direction is taken.
-The probability distribution of such a walk is plotted in blue in fig \ref{fig:discVSclass}, where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk.\newline
+The probability distribution of such a walk is plotted in blue in figure \ref{fig:discVSclass}, where the initial coin state is $\ket{\downarrow}$, and is compared to a classical random walk.\newline
 
 \begin{figure}
     \centering
@@ -69,7 +69,8 @@ Whilst the above choice of $S$ is the most common on the number line, there are 
     \tilde{S} = \sum_k \ket{\uparrow}\bra{\uparrow} \otimes \ket{k}\bra{k} + \ket{\downarrow}\bra{\downarrow} \otimes \ket{k + 1}\bra{k}.
 \end{equation}
 Th subtle difference between $\tilde{S}$ and $S$ is that $\tilde{S}$ can only move in the $+1$ direction of the number line and has no "left moving" part.
-This means that $\tilde{S}$ is restricted to the non-negative integers and unlike $S$, can occupy all $\ket{x}$ for $0\leq x\leq T$, where $T$ is the number of time steps in our QW.
+This means that $\tilde{S}$ is restricted to the non-negative integers and can occupy all $\ket{x}$ for $0\leq x\leq T$, where $T$ is the number of time steps in our QW.
+This is compared with $S$ which only occupies even or odd numbered positions dependent on $T$.
 In fact $\tilde{S}$ is an operator that was introduced earlier in section \ref{subsubsection:operators},
 \begin{equation}
     \tilde{S} = \C{X}.

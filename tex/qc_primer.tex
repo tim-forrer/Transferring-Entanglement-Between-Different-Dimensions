@@ -1,15 +1,15 @@
 \subsection{Quantum Computation}
 \subsubsection{Qubits}
 \label{subsubsection:qubits}
-A qubits can be described by a state belonging to a Hilbert space $\mathcal{H}$ of dimension two.
-A common basis for $\mathcal{H}$ is \emph{computational basis}, labelled by $\ket{0}$ and $\ket{1}$.
+A qubit can be described by a state belonging to a Hilbert space $\mathcal{H}$ of dimension two.
+A standard basis for $\mathcal{H}$ is the \emph{computational basis}, labelled by $\ket{0}$ and $\ket{1}$.
 Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$.
 This basis is best known as the \emph{Hadamard basis}, as $\ket{+}$ and $\ket{-}$ are equal to $H\ket{0}$ and $H\ket{1}$, where $H$ is the Hadamard transform given by
 \begin{align}
     \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
     \ket{-} &= H\ket{1} = \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
 \end{align}
-Qubits can also be written out in vector form, and the most common choice for this is to assign the computational basis states as
+Qubits can also be written out in vector form, and the natural choice for this is to assign the computational basis states as
 \begin{align}
     \ket{0} = 
     \begin{pmatrix}
@@ -22,26 +22,15 @@ Qubits can also be written out in vector form, and the most common choice for th
         1
     \end{pmatrix}.
 \end{align}
-Therefore the Hadamard transform and associated basis states are given by
-\begin{equation}
-    \begin{gathered}
-        H = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1\\
-            1 & -1
-        \end{pmatrix}\\
-        \ket{+} = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 \\
-            1
-        \end{pmatrix}, \;
-        \ket{-} = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 \\
-            -1
-        \end{pmatrix}.
-    \end{gathered}
-\end{equation}
+In this basis the Hadamard transform is given by
+\begin{align}
+    H = \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 & 1\\
+        1 & -1
+    \end{pmatrix}.
+    \label{eqn:hadmard_matrix}
+\end{align}
 
 \subsubsection{Qudits}
 \label{subsubsection:qudits}
@@ -50,19 +39,19 @@ In classical computing, the bit can be generalised to a unit that takes on one o
 Similarly, the quantum dit is the \emph{qudit}, which can be in superposition of up to $d$ states.
 Many aspects of quantum computing specific to qubits generalise nicely to qudits.
 The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{j}\}_{j=0}^{d-1}$.
-To distinguish kets representing belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to $\mathcal{H}_d$, a Hilbert space of dimension $d$.
+To distinguish kets belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to $\mathcal{H}_d$, a Hilbert space of dimension $d$.
 For compactness, operators will not have their dimension explicitly labelled, since they belong to the same Hilbert space as the state they are acting on.
 Similar to qubits, there are many different bases that can be used to describe our qudit states.
-The $d$ dimensional analogue to the Hadamard transform is the \emph{quantum Fourier transform} is given by
+The $d$ dimensional extension of the Hadamard transform is the \emph{quantum Fourier transform}, given by
 \begin{equation}
     F\ket{j}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{k=0}^{d-1} \omega^{jk}\ket{k}_d,
 \end{equation}
 where $\omega = e^{i\frac{2\pi}{d}}$, i.e. it is the $d^{th}$ root of unity.
-Therefore the Fourier basis can be generalised to the set of states  $\{\ket{+_j}\}_{j=0}^{d-1}$, where
+From this it can be seen that for $d = 2$, $F = H$.
+Therefore the Hadamard basis $\{\ket{+}, \ket{-}\}$ can be generalised to the set of states  $\{\ket{+_j}\}_{j=0}^{d-1}$, where
 \begin{equation}
     \ket{+_j}_d = F\ket{j}_d.
 \end{equation}
-Note that in the case $d=2$, $F = H$, hence the Hadamard transform is actually a quantum Fourier transform.
 
 Again, qudits can also be represented by vectors, with the computational basis states again assigned as
 \begin{equation}
@@ -123,7 +112,7 @@ If the kets are of the same dimension then this can be further compactified by c
 Since tensor products distribute over sums, when combining states in superposition they must also be distributed over.
 For example with two qudits,
 \begin{align}
-    (\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d &= (\ket{0}_d + \ket{1})_d\ket{2}_d\\
+    (\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d &= (\ket{0}_d + \ket{1}_d)\ket{2}_d\\
     &= \ket{02}_d + \ket{12}_d
 \end{align}
 Recall also from the properties of the tensor product that it is not commutative, therefore care must be taken in ensuring that the order of qudits is preserved throughout,
@@ -147,7 +136,7 @@ More generally in the qudit setting,
     X\ket{j}_d = \ket{j + 1 \text{ mod } d}_d.
 \end{equation}
 However, there are other gates that do not have a classical analogue such as the  the (Pauli) $Z$ gate.
-In the qubit setting acts $Z$ as the identity on $\ket{0}$ and applies a relative phase to $\ket{1} \mapsto -\ket{1}$.
+In the qubit setting $Z$ acts as the identity on $\ket{0}$ and applies a relative phase to $\ket{1} \mapsto -\ket{1}$.
 Again this can be generalised to the qudit setting
 \begin{equation}
     Z\ket{j}_d = \omega^j\ket{j}_d,
@@ -196,7 +185,7 @@ When describing a circuit that implements a series of operators on our qudits, i
 Straight lines in the circuits represent qudits.
 Operations on qudits are represented by gates placed on the straight lines corresponding to the qudits we wish to act on.
 A table of common gates relevant for this report is given in table \ref{table:gates}.
-\begin{table}
+\begin{table}[h]
     \begin{center}
         \begin{tabular}{c | c}
             Operator & Gate\\
@@ -218,8 +207,8 @@ When reading a circuit, time flows from left to right and a gate must finish its
     \C{X}(Z\otimes I)(X\otimes I)\left(\ket{0}_2\otimes\ket{\psi}_2\right).
     \label{eqn:sample_operations}
 \end{equation}
-
-\begin{figure}
+%\FloatBarrier
+\begin{figure}[h]
     \begin{center}
         \begin{tikzpicture}
             \node[scale=1.0] {
@@ -229,7 +218,8 @@ When reading a circuit, time flows from left to right and a gate must finish its
                 \end{quantikz}
             };
         \end{tikzpicture}
-    \caption{An example of a circuit schematic representing the expression given in equation \ref{eqn:sample_operations}.}
+    \caption{An example of a circuit representing the expression given in equation \ref{eqn:sample_operations}.}
     \label{fig:sample_circuit}
     \end{center}
 \end{figure}
+%\FloatBarrier

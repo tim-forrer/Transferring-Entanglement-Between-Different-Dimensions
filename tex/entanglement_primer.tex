@@ -4,7 +4,7 @@ Loosely, it is the presence of strong correlations in a quantum system, much str
 Strictly speaking, an entangled state is one that cannot be expressed as a separable state.
 A separable state is one that can be written as a tensor product of states in the Hilbert subspaces of a multipartite system.
 All of the basis states formed in section \ref{subsubsection:collections_qbits} are examples of separable states, as they are formed by taking the tensor product of basis states in each of the constituent Hilbert spaces.
-An example of an entangled state would be this state between two qubits
+An example of an entangled state would be this state between two qubits,
 \begin{equation}
     \label{eqn:bell_state}
     \frac{1}{\sqrt{2}}(\ket{00}_2 + \ket{11}_2).
@@ -12,7 +12,7 @@ An example of an entangled state would be this state between two qubits
 It is impossible to write this state in the form $\left(a\ket{0}_2 + b\ket{1}_2\right) \otimes \left(c\ket{0}_2 + d\ket{1}_2 \right)$, hence it is not separable.
 This is one of the four Bell states which are the \emph{maximally entangled} two qubit states.
 \begin{definition}[Maximally Entangled State]
-    A state $\ket{\psi}$ describing a bipartite system $\mathcal{H} = \mathcal{H}^{(A)} \otimes \mathcal{H}^{B}$ is maximally entangled if the reduced density matrix representing $\ket{\psi}$ in either subspace is maximally mixed, that is, it is directly proportional to the identity.
+    A state $\ket{\psi}$ describing a bipartite system $\mathcal{H} = \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}$ is maximally entangled if the reduced density matrix representing $\ket{\psi}$ in either subspace is maximally mixed, that is, it is directly proportional to the identity.
 \end{definition}
 Taking the Bell state given in equation \ref{eqn:bell_state}, its density matrix is given by
 \begin{align}
@@ -35,16 +35,15 @@ For example,
 is a entangled state between a qubit and a qutrit ($d=3$).
 Whilst higher dimensional entanglement can also refer to entanglement between multipartite systems, such as GHZ states or W states \cite{bengtsson2016brief}, in this report only bipartite entanglement is of concern.
 
-Higher dimensional entanglement is useful as contains stronger correlations than present in a Bell pair and therefore can be utilised to further enhance the power of quantum computions.
+Higher dimensional entanglement is useful as it contains stronger correlations than present in a Bell pair and can be utilised to further enhance the power of quantum computations.
 For example, the superdense coding protocol can transmit two classical bits of information for every Bell pair available.
 If higher dimensional entangled states are used instead, then more bits of classical information can be transmitted per entangled state \cite{Liu_2002}, making the coding even denser.
 However, whilst higher dimensional entanglement unlocks further benefits, it comes with further challenges in its creation.
-Many schemes for physically generating entangled Bell pairs exist (see for example\cite{Browne_2003, Wei_2006, Messina_2002}), however it at present these schemes often cannot be easily generalised to directly generate higher and higher dimensional entanglement, more and more new schemes will need to be developed.
-Therefore, if it is instead possible to transfer and accumulate entanglement from Bell pairs into qudit pairs, then this does away with the need for different schemes for each dimension of qudit, and instead the same scheme can be used to generate Bell pairs and transfer this entanglement to the qudit pairs.
+Many schemes for physically generating entangled Bell pairs exist (see for example \cite{Browne_2003, Wei_2006, Messina_2002}) if it is instead possible to transfer and accumulate entanglement from Bell pairs into qudit pairs, then this does away with the need for different entanglement generation schemes for each dimension of qudit, and instead the same scheme can be used to generate Bell pairs and transfer this entanglement to the qudit pairs.
 In a practical setting this is also desirable, as only a source of Bell pairs is needed to generate entangled qudits of any dimension, saving on the space required in a quantum computer should different dimensions of entanglement be required for different computations.
 Furthermore, if the entanglement can be freely transferred between dimensions, that is, not just accumulated in but also retrieved from higher dimensional entangled states, then this would further enhance the versatility of quantum computers, giving them a store of entanglement that can be drawn from when required.
 
-\subsubsection{Measuring entanglement}
+\subsubsection{Measuring Entanglement}
 \label{subsubsection:measure_entanglement}
 In order to analyse the efficiency of an entanglement transfer protocol, it is useful to have a method of measuring entanglement.
 Numerous methods of doing so have been proposed and are used, and a full
@@ -74,14 +73,14 @@ Another useful property of log negativity is that it is easy to compute, particu
 \begin{proof}
     First, note that for a Hilbert space of dimension $d\times d$, the state
     \begin{equation}
-        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{j=d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}
+        \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}
     \end{equation}
     is maximally entangled, since its reduced density matrix in either subspace is maximally mixed.
     So to calculate the log negativity of any maximally entangled state it is sufficient to calculate the log negativity of the density matrix, $\rho$ associated with $\ket{\psi}$.
     Since $\ket{\psi}$ is a pure state,
     \begin{align}
         \rho &= \ket{\psi}\bra{\psi}\\
-        &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}
+        &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}.
     \end{align}
     To calculate $E_{\mathcal{N}}(\rho)$, first find the partial transpose on $\mathcal{H}^{(A)}$ (the choice is not significant, the partial transpose on $\mathcal{H}^{(B)}$ yields the same result as the subspaces are equally entangled with one another).
     \begin{align}
@@ -106,7 +105,7 @@ This combined with the strong additivity condition is what makes the choice of l
 A single Bell pair resides in a Hilbert space of dimension $2 \times 2$ and has log negativity 1.
 Therefore, a collection of $n$ Bell pairs exist in a Hilbert space of $2^{2n}$ and have a log negativity of $n$ (additivity).
 The minimum dimension of the Hilbert space that this entanglement is to be transferred into is also $2^{2n}$ (if it is bigger then it can always be reduced to a space of that dimension).
-Therefore the qudit pair resides in a Hilbert space of $d\times d = 2^{2n} = 2^n \times 2^n$
+Therefore the qudit pair resides in a Hilbert space of $d\times d = 2^{2n} = 2^n \times 2^n$.
 Using the log negativity, a maximally entangled state in a Hilbert space of dimension $2^n \times 2^n$ has a log negativity of $n$ (claim \ref{claim:maximally_entangled_states}).
 Therefore the maximal log negativity in the qudit pair is equal to the sum of the log negativity of the Bell states that entanglement is transferred from.
 This means that if three Bell pairs have their entanglement transferred, the maximal possible log negativity of the resulting qudit pair is 3.

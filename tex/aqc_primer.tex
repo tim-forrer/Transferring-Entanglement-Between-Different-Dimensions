@@ -1,12 +1,11 @@
 \subsection{Ancilla-Based Quantum Computing}
 The quantum walk model of quantum computation is but one of many universal quantum computing models.
-Another model is known as \emph{ancilla-based quantum computing} (AQC), which, in particular, aims to resolve two conflicting demands when building quantum computers:
-Qubits must be well isolated to prevent decoherence, yet it must also be possible for them to interact with one another in certain settings, such as implementing the $\C{X}$ operator.
+Another model is known as \emph{ancilla-based quantum computing} (AQC), which, in particular, aims to resolve two conflicting demands when building quantum computers: qubits must be well isolated to prevent decoherence, yet it must also be possible for them to interact with one another in certain settings, such as implementing the $\C{X}$ operator.
 However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely fulfils both of these aims.
 
 AQC aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
 Using this model, it is possible to implement two complementary registers of qubits.
-The main register can be designed to be strongly isolated from interactions, bar a limited number of interactions with the ancilla registry, whose qubits can be easily manipulated but decohere much faster.
+The main register can be designed to be strongly isolated from interactions, bar a limited number of interactions with the ancilla register, whose qubits can be easily manipulated but decohere much faster.
 Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the register and the ancilla.
 After performing a computation on the ancilla qubit, the quantum information is then \emph{relocalised} back into the main register.
 The ancilla can then be reset to the initial state and used again for other computations.
@@ -33,8 +32,8 @@ A simple example of a circuit designed for ancilla-based quantum computing is sh
 The circuit on the left hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a $\C{X}$ gate.
 Acting a $Z$ gate on the ancilla and relocalising the quantum information with another $\C{X}$ gate "passes on" the effects of the $Z$ gate.
 Note however that this would not directly work to implement an $X$ gate on $\ket{\psi}$ if the $Z$ gate were directly switched with an $X$ gate.
-This is because only amplitudes can be delocalised and relocalised, computational basis states cannot be directly shifted by ancilla interactions.
-If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states differ by their amplitudes, before the $Z$ circuit and mapped back afterwards (see figure \ref{figure:aqc_X}), then it is possible to effect an $X$ operator in the AQC setting.
+This is because only amplitudes can be delocalised and relocalised; computational basis states cannot be directly shifted by ancilla interactions.
+If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states differ by their amplitudes, before the $Z$ circuit and mapped back afterwards, as in figure \ref{figure:aqc_X}, then it is possible to effect an $X$ operator in the AQC setting.
 \begin{figure}[h]
     \begin{center}
         \begin{tikzpicture}
@@ -49,7 +48,7 @@ If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states
                 \end{quantikz}
             };
         \end{tikzpicture}
-    \caption{Implementing an $X$ gate on $\ket{\psi}$ in the AQC setting by first mapping $\ket{\psi}$ to the Hadamard basis before and after the $Z$ circuit given in fig \ref{figure:aqc_Z}.}
+    \caption{Implementing an $X$ gate on $\ket{\psi}$ in the AQC setting by first mapping $\ket{\psi}$ to the Hadamard basis before and after the $Z$ circuit given in figure \ref{figure:aqc_Z}.}
     \label{figure:aqc_X}
     \end{center}
 \end{figure}

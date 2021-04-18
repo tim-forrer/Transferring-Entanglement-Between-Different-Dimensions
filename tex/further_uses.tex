@@ -51,7 +51,7 @@ which can be rewritten as the product state
     \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}} \otimes \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}}.
 \end{equation}
 Quite remarkably the qudit has an intuitive alternative expression as the product state of qubit 1 and qubit 2.
-If the circuit is run backwards, we will retrieve qubit 2.
+If the circuit is run backwards, qubit 2 will be retrieved, since it was the last qubit stored.
 Therefore, to retrieve qubit 1 instead, the qudit state should be expressable as
 \begin{equation}
     \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}} \otimes \underbrace{\left(c\ket{0} + d\ket{1}\right)}_{\text{Qubit 2}}.
@@ -100,9 +100,9 @@ When qubits 1, 2 and 3 are stored in that same order, it results in the state
 \end{equation}
 which again, when converted to binary numbers, can be expressed as the product state
 \begin{equation}
-    \left(e\ket{0} + f\ket{1}\right) \otimes \left(c\ket{0} + d\ket{1}\right) \otimes \left(a\ket{0} + b\ket{1}\right).
+    \underbrace{\left(e\ket{0} + f\ket{1}\right)}_{\text{Qubit 3}} \otimes \left(c\ket{0} + d\ket{1}\right) \otimes \underbrace{\left(a\ket{0} + b\ket{1}\right)}_{\text{Qubit 1}}.
 \end{equation}
-If the state of qubit 1 is needed then $M$ must implement the map
+If the state of qubit 1 is needed, then $M$ must switch the first and last qubits, and therefore must implement the map
 \begin{align}
     \ket{1} = \ket{001} &\mapsto \ket{100} = \ket{4}\\
     \ket{3} = \ket{011} &\mapsto \ket{110} = \ket{6}\\
