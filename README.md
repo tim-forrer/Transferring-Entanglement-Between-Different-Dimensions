@@ -1,6 +1,6 @@
 # Transferring Entanglement Between Different Dimensions
 
-## [Master's Thesis](../blob/master/Masters_Thesis.pdf)
+## [Master's Thesis](../master/Masters_Thesis.pdf)
 
 The thesis was submitted on 21st April, 2021 as part of my MSci Natural Sciences degree at Durham University, UK.
 
