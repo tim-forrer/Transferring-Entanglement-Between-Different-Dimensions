@@ -1,12 +1,12 @@
 \subsection{Ancilla-Based Quantum Computing}
 The quantum walk model of quantum computation is but one of many universal quantum computing models.
 Another model is known as \emph{ancilla-based quantum computing} (AQC), which, in particular, aims to resolve two conflicting demands when building quantum computers: qubits must be well isolated to prevent decoherence, yet it must also be possible for them to interact with one another in certain settings, such as implementing the $\C{X}$ operator.
-However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequetely fulfils both of these aims.
+However, a qubit cannot distinguish between unwanted and wanted interactions, resulting in the need for a balancing act that adequately fulfils both of these aims.
 
 AQC aims to resolve this conflict by using additional qubits, known as ancilla qubits, which mediate interactions between the main register qubits. 
 Using this model, it is possible to implement two complementary registers of qubits.
 The main register can be designed to be strongly isolated from interactions, bar a limited number of interactions with the ancilla register, whose qubits can be easily manipulated but decohere much faster.
-Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the register and the ancilla.
+Quantum computations can be performed by \emph{delocalising} quantum information from the main register across both the main and the ancilla registers.
 After performing a computation on the ancilla qubit, the quantum information is then \emph{relocalised} back into the main register.
 The ancilla can then be reset to the initial state and used again for other computations.
 A simple example of a circuit designed for ancilla-based quantum computing is shown in figure \ref{figure:aqc_Z}. 
@@ -29,7 +29,7 @@ A simple example of a circuit designed for ancilla-based quantum computing is sh
     \label{figure:aqc_Z}
     \end{center}
 \end{figure}
-The circuit on the left hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a $\C{X}$ gate.
+The circuit on the left-hand side of figure \ref{figure:aqc_Z} does not directly implement any unitary transformations on an arbitrary qubit state $\ket{\psi} = \alpha \ket{0} + \beta \ket{1}$, but instead indirectly acts on $\ket{\psi}$ via the ancilla qubit, to which the quantum information of $\ket{\psi}$ is shared to via a $\C{X}$ gate.
 Acting a $Z$ gate on the ancilla and relocalising the quantum information with another $\C{X}$ gate "passes on" the effects of the $Z$ gate.
 Note however that this would not directly work to implement an $X$ gate on $\ket{\psi}$ if the $Z$ gate were directly switched with an $X$ gate.
 This is because only amplitudes can be delocalised and relocalised; computational basis states cannot be directly shifted by ancilla interactions.
@@ -55,6 +55,7 @@ If however, $\ket{\psi}$ is mapped to the Hadamard basis, where the basis states
 These two circuits highlight the somewhat counterintuitive nature of AQC.
 A controlled operation is utilised, where the qudit is the control and the qubit is the target, yet it is the qudit state that is changed and the qubit is left "untouched".
 
-This model of quantum computing does not have to be reserved to qubit computing alone and can be extended to qudits simply by using the general forms of operators, as described in section \ref{subsubsection:operators}.
-An further advantage of AQC is that it is particularly well placed to used registers of qudits with mismatched dimensions.
-Therefore, it is an extremely suitable model of quantum computation for entanglement transfer as entangled qubits can be used as the ancilla (to be regularly replaced once the entanglement is transferred), and qudits of arbitrary dimension can be the main register to ensure the entanglement transferred is long-lived.
+This model of quantum computing is not exclusive to the qubit computing model and can be extended to qudits simply by using the general forms of operators, as described in section \ref{subsubsection:operators}.
+A further advantage of AQC is that it is particularly well-placed to use registers of qudits with mismatched dimensions.
+A full introduction to utilising AQC in such a setting is given by Proctor \cite{Proctor_2016}.
+Due to this hybrid computing capability, it is an extremely suitable model of quantum computation for entanglement transfer between dimensions.

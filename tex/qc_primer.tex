@@ -3,10 +3,16 @@
 \label{subsubsection:qubits}
 A qubit can be described by a state belonging to a Hilbert space $\mathcal{H}$ of dimension two.
 A standard basis for $\mathcal{H}$ is the \emph{computational basis}, labelled by $\ket{0}$ and $\ket{1}$.
+Since a qubit is a quantum system, it can exist in a superposition of the basis states,
+\begin{equation}
+    \label{eqn:arb_qubit}
+    \ket{\psi} = \cos(\theta)\ket{0} + e^{i\phi}\sin{\theta}\beta\ket{1},
+\end{equation}
+where the coefficients are the probability amplitudes of each state and via the trigonometric identity give a total probablity of 1, as expected.
 Naturally we can also use other bases for describing our qubit state. A common alternative is the basis $\{\ket{+}, \ket{-}\}$.
 This basis is best known as the \emph{Hadamard basis}, as $\ket{+}$ and $\ket{-}$ are equal to $H\ket{0}$ and $H\ket{1}$, where $H$ is the Hadamard transform given by
 \begin{align}
-    \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right)\\
+    \ket{+} &= H\ket{0} = \frac{1}{\sqrt2} \left(\ket{0} + \ket{1}\right),\\
     \ket{-} &= H\ket{1} = \frac{1}{\sqrt2} \left(\ket{0} - \ket{1}\right).
 \end{align}
 Qubits can also be written out in vector form, and the natural choice for this is to assign the computational basis states as
@@ -42,18 +48,18 @@ The computational basis is now extended from $\{\ket{0}, \ket{1}\}$ to $\{\ket{j
 To distinguish kets belonging to Hilbert spaces of different dimension, the notation $\ket{\cdot}_d$ will be used to denote a state belonging to $\mathcal{H}_d$, a Hilbert space of dimension $d$.
 For compactness, operators will not have their dimension explicitly labelled, since they belong to the same Hilbert space as the state they are acting on.
 Similar to qubits, there are many different bases that can be used to describe our qudit states.
-The $d$ dimensional extension of the Hadamard transform is the \emph{quantum Fourier transform}, given by
+The $d$-dimensional extension of the Hadamard transform is the \emph{quantum Fourier transform}, given by
 \begin{equation}
-    F\ket{j}_d = \frac{1}{2^{\frac{d}{2}}} \sum_{k=0}^{d-1} \omega^{jk}\ket{k}_d,
+    F\ket{j}_d = \frac{1}{\sqrt{d}} \sum_{k=0}^{d-1} \omega^{jk}\ket{k}_d,
 \end{equation}
-where $\omega = e^{i\frac{2\pi}{d}}$, i.e. it is the $d^{th}$ root of unity.
+where $\omega = e^{i\frac{2\pi}{d}}$, i.e. it is the $d^{\text{th}}$ root of unity.
 From this it can be seen that for $d = 2$, $F = H$.
 Therefore the Hadamard basis $\{\ket{+}, \ket{-}\}$ can be generalised to the set of states  $\{\ket{+_j}\}_{j=0}^{d-1}$, where
 \begin{equation}
     \ket{+_j}_d = F\ket{j}_d.
 \end{equation}
 
-Again, qudits can also be represented by vectors, with the computational basis states again assigned as
+Again, qudits can also be represented by vectors with $d$ entries, with the computational basis states again assigned as
 \begin{equation}
     \ket{0} = 
     \begin{pmatrix}
@@ -77,7 +83,7 @@ Again, qudits can also be represented by vectors, with the computational basis s
         1
     \end{pmatrix}.
 \end{equation}
-In this basis, the Fourier transform is given by the matrix
+In this basis, the Fourier transform is given by the $d\times d$ matrix
 \begin{equation}
     F = \begin{pmatrix}
         1 & 1 & \cdots & 1\\
@@ -91,11 +97,11 @@ and the associated Fourier basis states are found by applying the matrix represe
 \subsubsection{Collections of Qudits}
 \label{subsubsection:collections_qbits}
 Qudits considered in isolation are not overly useful for quantum computations and in general a collection of qudits is needed for a given algorithm.
-The Hilbert space of a collection of $n$ qudits, which are not neccessarily all of the same dimension, is found by taking the tensor product, $\otimes$, of the Hilbert spaces of each of the individual qudits
+The Hilbert space of a collection of $n$ qudits, which are not necessarily all of the same dimension, is found by taking the tensor product, $\otimes$, of the Hilbert spaces of each of the individual qudits
 \begin{equation}
     \mathcal{H} = \mathcal{H}_{d_0} \otimes \mathcal{H}_{d_1} \otimes \dots \otimes \mathcal{H}_{d_{n-1}}.
 \end{equation}
-The computational basis state for the combined Hilbert space is found by taking all possible tensor product combinations of the basis states for each constituent Hilbert space.
+The computational basis for the combined Hilbert space is found by taking all possible tensor product combinations of the basis states for each constituent Hilbert space.
 The state 
 \begin{equation}
     \ket{0}_{d_0}\otimes\ket{0}_{d_1}\otimes\dots\otimes\ket{0}_{d_{n-1}}
@@ -105,7 +111,7 @@ Notationally, this state can be further simplified by the omission of the tensor
 \begin{equation}
     \ket{0}_{d_0}\ket{0}_{d_1}\dots\ket{0}_{d_{n-1}}.
 \end{equation}
-If the kets are of the same dimension then this can be further compactified by contracting them,
+If the kets are of the same dimension then this can be further compacted by contracting them,
 \begin{align}
     \ket{0}_{d}\ket{0}_{d}\dots\ket{0}_{d} = \ket{00\dots0}_d.
 \end{align}
@@ -113,9 +119,9 @@ Since tensor products distribute over sums, when combining states in superpositi
 For example with two qudits,
 \begin{align}
     (\ket{0}_d + \ket{1}_d)\otimes\ket{2}_d &= (\ket{0}_d + \ket{1}_d)\ket{2}_d\\
-    &= \ket{02}_d + \ket{12}_d
+    &= \ket{02}_d + \ket{12}_d.
 \end{align}
-Recall also from the properties of the tensor product that it is not commutative, therefore care must be taken in ensuring that the order of qudits is preserved throughout,
+Recall also from the properties of the tensor product that it is not commutative, therefore care must be taken in ensuring that the order of qudits is preserved throughout, e.g.
 \begin{equation}
     \ket{01}_2 \neq \ket{10}_2.
 \end{equation}
@@ -126,36 +132,36 @@ The subscripts are often dropped when the meaning is clear.
 \label{subsubsection:operators}
 There are a wide variety of other operators beyond those introduced above that equate to a change of bases.
 One of the most common is the (Pauli) $X$, or NOT, operator.
-As the second name implies, in the qubit setting this acts in the same way as the classical NOT operator,
+As the second name implies, in the qubit setting this acts in the same way as the classical NOT operator:
 \begin{align}
-    \ket{0} &\mapsto \ket{1}\\
+    \ket{0} &\mapsto \ket{1},\\
     \ket{1} &\mapsto \ket{0}.
 \end{align}
 More generally in the qudit setting,
 \begin{equation}
-    X\ket{j}_d = \ket{j + 1 \text{ mod } d}_d.
+    X\ket{j}_d = \ket{(j + 1) \text{ mod } d}_d.
 \end{equation}
-However, there are other gates that do not have a classical analogue such as the  the (Pauli) $Z$ gate.
+However, there are other gates that do not have a classical analogue such as the (Pauli) $Z$ gate.
 In the qubit setting $Z$ acts as the identity on $\ket{0}$ and applies a relative phase to $\ket{1} \mapsto -\ket{1}$.
-Again this can be generalised to the qudit setting
+Again this can be generalised to the qudit setting:
 \begin{equation}
     Z\ket{j}_d = \omega^j\ket{j}_d,
 \end{equation}
-where $\omega$ is again the $d^{th}$ root of unity.
+where $\omega$ is again the $d^{\text{th}}$ root of unity.
 Both of these operators are sometimes referred to as Pauli operators as their matrix representations in the computational basis are given by the Pauli matrices $\sigma_x$ and $\sigma_z$.
 There is also the $Y$ operator corresponding to the Pauli $\sigma_y$ matrix but this is often omitted from consideration as
 \begin{equation}
     ZX = iY.
 \end{equation}
-Hence when designing a set of operators for a quantum computer, there is no theoretical need for $Y$ as it already exists up to a global phase, which is essentially irrelevant.
-The final operation to be introduced in the section is the $\C{U}$, or controlled-$U$ operator, where $U$ is any unitary operation.
+Hence, when designing a set of operators for a quantum computer, there is no theoretical need for $Y$ as it already exists up to a global phase, which is essentially irrelevant.
+The final operation to be introduced in this section is the $\C{U}$, or controlled-$U$ operator, where $U$ is any unitary operation.
 This operator is distinct from the others previously introduced in that it acts on two qudits rather than just one, although it only directly alters the state of one of the two qudits.
 In the qubit setting, one qubit is designated as the control qubit and the other the target.
 If the control qubit is in the state $\ket{0}$, then nothing happens to the target qubit.
 If the control qubit is in the state $\ket{1}$, then the operator $U$ is applied to the target qubit.
-Written mathematically, where the left hand qubit is the control, the right hand qubit is the target in some arbitrary qubit state $\ket{\psi}$,
+Written mathematically, where the left-hand qubit is the control and the right hand qubit is the target in some arbitrary qubit state $\ket{\psi}$,
 \begin{align}
-    \C{U}\left(\ket{0}\otimes\ket{\psi}\right) &= \ket{0}\otimes\ket{\psi}
+    \C{U}\left(\ket{0}\otimes\ket{\psi}\right) &= \ket{0}\otimes\ket{\psi},
     \label{eq:controlled_0}\\
     \C{U}\left(\ket{1}\otimes\ket{\psi}\right) &= \ket{1}\otimes U\ket{\psi}.
     \label{eq:controlled_1}
@@ -166,13 +172,14 @@ To extend this to the qudit setting, first note that \crefrange{eq:controlled_0}
     \label{eq:controlled_x}
 \end{equation}
 This equation now is well-defined for qudits, where instead of just taking values $0$ or $1$, $j$ can now take values from $\{0, 1, \dots, d-1\}$.
-Note that this definition applies also when the dimensions of the control and target are not equal, provided that the action of $U$ on the target is well-defined
+In fact, equation \ref{eq:controlled_x} is well-defined even when the dimensions of the control and target are not equal, provided that the action of $U$ on the target is well-defined.
+Explicitly,
 \begin{equation}
     \C{U}\left(\ket{j}_d\otimes\ket{\psi}_{d'}\right) = \ket{j}_d\otimes U^j\ket{\psi}_{d'}.
 \end{equation}
 In this report, unless otherwise stated, it is assumed that control qudits are always on the left and target qubits on the right.
 
-It is sometimes neccessary to have operators that act on single qudits in a collection of $n$ qudits.
+It is sometimes necessary to have operators that act on single qudits in a collection of $n$ qudits.
 These can be expressed by taking the tensor product with the identity acting on the other qudits in the collection.
 For example, the operator that acts with an $X$ on the qudit of index 1 in the state $\ket{\psi_0}\otimes\ket{\psi_1}\otimes\ket{\psi_2}$ is given by
 \begin{equation}

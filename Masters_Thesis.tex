@@ -1,0 +1,64 @@
+\documentclass[12pt, onecolumn]{article}
+
+\usepackage{mystyle}
+\graphicspath{{./figs/}}
+
+% Document
+\begin{document}
+
+\title{\bf{Transferring Entanglement Between Different Dimensions}} 
+\date{Submitted: April 21, 2021}
+\author{
+    Timothy Forrer\\
+    Level 4 Project, MSci Natural Sciences\\
+    Supervisor: Dr V. Kendon\\
+    Department of Physics, Durham University}
+
+\maketitle
+
+\input{tex/abstract.tex}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+\label{section:intro}
+\input{tex/intro.tex}
+
+\section{Background}
+\label{section:background}
+\input{tex/qc_primer.tex}
+\label{subsection:qc_primer}
+\input{tex/entanglement_primer.tex}
+\label{subsection:entangle}
+\input{tex/qw_primer.tex}
+\label{subsection:qw}
+\input{tex/aqc_primer.tex}
+\label{subsection:aqc}
+
+\section{Entanglement Transfer using Quantum Walks}
+\label{section:qw_transfer}
+\input{tex/qw_transfer.tex}
+
+\section{Entanglement Transfer using Ancilla-Based Quantum Computing}
+\label{section:aqc_transfer}
+\input{tex/aqc_transfer.tex}
+
+\section{Further Uses of the AQC Circuit}
+\label{section:furtheruses}
+\input{tex/further_uses.tex}
+
+\section{Discussion}
+\label{section:discussion}
+\input{tex/discussion.tex}
+
+\input{tex/ack.tex}
+
+\printbibliography[heading=bibintoc]
+
+\newpage
+
+\input{tex/appendix.tex}
+
+\end{document}

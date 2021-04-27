@@ -36,23 +36,12 @@
 \AtEveryBibitem{\clearfield{day}}
 \AtEveryBibitem{\clearfield{issue}}
 
-\renewbibmacro*{doi+eprint+url}{%
-  \iftoggle{bbx:doi}
-    {\iffieldundef{url}{\printfield{doi}}{}}
-    {}%
-  \newunit\newblock
-  \iftoggle{bbx:eprint}
-    {\usebibmacro{eprint}}
-    {}%
-  \newunit\newblock
-  \iftoggle{bbx:url}
-    {\usebibmacro{url+urldate}}
-    {}}
-
 % Customise appendix appearance.
-\usepackage{appendix}
+\usepackage[page, toc]{appendix}
 \renewcommand{\appendixpagename}{Appendices}
 \renewcommand{\appendixtocname}{\appendixpagename}
+
+\usepackage{titlesec}
 
 % Maths pacakges.
 \usepackage{amsmath}
@@ -77,6 +66,8 @@
 \usepackage{tikz}
 \usetikzlibrary{quantikz} % Quantum circuits
 \usepackage[section]{placeins} % Ensure figures appear in the section they are placed.
+\usepackage{caption}
+\usepackage{subcaption}
 
 % Links to content.
 \usepackage{hyperref}

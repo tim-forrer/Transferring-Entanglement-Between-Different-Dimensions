@@ -1,18 +1,18 @@
 Quantum computing is a field of research that has gained increasing attention over the course of the $21^{\text{st}}$ Century.
 Loosely speaking, it is a field that seeks to examine how quantum phenomena can be exploited to solve computation problems.
 Quantum computers are of particular interest due to the class of problems they can solve faster than possible classically.
-For example, Shor's factorising algorithm \cite{Shor_1997} gives a recipe for a quantum computer to calculate the factors of a number.
-This is of particular significance as there are cryptographic protocols that secure information by relying on the difficulty of factorising large numbers which are the products of two primes, a difficulty that is bypassed relatively easily with a quantum computer.
+For example, Shor's factorising algorithm \cite{Shor_1997} gives a recipe for a quantum computer to perform integer factorisation.
+This is of particular significance as there are cryptographic protocols that secure information by relying on the difficulty of factorising large numbers which are the products of two primes, a difficulty that could be bypassed relatively easily with a powerful enough quantum computer.
 Furthermore, as classical computers are made more and more computationally powerful, their physical power requirements go up also.
-Quantum computers offer a potential avenue to completing computations that require this additional classical computing power at a reduced energy cost.
+Quantum computers offer a potential avenue to performing computations that require this additional classical computing power at a reduced energy cost.
 
-Many schemes for quantum computation utilise qubits, the quantum analogue of the bit which is the unit of information in classical computing.
+Many schemes for quantum computation utilise qubits \cite{li_2001}, the quantum analogue of the bit, which is the unit of information in classical computing.
 The main difference between the bit and the qubit, is that the bit can only exist in one of two states (0 or 1) at any one time, whereas the qubit, due to its quantum nature, can exist in superposition of both the possible states.
-Other models utilising qudits, which exist in superposition of $d$ states rather than just two, have been proposed as they can unlock further advantages at the cost of being more complex to implement physically.
+Other models utilising qudits, which exist in superposition of $d$ states rather than just two, have been proposed \cite{Wang_2020} as they can unlock further advantages at the cost of being more complex to implement physically.
 
 In addition to superposition, another well known quantum phenomena that is often taken advantage of in quantum computing is \emph{entanglement}, correlations present in quantum systems that are far stronger than possible to find in classical systems.
 There are a variety of protocols that require the presence of entangled qubits in order to achieve results not possible with classical computers, for example superdense coding \cite{Superdense}, quantum key distribution \cite{qkd} and quantum teleportation \cite{qteleport}.
-Higher dimensional entanglement, which in this report is taken to be entanglement between qudits, further enhances the power of quantum algorithms, such as superdense coding \cite{Liu_2002}.
+Higher dimensional entanglement, which in this report is taken to be entanglement between qudits, further enhances the power of quantum algorithms such as superdense coding \cite{Liu_2002}.
 As such the ability to possess and manipulate entangled states in higher dimensions has further benefits but again comes with its own challenges. 
 
 Quantum walks (QWs) are powerful tools in the landscape of quantum computing. 
@@ -26,13 +26,15 @@ Continuous time QWs have been shown to solve a wide range of problems in a numbe
 An alternative universal quantum computing model is \emph{ancilla-based quantum computing} (AQC), which is a model that aims to reconcile the conflicting demands in building a quantum computer.
 Qubits need to be well isolated to prevent decoherence, but doing so also makes them harder to interact with.
 AQC resolves this by utilising two different kinds of qubits, ones which are well isolated as a main register, and an ancilla register of qubits that are easier to manipulate but whose states decohere faster.
-By delocalising information across the ancilla and main register, computations can be performed on the ancilla register before the information is relocalised on the long-lived main register qubits and the ancilla qubits can be reset or replaced to be used for further computation.
+By delocalising information across the ancilla and main register, computations can be performed on the ancilla register before the information is relocalised on the long-lived main register qubits, and the ancilla qubits can be reset or replaced to be used for further computations.
 
-A potential solution to the demanding task of generating higher dimensional entanglement has been proposed \cite{giordani2020} which uses the dynamics of discrete QWs to transfer lower dimensional entanglement between qubits, which is far simpler to generate, into the high dimensional qudits.
-Whilst this scheme can be used to some moderate degree of success, the underlying priciples of the QW protocol can be adapated to create a scheme based on AQC, which helps overcome some of the issues posed by the QW based protocol.
+A potential solution to the demanding task of generating higher dimensional entanglement has been proposed by Giordani et al. \cite{giordani2020}.
+This proposal uses the dynamics of discrete QWs to transfer lower dimensional entanglement between qubits, which is simpler to generate, into the high dimensional qudits.
+Whilst this scheme can be used to some moderate degree of success, it has issues in transferring entanglement optimally and cannot be easily reversed.
+However, the underlying principles of the QW protocol can be adapted to create a scheme based on AQC, which helps overcome some of these issues with the QW based protocol.
 
 In this report, a primer on quantum computing, entanglement and two models of quantum computing, quantum walks and ancilla-based quantum computing, is given in section {\ref{section:background}}.
 Following this, section {\ref{section:qw_transfer}} focusses on the protocol that uses discrete QW dynamics to facilitate the transfer of entanglement, in particular analysing its efficiency in achieving the aim of entanglement transfer. 
 The AQC scheme for entanglement transfer is presented in section \ref{section:aqc_transfer}. 
 Further uses of the AQC scheme beyond the transfer of entanglement are presented in section \ref{section:furtheruses}. 
-Finally, a discussion on the results of the two schemes, potential directions for further work and a concluding remarks are presented in section \ref{section:discussion}.
+Finally, a discussion comparing the two schemes, potential directions for further work and concluding remarks are presented in section \ref{section:discussion}.

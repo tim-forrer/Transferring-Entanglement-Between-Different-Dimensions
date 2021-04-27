@@ -10,14 +10,14 @@ An example of an entangled state would be this state between two qubits,
     \frac{1}{\sqrt{2}}(\ket{00}_2 + \ket{11}_2).
 \end{equation}
 It is impossible to write this state in the form $\left(a\ket{0}_2 + b\ket{1}_2\right) \otimes \left(c\ket{0}_2 + d\ket{1}_2 \right)$, hence it is not separable.
-This is one of the four Bell states which are the \emph{maximally entangled} two qubit states.
+This is one of the four \emph{Bell states} or \emph{Bell pairs} which are the \emph{maximally entangled} two qubit states.
 \begin{definition}[Maximally Entangled State]
     A state $\ket{\psi}$ describing a bipartite system $\mathcal{H} = \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}$ is maximally entangled if the reduced density matrix representing $\ket{\psi}$ in either subspace is maximally mixed, that is, it is directly proportional to the identity.
 \end{definition}
 Taking the Bell state given in equation \ref{eqn:bell_state}, its density matrix is given by
 \begin{align}
     \rho &= \frac{1}{2}\left(\ket{00}\bra{00} + \ket{00}\bra{11} + \ket{11}\bra{00} + \ket{11}\bra{11}\right)\\
-    &= \frac{1}{2}\left(\ket{0}\bra{0}\otimes\ket{0}\bra{0} + \ket{0}\bra{1}\otimes\ket{0}\bra{1} + \ket{1}\bra{0}\otimes\ket{1}\bra{0} + \ket{1}\bra{1}\otimes\ket{1}\bra{1}\right)
+    &= \frac{1}{2}\left(\ket{0}\bra{0}\otimes\ket{0}\bra{0} + \ket{0}\bra{1}\otimes\ket{0}\bra{1} + \ket{1}\bra{0}\otimes\ket{1}\bra{0} + \ket{1}\bra{1}\otimes\ket{1}\bra{1}\right).
 \end{align}
 The reduced density matrix in $\mathcal{H}^{(A)}$ is therefore
 \begin{equation}
@@ -39,7 +39,8 @@ Higher dimensional entanglement is useful as it contains stronger correlations t
 For example, the superdense coding protocol can transmit two classical bits of information for every Bell pair available.
 If higher dimensional entangled states are used instead, then more bits of classical information can be transmitted per entangled state \cite{Liu_2002}, making the coding even denser.
 However, whilst higher dimensional entanglement unlocks further benefits, it comes with further challenges in its creation.
-Many schemes for physically generating entangled Bell pairs exist (see for example \cite{Browne_2003, Wei_2006, Messina_2002}) if it is instead possible to transfer and accumulate entanglement from Bell pairs into qudit pairs, then this does away with the need for different entanglement generation schemes for each dimension of qudit, and instead the same scheme can be used to generate Bell pairs and transfer this entanglement to the qudit pairs.
+Many schemes for generating entangled Bell pairs exist (see for example \cite{Browne_2003, Wei_2006, Messina_2002}) which have been implemented experimentally, but schemes generating higher dimensional entanglement in a qudit setting have not been as greatly researched.
+If it is possible to transfer and accumulate entanglement from Bell pairs into qudit pairs, then this does away with the need for different entanglement generation schemes for each dimension of qudit, and instead the same scheme can be used to generate Bell pairs and transfer this entanglement to the qudit pairs.
 In a practical setting this is also desirable, as only a source of Bell pairs is needed to generate entangled qudits of any dimension, saving on the space required in a quantum computer should different dimensions of entanglement be required for different computations.
 Furthermore, if the entanglement can be freely transferred between dimensions, that is, not just accumulated in but also retrieved from higher dimensional entangled states, then this would further enhance the versatility of quantum computers, giving them a store of entanglement that can be drawn from when required.
 
@@ -56,7 +57,7 @@ In this report, the measure of entanglement used is the \emph{logarithmic negati
     \begin{equation}
         E_\mathcal{N}(\rho) = \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1.
     \end{equation}
-    where $X^{\Gamma_A}$ denotes the partial transpose of $X$ with respect to the subsystem $\mathcal{H}^{(A)}$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$.
+    where $X^{\Gamma_A}$ denotes the partial transpose of $X$ with respect to the subsystem $\mathcal{H}^{(A)}$ and $\Vert X\Vert_1 = Tr(\sqrt{X^\dagger X})$ denotes the trace norm of $X$. Here the principal square root is taken.
 \end{definition}
 The logarithmic negativity is also referred to as the log negativity.
 It is an appropriate choice for the purpose of this report as it is an entanglement measure that is computable for mixed as well as pure states, and satisfies (strong) additivity
@@ -65,7 +66,7 @@ It is an appropriate choice for the purpose of this report as it is an entanglem
 \end{equation}
 where $\rho,\sigma$ are the density matrices describing two bipartite systems.
 A proof for this is given in \cite{Vidal_2002}.
-Another useful property of log negativity is that it is easy to compute, particularly in the case that a state is maximally entangled in a Hilbert space of some dimension $d\times d$ (not neccessarily the dimension of the full Hilbert space in which the bipartite system resides).
+Another useful property of log negativity is that it is easy to compute, particularly in the case that a state is maximally entangled in a Hilbert space of some dimension $d\times d$ (not necessarily the dimension of the full Hilbert space in which the bipartite system resides).
 \begin{claim}
     \label{claim:maximally_entangled_states}
     A maximally entangled state in $d\times d$ dimensions has a log negativity of $\log_2d$.
@@ -76,28 +77,28 @@ Another useful property of log negativity is that it is easy to compute, particu
         \ket{\psi} = \frac{1}{\sqrt{d}}\sum_{j=0}^{d-1}\ket{j}\otimes\ket{j}\in \mathcal{H}^{(A)} \otimes \mathcal{H}^{(B)}
     \end{equation}
     is maximally entangled, since its reduced density matrix in either subspace is maximally mixed.
-    So to calculate the log negativity of any maximally entangled state it is sufficient to calculate the log negativity of the density matrix, $\rho$ associated with $\ket{\psi}$.
+    So to calculate the log negativity of any maximally entangled state it is sufficient to calculate the log negativity of the density matrix $\rho$ associated with $\ket{\psi}$.
     Since $\ket{\psi}$ is a pure state,
     \begin{align}
         \rho &= \ket{\psi}\bra{\psi}\\
         &=\frac{1}{d} \sum_{j,k}\ket{j}\bra{k}\otimes\ket{j}\bra{k}.
     \end{align}
-    To calculate $E_{\mathcal{N}}(\rho)$, first find the partial transpose on $\mathcal{H}^{(A)}$ (the choice is not significant, the partial transpose on $\mathcal{H}^{(B)}$ yields the same result as the subspaces are equally entangled with one another).
+    To calculate $E_{\mathcal{N}}(\rho)$, first find the partial transpose on $\mathcal{H}^{(A)}$ (the choice is not significant, the partial transpose on $\mathcal{H}^{(B)}$ yields the same result as the subspaces are equally entangled with one another),
     \begin{align}
-        \rho^{\Gamma_A} =\frac{1}{d} \sum_{j,k}\ket{k}\bra{j}\otimes\ket{j}\bra{k}
+        \rho^{\Gamma_A} =\frac{1}{d} \sum_{j,k}\ket{k}\bra{j}\otimes\ket{j}\bra{k}.
     \end{align}
-    From this the trace norm $\Vert X\Vert_1 = \Tr\left(\sqrt{XX^{\dagger}}\right)$ can be determined.
+    From this the trace norm $\Vert X\Vert_1 = \Tr\left(\sqrt{XX^{\dagger}}\right)$ can be determined:
     \begin{align}
         \rho^{\Gamma_A}\left(\rho^{\Gamma_A}\right)^{\dagger} &= \frac{1}{d^2} \sum_{j,k}\ket{k}\bra{k}\otimes\ket{j}\bra{j}\\
         &=\frac{1}{d^2}I_d\otimes I_d\\
-        &=\frac{1}{d^2}I_{d^2}\\
+        &=\frac{1}{d^2}I_{d^2}.\\
         \implies \Vert\rho^{\Gamma_A}\Vert_1 &= \frac{1}{d}\Tr{\left(I_{d^2}\right)}\\
         &= \frac{1}{d}\cdot d^2\\
-        &= d
+        &= d.
     \end{align}
     Therefore, this gives
     \begin{align}
-        E_{\mathcal{N}} &= \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1\\
+        E_{\mathcal{N}}(\rho) &= \log_2\left\Vert \rho^{\Gamma_A}\right\Vert_1\\
         &= \log_2d.
     \end{align}
 \end{proof}
